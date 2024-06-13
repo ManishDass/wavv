@@ -1,12 +1,13 @@
 // components/PrivateRoute.js
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-// import { useAuth } from '../firebaseConfig';
+import { useAuth } from '../context/AuthContext';
 
 const PrivateRoute = () => {
-  const  user = false;
+  const  { isLoggedIn } = useAuth();
+  console.log("Islogged: ",isLoggedIn)
 
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

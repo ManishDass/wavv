@@ -5,10 +5,13 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 import AuthPage from './pages/AuthPage';
+import { AuthProvider } from './context/AuthContext';
+import TestYT from './pages/TestYT';
 
 const App = () => {
   return (
     <Router>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<PrivateRoute/>}>
           <Route path="/" element={<Home />} />
@@ -16,7 +19,9 @@ const App = () => {
 
         <Route path="/login" element={<AuthPage />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/yt" element={<TestYT />} />
       </Routes>
+      </AuthProvider>
     </Router>
   );
 };
