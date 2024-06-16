@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faVolumeMute, faVolumeUp, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,10 @@ const AudioTest = ({ videoId, musicMetaData }) => {
     const [duration, setDuration] = useState(0);
 
     const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoId], () => fetchAudioUrl(videoId));
+
+    useEffect(() => {
+        document.title = `${musicMetaData.songName} - ${musicMetaData.songArtist} | Wavv`;
+    }, [musicMetaData.songName, musicMetaData.songArtist]);
 
     const handlePlayPause = () => {
         const audio = document.getElementById('audio-element');
