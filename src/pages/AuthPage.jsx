@@ -15,27 +15,25 @@ const AuthPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
   const toggleSignUp = () => setIsSignUp(!isSignUp);
 
   const { login } = useAuth();
 
-  // Handle email/password authentication
   const handleEmailAuth = async (e) => {
     e.preventDefault();
     try {
       if (isSignUp) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Send email verification
         await sendEmailVerification(auth.currentUser);
         console.log("Verification email sent to:", userCredential.user.email);
+        login(userCredential.user);
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User signed in successfully!");
-        login();
-        console.log("login called")
-        navigate('/')
+        login(userCredential.user);
+        navigate('/');
       }
     } catch (error) {
       console.error("Authentication error:", error.message);
@@ -43,14 +41,13 @@ const AuthPage = () => {
     }
   };
 
-  // Handle Google authentication
   const handleGoogleAuth = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
       console.log("User signed in with Google successfully!");
-      login();
-      navigate('/')
+      login(result.user);
+      navigate('/');
     } catch (error) {
       console.error("Google authentication error:", error.message);
       setError(error.message);
