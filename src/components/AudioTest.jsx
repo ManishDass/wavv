@@ -1,46 +1,30 @@
-
-// const response = await axios.get(`https://wavv-server.vercel.app/youtube/nfs8NYg7yQM`, { responseType: 'blob' });
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faVolumeMute, faVolumeUp, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from '@chakra-ui/react';
+import { useQuery } from 'react-query';
 
-const AudioPlayer = ({ videoId, musicMetaData }) => {
+const fetchAudioUrl = async (videoId) => {
+    const response = await axios.get(`https://wavv-server.vercel.app/youtube/${videoId}`, { responseType: 'blob' });
+    const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+    return URL.createObjectURL(audioBlob);
+};
+
+const AudioTest = ({ videoId, musicMetaData }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [audioUrl, setAudioUrl] = useState('');
 
-    useEffect(() => {
-        console.log('Fetching audio URL...');
-        const fetchAudioUrl = async () => {
-            try {
-                const response = await axios.get(`https://wavv-server.vercel.app/youtube/${videoId}`, { responseType: 'blob' });
-                const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                setAudioUrl(audioUrl);
-                setIsLoading(false);
-                console.log('Audio URL fetched successfully');
-            } catch (error) {
-                console.error('Error fetching audio:', error);
-            }
-        };
-
-        fetchAudioUrl();
-    }, [videoId]);
+    const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoId], () => fetchAudioUrl(videoId));
 
     const handlePlayPause = () => {
         const audio = document.getElementById('audio-element');
         if (isPlaying) {
             audio.pause();
-            console.log('Audio paused');
         } else {
             audio.play();
-            console.log('Audio playing');
         }
         setIsPlaying(!isPlaying);
     };
@@ -49,7 +33,6 @@ const AudioPlayer = ({ videoId, musicMetaData }) => {
         const audio = document.getElementById('audio-element');
         audio.muted = !isMuted;
         setIsMuted(!isMuted);
-        console.log(isMuted ? 'Audio unmuted' : 'Audio muted');
     };
 
     const handleReset = () => {
@@ -58,7 +41,6 @@ const AudioPlayer = ({ videoId, musicMetaData }) => {
         setCurrentTime(0);
         setIsPlaying(false);
         audio.pause();
-        console.log('Audio reset');
     };
 
     const handleTimeUpdate = () => {
@@ -71,7 +53,6 @@ const AudioPlayer = ({ videoId, musicMetaData }) => {
         const audio = document.getElementById('audio-element');
         const seekTime = (e.nativeEvent.offsetX / e.target.clientWidth) * duration;
         audio.currentTime = seekTime;
-        console.log(`Seeked to ${seekTime} seconds`);
     };
 
     const formatTime = (time) => {
@@ -80,56 +61,45 @@ const AudioPlayer = ({ videoId, musicMetaData }) => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
+    if (isLoading) return <Spinner size="xl" />;
+
+    if (isError) return <div>Error fetching audio</div>;
+
     return (
         <div className="audio-player bg-gray-100 p-4 rounded-lg shadow-md">
-            {isLoading && (
-                <div className="flex justify-center items-center h-20">
-                    <Spinner size="xl" />
-                </div>
-            )}
-            <audio
-                id="audio-element"
-                src={audioUrl}
-                onTimeUpdate={handleTimeUpdate}
-            />
+            <audio id="audio-element" src={audioUrl} onTimeUpdate={handleTimeUpdate} />
+            <img src={`https://img.youtube.com/vi/${videoId}/sddefault.jpg`} alt="album-cover" />
             <div className="flex flex-col items-center mb-4">
                 <h2 className="text-xl font-semibold text-gray-800">{musicMetaData.songName}</h2>
                 <p className="text-gray-600">{musicMetaData.songArtist}</p>
             </div>
-            <div className="flex items-center justify-center space-x-4">
-                <button
-                    className="text-2xl text-gray-700 focus:outline-none"
-                    onClick={handlePlayPause}
-                >
+            <div className="flex items-center justify-center space-x-4 mb-4">
+                <button className="text-2xl text-gray-700 focus:outline-none" onClick={handlePlayPause}>
                     <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
                 </button>
-                <button
-                    className="text-2xl text-gray-700 focus:outline-none"
-                    onClick={handleMute}
-                >
+                <button className="text-2xl text-gray-700 focus:outline-none" onClick={handleMute}>
                     <FontAwesomeIcon icon={isMuted ? faVolumeMute : faVolumeUp} />
                 </button>
-                <button
-                    className="text-2xl text-gray-700 focus:outline-none"
-                    onClick={handleReset}
-                >
+                <button className="text-2xl text-gray-700 focus:outline-none" onClick={handleReset}>
                     <FontAwesomeIcon icon={faRedoAlt} />
                 </button>
+            </div>
+            <div
+                className="w-full bg-gray-300 h-2 rounded-lg cursor-pointer mb-2"
+                onClick={handleSeek}
+            >
                 <div
-                    className="w-full bg-gray-300 h-2 rounded-lg cursor-pointer"
-                    onClick={handleSeek}
-                >
-                    <div
-                        className="h-2 bg-green-500 rounded-lg"
-                        style={{ width: `${(currentTime / duration) * 100}%` }}
-                    />
-                </div>
+                    className="h-2 bg-green-500 rounded-lg"
+                    style={{ width: `${(currentTime / duration) * 100}%` }}
+                />
             </div>
             <div className="mt-2 text-gray-600 text-sm">
-                <p>Current Time: {formatTime(currentTime)} / {formatTime(duration)}</p>
+                <p>
+                    Current Time: {formatTime(currentTime)} / {formatTime(duration)}
+                </p>
             </div>
         </div>
     );
 };
 
-export default AudioPlayer;
+export default AudioTest;
