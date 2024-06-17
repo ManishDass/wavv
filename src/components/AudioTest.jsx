@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faVolumeMute, faVolumeUp, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
+import useStore from '../stores/useStore'
 
 const fetchAudioUrl = async (videoId) => {
     const response = await axios.get(`https://wavv-server.vercel.app/youtube/${videoId}`, { responseType: 'blob' });
@@ -17,9 +18,14 @@ const AudioTest = ({ videoId, musicMetaData }) => {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
 
-    const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoId], () => fetchAudioUrl(videoId));
+
+    const {videoid} = useStore()
+
+    const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid));
+
 
     useEffect(() => {
+        console.log("Music ID hai: ",videoid)
         document.title = `${musicMetaData.songName} - ${musicMetaData.songArtist} | Wavv`;
     }, [musicMetaData.songName, musicMetaData.songArtist]);
 
@@ -72,7 +78,7 @@ const AudioTest = ({ videoId, musicMetaData }) => {
     return (
         <div className="audio-player bg-gray-100 p-4 rounded-lg shadow-md">
             <audio id="audio-element" src={audioUrl} onTimeUpdate={handleTimeUpdate} />
-            <img src={`https://img.youtube.com/vi/${videoId}/sddefault.jpg`} alt="album-cover" />
+            <img src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt="album-cover" />
             <div className="flex flex-col items-center mb-4">
                 <h2 className="text-xl font-semibold text-gray-800">{musicMetaData.songName}</h2>
                 <p className="text-gray-600">{musicMetaData.songArtist}</p>

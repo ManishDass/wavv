@@ -1,13 +1,17 @@
-// components/PrivateRoute.js
+// components/PrivateRoute.jsx
+
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Route, Navigate } from 'react-router-dom';
 
-const PrivateRoute = () => {
-  const  { isLoggedIn } = useAuth();
-  console.log("Islogged: ",isLoggedIn)
+const PrivateRoute = ({ element, ...rest }) => {
+  // Example: Replace with actual authentication logic
+  const isAuthenticated = !!localStorage.getItem('userProfile');
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated ? (
+    <Route {...rest} element={element} />
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };
 
 export default PrivateRoute;

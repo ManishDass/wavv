@@ -10,8 +10,8 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 
-const AuthPage = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
+const AuthPage = ({loginMode}) => {
+  const [isSignUp, setIsSignUp] = useState(loginMode === 'signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -33,7 +33,7 @@ const AuthPage = () => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User signed in successfully!");
         login(userCredential.user);
-        navigate('/');
+        navigate('/home');
       }
     } catch (error) {
       console.error("Authentication error:", error.message);
@@ -47,7 +47,7 @@ const AuthPage = () => {
       const result = await signInWithPopup(auth, provider);
       console.log("User signed in with Google successfully!");
       login(result.user);
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error("Google authentication error:", error.message);
       setError(error.message);
@@ -55,32 +55,42 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">{isSignUp ? "Sign Up" : "Sign In"}</h2>
-      <form onSubmit={handleEmailAuth} className="mb-4">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mb-2 p-2 border"
-          autoComplete="email"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mb-2 p-2 border"
-          autoComplete="current-password"
-        />
-        <button type="submit" className="p-2 bg-blue-500 text-white">{isSignUp ? "Sign Up" : "Sign In"}</button>
-      </form>
-      <button onClick={handleGoogleAuth} className="p-2 bg-red-500 text-white mb-2">Sign in with Google</button>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      <button onClick={toggleSignUp} className="p-2 text-blue-500">
-        {isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4 text-center">{isSignUp ? "Sign Up" : "Sign In"}</h2>
+        <form onSubmit={handleEmailAuth} className="mb-4">
+          <input
+            type="email"
+            placeholder="Enter Username Or Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-2 mb-4 border border-gray-600 bg-gray-700 placeholder-gray-400 rounded"
+            autoComplete="email"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-2 mb-4 border border-gray-600 bg-gray-700 placeholder-gray-400 rounded"
+            autoComplete="current-password"
+          />
+          <button type="submit" className="w-full p-2 bg-green-500 rounded hover:bg-green-600">{isSignUp ? "Sign Up" : "Sign In"}</button>
+        </form>
+        <div className="flex justify-center mb-4">
+          <button onClick={handleGoogleAuth} className="p-2 bg-red-500 rounded w-full mb-2">Sign in with Google</button>
+        </div>
+        {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
+        <p className="text-center">
+          {isSignUp ? "Already have an account? " : "Don't have an account? "}
+          <button onClick={toggleSignUp} className="text-blue-500">
+            {isSignUp ? "Sign In" : "Sign Up"}
+          </button>
+        </p>
+        <div className="text-center mt-4">
+          <a href="#" className="text-green-500">If You Need Any Support Click Here</a>
+        </div>
+      </div>
     </div>
   );
 };

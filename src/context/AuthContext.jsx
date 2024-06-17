@@ -1,19 +1,21 @@
 // context/AuthContext.js
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebaseConfig';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     const storedLoggedInStatus = localStorage.getItem('isLoggedIn');
-    return storedLoggedInStatus ? true : false;
+    return storedLoggedInStatus === 'true';
   });
 
   useEffect(() => {
     const storedLoggedInStatus = localStorage.getItem('isLoggedIn');
-    if (storedLoggedInStatus) {
+    if (storedLoggedInStatus === 'true') {
       setIsLoggedIn(true);
     }
   }, []);
@@ -47,6 +49,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userProfile');
+    navigate('/');
   };
 
   return (
@@ -56,4 +59,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
