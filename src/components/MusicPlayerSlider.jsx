@@ -30,6 +30,12 @@ const MusicPlayerSlider = () => {
   });
 
   useEffect(() => {
+    // console.log("Music ID from Music Player: ",videoid)
+    // console.log("Meta MetaData from Music Player: ",metadata.songArtist," : ",metadata.songArtist)
+    document.title = `${metadata.songName} - ${metadata.songArtist} | Wavv`;
+}, [metadata.songName, metadata.songArtist]);
+
+  useEffect(() => {
     const audio = document.getElementById('audio-element');
 
     const handleEnded = () => {
