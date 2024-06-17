@@ -12,22 +12,23 @@ const fetchAudioUrl = async (videoId) => {
     return URL.createObjectURL(audioBlob);
 };
 
-const AudioTest = ({ videoId, musicMetaData }) => {
+const AudioTest = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
 
 
-    const {videoid} = useStore()
+    const {videoid, metadata} = useStore()
 
     const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid));
 
 
     useEffect(() => {
-        console.log("Music ID hai: ",videoid)
-        document.title = `${musicMetaData.songName} - ${musicMetaData.songArtist} | Wavv`;
-    }, [musicMetaData.songName, musicMetaData.songArtist]);
+        console.log("Music ID from Music Player: ",videoid)
+        console.log("Meta MetaData from Music Player: ",metadata.songArtist," : ",metadata.songArtist)
+        document.title = `${metadata.songName} - ${metadata.songArtist} | Wavv`;
+    }, [metadata.songName, metadata.songArtist]);
 
     const handlePlayPause = () => {
         const audio = document.getElementById('audio-element');
@@ -80,8 +81,8 @@ const AudioTest = ({ videoId, musicMetaData }) => {
             <audio id="audio-element" src={audioUrl} onTimeUpdate={handleTimeUpdate} />
             <img src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt="album-cover" />
             <div className="flex flex-col items-center mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">{musicMetaData.songName}</h2>
-                <p className="text-gray-600">{musicMetaData.songArtist}</p>
+                <h2 className="text-xl font-semibold text-gray-800">{metadata.songName}</h2>
+                <p className="text-gray-600">{metadata.songArtist}</p>
             </div>
             <div className="flex items-center justify-center space-x-4 mb-4">
                 <button className="text-2xl text-gray-700 focus:outline-none" onClick={handlePlayPause}>
@@ -113,3 +114,4 @@ const AudioTest = ({ videoId, musicMetaData }) => {
 };
 
 export default AudioTest;
+

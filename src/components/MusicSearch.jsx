@@ -25,7 +25,7 @@ const useDebouncedEffect = (effect, delay, deps) => {
   }, [...(deps || []), delay]);
 };
 
-const MusicSearch = ({ onVideoIdChange, onMusicMetaChange }) => {
+const MusicSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -78,12 +78,9 @@ const MusicSearch = ({ onVideoIdChange, onMusicMetaChange }) => {
         console.log('Playing YouTube song:', song.name, 'by', song.artist);
         console.log("Video ID of Music Search: ", firstVideoId);
 
-        onVideoIdChange(firstVideoId);
+        setVideoid(firstVideoId) //Zustand function
 
-        setVideoid(firstVideoId)
-
-
-        onMusicMetaChange({ songName: song.name, songArtist: song.artist });
+        setMetadata({ songName: song.name, songArtist: song.artist });
         console.log("Move to player")
         navigate('/player', { state: { videoId: firstVideoId } });
       } else {

@@ -6,11 +6,12 @@ import NotFound from './pages/NotFound';
 import AuthPage from './pages/AuthPage';
 import { AuthProvider } from './context/AuthContext';
 import MusicSearch from './components/MusicSearch';
-import AudioTest from './components/AudioTest';
+import MusicPlayer from './components/MusicPlayer';
 import LoadingScreen from './components/LoadingScreen';
 import GetStartedPage from './pages/GetStartedPage';
 import ChooseColorModePage from './pages/ChooseColorModePage';
 import RegisterOrSignInPage from './pages/RegisterOrSignInPage';
+import MusicPlayerSlider from './components/MusicPlayerSlider';
 import { useAuth } from './context/AuthContext';
 
 const PrivateRoute = ({ children }) => {
@@ -54,8 +55,9 @@ const App = () => {
           <Route path="/login" element={<AuthPage loginMode="signin" />} />
           <Route path="/register" element={<AuthPage loginMode="signup" />} />
           <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-          <Route path="/search" element={<PrivateRoute><MusicSearch onVideoIdChange={handleVideoIdChange} onMusicMetaChange={handleMetaDataChange} /></PrivateRoute>} />
-          <Route path="/player" element={<PrivateRoute><AudioTest videoId={videoId} musicMetaData={musicMetaData}  /></PrivateRoute>} />
+          <Route path="/search" element={<PrivateRoute><MusicSearch/></PrivateRoute>} />
+          <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} />
+          <Route path="/test" element={<MusicPlayerSlider/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
