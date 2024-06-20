@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Satoshi-Bold';
+        src: url('./assets/fonts/Satoshi-Bold.woff2') format('woff2'),
+            url('./assets/fonts/Satoshi-Bold.woff') format('woff'),
+            url('./assets/fonts/Satoshi-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-display: swap;
+        font-style: normal;
+    }
+}
+
+
+
+/* :root {
+    @apply font-sans;
+    --nigga: 114, 35, 204;
+    --niggi: 174, 75, 104;
+} */
+
+.dark {}

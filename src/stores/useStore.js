@@ -6,6 +6,25 @@ const useStore = create((set) => {
     localStorage.theme === 'dark' ||
     (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
+  // Subscribe to system color scheme changes
+  const subscribeToColorSchemeChanges = () => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => {
+      if (!localStorage.getItem('theme')) {
+        set({ darkMode: e.matches });
+      }
+    };
+
+    mediaQuery.addEventListener('change',handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change',handleChange);
+    };
+  };
+
+  // Subscribe to color scheme changes when the store is created
+  subscribeToColorSchemeChanges();
+
   return {
     videoid: '',
     userDetails: {},
@@ -33,19 +52,8 @@ const useStore = create((set) => {
       set({ darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches });
     },
 
-    // Optional: Subscribe to system color scheme changes
-    subscribeToColorSchemeChanges: () => {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const handleChange = (e) => {
-        set({ darkMode: e.matches });
-      };
-
-      mediaQuery.addListener(handleChange);
-
-      return () => {
-        mediaQuery.removeListener(handleChange);
-      };
-    },
+    // Expose subscribeToColorSchemeChanges for manual subscription if needed
+    subscribeToColorSchemeChanges,
   };
 });
 
