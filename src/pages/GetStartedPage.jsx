@@ -15,8 +15,8 @@ const YourComponent = () => {
         <img src={Logo} className='bg-cover bg-no-repeat h-24 mb-auto mt-12' alt='logo' />
         <h1 className="text-white text-4xl mb-8">Welcome to Wavv</h1>
         <p className="text-neutral-500 text-sm mb-8 mx-8">A open-source music player made for everyone, enjoy ad-free listening experience, vocal for local, if you like kindly share it with your friends</p>
-        <div className="bg-green-500 text-white px-28 py-8 rounded-[30px] mb-20">
-          <Link to="/choose-color-mode" className='text-2xl transition-transform duration-200 ease-in-out transform hover:bg-green-600 active:bg-green-700 active:scale-95 active:shadow-lg'>Get Started</Link>
+        <div className="bg-green-500 text-white px-24 py-8 rounded-[30px] mb-20">
+          <Link to="/choose-color-mode" className='text-2xl w-full transition-transform duration-200 ease-in-out transform hover:bg-green-600 active:bg-green-700 active:scale-95 active:shadow-lg'>Get Started</Link>
         </div>
       </div>
     </div>
