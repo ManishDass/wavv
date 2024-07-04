@@ -84,12 +84,12 @@ const AuthPage = ({ loginMode }) => {
       <p className='text-white text-xs font-santoshi-light -mt-4'>If You Need Any Support <a href='#' className='text-[#62CD5D]'>Click Here</a></p>
 
       <form onSubmit={handleEmailAuth} className='flex flex-col gap-9'>
-      <input
-        type="text"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className='
+        <input
+          type="text"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className='
           appearance-none
           rounded-[30px]
           border border-gray-300 border-opacity-25
@@ -102,13 +102,13 @@ const AuthPage = ({ loginMode }) => {
           placeholder-[#A6A6A6]
           focus:border-blue-500' />
 
-      
+
         <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className='
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='
           appearance-none
           -mt-5
           rounded-[30px]
@@ -121,12 +121,14 @@ const AuthPage = ({ loginMode }) => {
           placeholder-[#A6A6A6]
           focus:outline-none
           focus:border-blue-500' />
+
+
+        <h1 className='text-white text-sm font-santoshi-regular justify-start -mt-5'>Recovery Password</h1>
+        <button type='submit' className='bg-[#62CD5D] text-white px-[7.8rem] py-5 rounded-[30px] -mt-4'>{isSignUp ? "Sign Up" : "Sign In"}</button>
+
       </form>
 
 
-
-      <h1 className='text-white text-sm font-santoshi-regular justify-start -mt-5'>Recovery Password</h1>
-      <button className='bg-[#62CD5D] text-white px-[7.8rem] py-5 rounded-[30px] -mt-4' onClick={() => navigate('/register')}>{isSignUp ? "Sign Up" : "Sign In"}</button>
 
       <div className='flex justify-center items-center gap-2 -mt-5'>
         <Line1 />
@@ -135,7 +137,7 @@ const AuthPage = ({ loginMode }) => {
       </div>
 
       <div className='flex justify-center items-center gap-12 -mt-3'>
-        <Google className='mt-2' onClick={handleGoogleAuth}/>
+        <Google className='mt-2' onClick={handleGoogleAuth} />
         <Apple />
       </div>
 
