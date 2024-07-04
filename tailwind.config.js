@@ -12,7 +12,9 @@ export default {
         'colormode-page': "url('./src/assets/images/colormode-page.webp')",
       },
       fontFamily: {
-        sans: ["Satoshi-Bold", ...defaultTheme.fontFamily.sans]
+        sans: ["Satoshi-Bold", ...defaultTheme.fontFamily.sans],
+        "santoshi-light": ["Satoshi-Light", ...defaultTheme.fontFamily.sans],
+        "santoshi-regular": ["Satoshi-Regular", ...defaultTheme.fontFamily.sans],
       },
       animation: {
         'gradient': 'gradient 15s ease infinite',

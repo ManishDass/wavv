@@ -1,23 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BackIcon from '../assets/images/Back.svg?react';
 import Logo from '../assets/LogoWithText.svg';
-import { 
-  createUserWithEmailAndPassword, 
+import Google from '../assets/images/Google.svg?react';
+import Apple from '../assets/images/Apple.svg?react';
+import Line1 from '../assets/images/Line1.svg?react';
+import Line2 from '../assets/images/Line2.svg?react';
+import useStore from '../stores/useStore'; // Ensure the path is correct
+import {
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
 
-const AuthPage = ({loginMode}) => {
+const AuthPage = ({ loginMode }) => {
   const [isSignUp, setIsSignUp] = useState(loginMode === 'signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   let navigate = useNavigate();
+
+  const darkMode = useStore(state => state.darkMode);
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      root.classList.add('bg-nigga');
+    } else {
+      root.classList.remove('bg-nigga');
+    }
+  }, [darkMode]);
 
   const toggleSignUp = () => setIsSignUp(!isSignUp);
 
@@ -57,24 +72,74 @@ const AuthPage = ({loginMode}) => {
   };
 
   return (
-    <div className='flex flex-col justify-center items-center h-screen overflow-hidden test bg-[linear-gradient(to_right_bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.7))] '>
-    {/* Back Button */}
-    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button absolute top-5 left-5' onClick={()=>navigate(-1)}>
-      <BackIcon />
-    </div>
+    <div className='flex flex-col justify-around items-center h-dvh overflow-hidden test bg-[linear-gradient(to_right_bottom,rgba(0,0,0,0.0),rgba(0,0,0,0.0))]'>
+      {/* Back Button */}
+      <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button absolute top-5 left-5' onClick={() => navigate(-1)}>
+        <BackIcon />
+      </div>
 
-    <img src={Logo} className='bg-cover bg-no-repeat h-16 mb-10 -mt-40' alt='logo' />
+      <img src={Logo} className='bg-cover bg-no-repeat h-10' alt='logo' />
 
-    <h1 className='text-white'>Sign In</h1>
-    <p className='text-white'>If You Need Any Support <a href='#' className='text-green-500'>Click Here</a></p>
+      <h1 className='text-white text-3xl mt-6'>Sign In</h1>
+      <p className='text-white text-xs font-santoshi-light -mt-4'>If You Need Any Support <a href='#' className='text-[#62CD5D]'>Click Here</a></p>
 
-    <input type='text'/>
-    <br/>
-    <input type='password'/>
-    <h1 className='text-white'>Recovery Password</h1>
-    <button className='bg-[#62CD5D] text-white px-24 py-4 rounded-[20px] mb-14' onClick={() => navigate('/register')}>Sign In</button>
+      <form onSubmit={handleEmailAuth} className='flex flex-col gap-9'>
+      <input
+        type="text"
+        placeholder="Enter Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className='
+          appearance-none
+          rounded-[30px]
+          border border-gray-300 border-opacity-25
+          py-6
+          px-10
+          bg-[#1B1A1A]
+          font-santoshi-regular
+          focus:outline-none
+          text-[#A6A6A6]
+          placeholder-[#A6A6A6]
+          focus:border-blue-500' />
 
-    <p className='text-white'> Not A Member ? <a href='#' className='text-blue-500'>Register Now</a></p>
+      
+        <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className='
+          appearance-none
+          -mt-5
+          rounded-[30px]
+          border border-gray-300 border-opacity-25
+          py-6
+          px-10
+          font-santoshi-regular
+          bg-[#1B1A1A]
+          text-[#A6A6A6]
+          placeholder-[#A6A6A6]
+          focus:outline-none
+          focus:border-blue-500' />
+      </form>
+
+
+
+      <h1 className='text-white text-sm font-santoshi-regular justify-start -mt-5'>Recovery Password</h1>
+      <button className='bg-[#62CD5D] text-white px-[7.8rem] py-5 rounded-[30px] -mt-4' onClick={() => navigate('/register')}>{isSignUp ? "Sign Up" : "Sign In"}</button>
+
+      <div className='flex justify-center items-center gap-2 -mt-5'>
+        <Line1 />
+        <p className='text-white font-santoshi-light text-xs'>Or</p>
+        <Line2 />
+      </div>
+
+      <div className='flex justify-center items-center gap-12 -mt-3'>
+        <Google className='mt-2' onClick={handleGoogleAuth}/>
+        <Apple />
+      </div>
+
+      <p className='text-white text-xs font-santoshi-regular mt-2 mb-6'> Not A Member ? <a href='#' className='text-[#278CE8]'>Register Now</a></p>
 
     </div>
 
