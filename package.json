@@ -35,6 +35,7 @@
     "react-router-dom": "^6.23.1",
     "styled-components": "^6.1.11",
     "swr": "^2.2.5",
+    "vite-plugin-svgr": "^4.2.0",
     "ytdl-core": "^4.11.5",
     "ytmusic-api": "^5.2.1",
     "zustand": "^4.5.2"
@@ -50,6 +51,8 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+     "@vitejs/plugin-react": "^4.2.0",
+      "vite-plugin-svgr": "^4.2.0"
   }
 }

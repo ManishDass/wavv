@@ -16,10 +16,30 @@
 
 
 
-/* :root {
+:root {
     @apply font-sans;
-    --nigga: 114, 35, 204;
+    --nigga: 27, 26, 26;
     --niggi: 174, 75, 104;
-} */
+}
 
 .dark {}
+
+.rotate-image {
+    rotate: 140deg;
+    position: absolute;
+    left: -110px !important;
+    bottom: -80px;
+    z-index: -1;
+}
+
+.spiral1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.spiral2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

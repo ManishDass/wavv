@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'colormode-page': "url('./src/assets/images/colormode-page.webp')",
+      },
       fontFamily: {
         sans: ["Satoshi-Bold", ...defaultTheme.fontFamily.sans]
       },
@@ -32,6 +35,6 @@ export default {
       }
     },
   },
-  darkMode: 'class',  // Dark mode configuration
+  darkMode: 'class',  // Dark mode configuration class, selector, media
   plugins: [],
 };

@@ -1,22 +1,28 @@
-// pages/ChooseColorModePage.jsx
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
+import Logo from '../assets/LogoWithText.svg';
+import Moon from '../assets/images/Moon.svg?react';
+import Sun from '../assets/images/Sun.svg?react';
 
 const ChooseColorModePage = () => {
   const respectOSPreference = useStore(state => state.respectOSPreference);
   const darkMode = useStore(state => state.darkMode);
   const setDarkMode = useStore(state => state.setDarkMode);
+  
+  const [modeSelected, setModeSelected] = useState(false);
+  const [warning, setWarning] = useState(false);
 
-  const handleModeChange = (event) => {
-    const mode = event.target.value;
+  const handleModeChange = (mode) => {
+    console.log("Color Change Button Called", mode);
+    setModeSelected(true);
+    setWarning(false);
     if (mode === 'light') {
       localStorage.theme = 'light';
-      setDarkMode();
+      setDarkMode(false);
     } else if (mode === 'dark') {
       localStorage.theme = 'dark';
-      setDarkMode();
+      setDarkMode(true);
     } else if (mode === 'auto') {
       respectOSPreference();
     }
@@ -31,37 +37,62 @@ const ChooseColorModePage = () => {
     }
   }, [darkMode]);
 
+  const handleContinueClick = () => {
+    if (!modeSelected) {
+      setWarning(true);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-white dark:bg-gray-900">
-      <h1 className="text-3xl font-bold mb-8 text-black dark:text-white">Choose Color Mode</h1>
-      <div className="mb-4">
-        <label className="mr-4 text-black dark:text-white">
-          <input
-            type="radio"
-            name="color-mode"
-            value="light"
-            onChange={handleModeChange}
-          /> Light
-        </label>
-        <label className="mr-4 text-black dark:text-white">
-          <input
-            type="radio"
-            name="color-mode"
-            value="dark"
-            onChange={handleModeChange}
-          /> Dark
-        </label>
-        <label className="mr-4 text-black dark:text-white">
-          <input
-            type="radio"
-            name="color-mode"
-            value="auto"
-            onChange={handleModeChange}
-          /> Auto
-        </label>
+    <div
+      className="flex flex-col justify-center items-center
+                 bg-no-repeat bg-cover bg-center h-dvh
+                 bg-[linear-gradient(to_right_bottom,rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('/images/colormode-page.webp')]">
+      <img src={Logo} className='bg-cover bg-no-repeat h-16 mb-auto mt-6' alt='logo' />
+
+      <h1 className={`text-xl font-bold mb-2 ${modeSelected ? 'text-[#62CD5D]' : 'text-white'} ${warning ? 'text-red-500' : ''}`}>
+  {`${warning ? 'Please ' : ''}Choose Mode${warning ? '!' : ''}`}
+</h1>
+
+      <div className='flex justify-evenly items-stretch w-screen h-28 mb-12'>
+
+        {/* Dark Mode */}
+        <div className='flex flex-col justify-center items-center'
+          onClick={() => handleModeChange('dark')}
+        >
+          <div className='flex flex-col justify-center items-center backdrop-blur-md bg-white/30 rounded-full h-14 w-14
+                          active:bg-white/50 focus:bg-white/50'>
+            <Moon />
+          </div>
+          <p className='text-white text-xs'>Dark</p>
+        </div>
+
+        {/* Light Mode */}
+        <div className='flex flex-col justify-center items-center'
+          onClick={() => handleModeChange('light')} >
+          <div className='flex flex-col justify-center items-center backdrop-blur-md bg-white/30 rounded-full h-14 w-14
+                          active:bg-white/50 focus:bg-white/50' >
+            <Sun />
+          </div>
+          <p className='text-white text-xs'>Light</p>
+        </div>
+
+        {/* Auto Mode */}
+        <div className='flex flex-col justify-center items-center'
+          onClick={() => handleModeChange('auto')}
+        >
+          <div className='flex flex-col justify-center items-center backdrop-blur-md bg-white/30 rounded-full h-14 w-14
+                          active:bg-white/50 focus:bg-white/50'>
+            <Moon />
+          </div>
+          <p className='text-white text-xs'>Auto</p>
+        </div>
+
       </div>
-      <div className="bg-blue-500 text-white px-6 py-3 rounded">
-        <Link to="/register-or-sign-in">Continue</Link>
+
+      <div className="bg-[#62CD5D] text-white px-24 py-6 rounded-[20px] mb-14"
+           onClick={handleContinueClick}>
+        <Link to={modeSelected ? "/register-or-sign-in" : "#"}>Continue</Link>
       </div>
     </div>
   );
