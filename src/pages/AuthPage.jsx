@@ -89,6 +89,7 @@ const AuthPage = ({ loginMode }) => {
           placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
           className='
           rounded-[30px]
           border border-gray-300 border-opacity-25
@@ -107,6 +108,7 @@ const AuthPage = ({ loginMode }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="password"
           className='
           -mt-5
           rounded-[30px]
