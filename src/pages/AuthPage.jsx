@@ -80,9 +80,9 @@ const AuthPage = ({ loginMode }) => {
 
       <img src={Logo} className='bg-cover bg-no-repeat h-10' alt='logo' />
 
-      <h1 className='text-white text-3xl mt-6'>Sign In</h1>
+      <h1 className='text-white text-3xl mt-6'>{isSignUp ? "Sign Up" : "Sign In"}</h1>
       <p className='text-white text-xs font-santoshi-light -mt-4'>If You Need Any Support <a href='#' className='text-[#62CD5D]'>Click Here</a></p>
-
+      {error && <p className="text-red-500 mt-2 text-center relative -mt-5 -mb-5">{error}</p>}
       <form onSubmit={handleEmailAuth} className='flex flex-col gap-9'>
         <input
           type="text"
@@ -90,7 +90,6 @@ const AuthPage = ({ loginMode }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className='
-          appearance-none
           rounded-[30px]
           border border-gray-300 border-opacity-25
           py-6
@@ -109,7 +108,6 @@ const AuthPage = ({ loginMode }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className='
-          appearance-none
           -mt-5
           rounded-[30px]
           border border-gray-300 border-opacity-25
@@ -123,7 +121,7 @@ const AuthPage = ({ loginMode }) => {
           focus:border-blue-500' />
 
 
-        <h1 className='text-white text-sm font-santoshi-regular justify-start -mt-5'>Recovery Password</h1>
+        <h1 className='text-white text-xs font-santoshi-regular justify-start -mt-4 ml-4'>Recovery Password</h1>
         <button type='submit' className='bg-[#62CD5D] text-white px-[7.8rem] py-5 rounded-[30px] -mt-4'>{isSignUp ? "Sign Up" : "Sign In"}</button>
 
       </form>
@@ -141,7 +139,7 @@ const AuthPage = ({ loginMode }) => {
         <Apple />
       </div>
 
-      <p className='text-white text-xs font-santoshi-regular mt-2 mb-6'> Not A Member ? <a href='#' className='text-[#278CE8]'>Register Now</a></p>
+      <p className='text-white text-xs font-santoshi-regular mt-2 mb-6'> {isSignUp ? 'Already A Member ?' : 'Not A Member ?'} <a href='#' className='text-[#278CE8]' onClick={toggleSignUp}>{isSignUp ? 'Sign In Now' : 'Register Now'}</a></p>
 
     </div>
 
