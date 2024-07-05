@@ -12,7 +12,9 @@ import GetStartedPage from './pages/GetStartedPage';
 import ChooseColorModePage from './pages/ChooseColorModePage';
 import RegisterOrSignInPage from './pages/RegisterOrSignInPage';
 import MusicPlayerSlider from './components/MusicPlayerSlider';
+import Discover from './components/Discover';
 import { useAuth } from './context/AuthContext';
+import HomePage from './pages/HomePage';
 
 const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -23,6 +25,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [videoId, setVideoId] = useState('');
   const [musicMetaData, setMusicMetaData] = useState({});
+  const [preSelected, setPreSelected] = useState('home');
 
   const handleVideoIdChange = (newVideoId) => {
     setVideoId(newVideoId);
@@ -31,7 +34,7 @@ const App = () => {
   const handleMetaDataChange = (newMusicMeta) => {
     setMusicMetaData(newMusicMeta);
   };
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -56,6 +59,8 @@ const App = () => {
           <Route path="/register" element={<AuthPage loginMode="signup" />} />
           <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="/search" element={<PrivateRoute><MusicSearch/></PrivateRoute>} />
+          <Route path="/discover" element={<PrivateRoute><Discover/></PrivateRoute>} />
+          <Route path="/homepage" element={<PrivateRoute><HomePage/></PrivateRoute>} />
           <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} />
           <Route path="/test" element={<MusicPlayerSlider/>} />
           <Route path="*" element={<NotFound />} />

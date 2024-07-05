@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import MusicSearch from '../components/MusicSearch';
 import Logo from '../assets/LogoWithText.svg';
 import NewAllbumCover from '../assets/images/billieCover.png'
@@ -14,14 +13,16 @@ import ProfileIcon from '../assets/images/Profile.svg?react';
 import Play from '../assets/images/Play.svg?react';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import { duration } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 import Discover from '../components/Discover';
 import Liked from './Liked';
 import Profile from './Profile';
 
 const HomePage = () => {
-  const { logout } = useAuth();
+  const { sharedState, setSharedState } = useStore();
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [userData, setUserData] = useState(null);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [selected, setSelected] = useState('home');
@@ -35,7 +36,16 @@ const HomePage = () => {
   };
 
 
+  // useEffect(() => {
+  //   // Example usage of handlePreSelectedCategory
+  //   handlePreSelectedCategory('home'); // Call handlePreSelectedCategory with a category
+  // }, [handlePreSelectedCategory]);
 
+  // const handleSearchIconClick = () => {
+  //   // Redirect to Home with Preselected value
+  //   console.log("CLicked on Searcg")
+  //   handlePreSelectedCategory('discover')
+  // };
 
   const handleClick = (icon) => {
     setSelected(icon);
@@ -142,12 +152,17 @@ const HomePage = () => {
     },
   ]
 
+  const handleTestClick = () => {
+    console.log("no")
+    setSharedState();
+  };
+
   return (
     <div className=' bg-[#1B1A1A] overflow-hidden font-santoshi-regular'>
 
       {/* Top Navigation Bar */}
       <div className='flex justify-between items-center mt-5 px-10'>
-        <Search />
+        <Search onClick={handleTestClick} />
         <img src={Logo} className='bg-cover bg-no-repeat h-7' alt='logo' />
         <div className='flex flex-col gap-[2px]'>
           <div className='rounded-full bg-white h-1 w-1'></div>
@@ -280,7 +295,7 @@ const HomePage = () => {
 
 
       {/* Render different components based on the selected tab */}
-    
+
 
 
 

@@ -26,11 +26,13 @@ const useStore = create((set) => {
   subscribeToColorSchemeChanges();
 
   return {
+    sharedState: false,
     videoid: '',
     userDetails: {},
     metadata: {},
     darkMode: initialDarkMode,
 
+    setSharedState: () => set((state) => ({ sharedState: !state.sharedState })),
     setVideoid: (videoid) => set({ videoid }),
     setUserDetails: (userDetails) => set({ userDetails }),
     setMetadata: (metadata) => set({ metadata }),

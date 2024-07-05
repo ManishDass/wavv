@@ -6,6 +6,8 @@ import HeartIcon from '../assets/images/HeartIcon.svg?react';
 import ProfileIcon from '../assets/images/Profile.svg?react';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import HomePage from './HomePage';
+import MusicSearch from '../components/MusicSearch';
+import { useLocation, useParams } from 'react-router-dom';
 
 import Discover from '../components/Discover';
 import Liked from './Liked';
@@ -13,10 +15,23 @@ import Profile from './Profile';
 
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState('home');
+  const { sharedState, setSharedState } = useStore();
 
+  console.log("Welcome Home Nigga: ",sharedState)
+  
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
+
+  // Update selectedTab when preSelected changes
+  useEffect(() => {
+    console.log('%cHello, %cWorld!', 'color: red; font-weight: bold;', 'color: green; font-style: italic;');
+    setSelectedTab('discover');
+  }, [sharedState]);
+
+  useEffect(() => {
+    setSelectedTab('home');
+  }, []);
 
   useEffect(() => {
     const storedUserProfileIcon = localStorage.getItem('userProfileIcon');
@@ -45,7 +60,7 @@ const Home = () => {
 
       {/* Render different components based on the selected tab */}
       {selectedTab === 'home' && <HomePage />}
-      {selectedTab === 'discover' && <Discover />}
+      {selectedTab === 'discover' && <MusicSearch />}
       {selectedTab === 'liked' && <Liked />}
       {selectedTab === 'profile' && <Profile />}
 
