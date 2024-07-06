@@ -64,7 +64,7 @@ h1 {
     animation: el1Move 800ms linear infinite;
     width: 84px;
     height: 106px;
-    background: url("./public/images/404-1.png")
+    background: url("./images/404-1.png")
       50% 50% no-repeat;
     z-index: 2;
   }
@@ -76,7 +76,7 @@ h1 {
     animation: el2Move 800ms linear infinite;
     width: 184px;
     height: 106px;
-    background: url("./public/images/404-2.png")
+    background: url("./images/404-2.png")
       50% 50% no-repeat;
     z-index: 2;
   }
@@ -88,7 +88,7 @@ h1 {
     animation: el3Move 800ms linear infinite;
     width: 284px;
     height: 106px;
-    background: url("./public/images/404-3.png")
+    background: url("./images/404-3.png")
       50% 50% no-repeat;
     z-index: 2;
   }
