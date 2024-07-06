@@ -6,6 +6,7 @@ import useStore from '../stores/useStore';
 import coverImage from '../assets/coverArt.jpg';
 import LoadingSpinner from './LoadingSpinner';
 import useDarkMode from '../hooks/useDarkMode'
+import NotFound from '../pages/NotFound';
 
 const fetchAudioUrl = async (videoId) => {
   try {
@@ -99,9 +100,10 @@ const MusicPlayerSlider = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  if (isLoading) return <LoadingSpinner/>;
+  // if (isLoading) return <LoadingSpinner/>;
 
-  if (isError) return <div>Error fetching audio</div>;
+  // if (isError) 
+    return <NotFound errorDetails={'Error Fetching Data'}/>;
 
   return (
     <div className="bg-black text-white flex items-center justify-center min-h-screen">

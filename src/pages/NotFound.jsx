@@ -1,9 +1,26 @@
-import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import './NotFound.css'; // Import the custom CSS for keyframes
+import TopNavigation from '../components/TopNavigation';
 
-const NotFound = () => {
+const NotFound = ({ errorDetails }) => {
+  const navigate = useNavigate()
+
   return (
-    <div className="display-flex flex justify-center">
-    <h1 className="text-4xl text-red-600">NotFound</h1>
+    <div className='flex flex-col h-screen items center justify-center'>
+            {/* Top Navigation Bar */}
+            <TopNavigation options={{ left: 'back', center: 'logo' }} />
+
+      <main className="bl_page404 flex flex-col h-screen items center justify-center">
+
+        <h1 className='text-2xl font-sans mb-5'>{errorDetails}</h1>
+        <div className="bl_page404__wrapper flex flex-col px-10 items-center justify-center">
+          <img src="./images/cloud.png" alt="cloud_warmcasino.png" />
+          <div className="bl_page404__el1"></div>
+          <div className="bl_page404__el2"></div>
+          <div className="bl_page404__el3"></div>
+          <a className="bl_page404__link px-10" onClick={() => navigate('/home')} >go home</a>
+        </div>
+      </main>
     </div>
   )
 }
