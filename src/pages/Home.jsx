@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import HomeIcon from '../assets/images/Home.svg?react';
 import DiscoveryIcon from '../assets/images/Discovery.svg?react';
-import HeartIcon from '../assets/images/HeartIcon.svg?react';
+import HeartIcon from '../assets/images/Heart.svg?react';
 import ProfileIcon from '../assets/images/Profile.svg?react';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import HomePage from './HomePage';
@@ -16,9 +16,7 @@ import Profile from './Profile';
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState('home');
   const { sharedState, setSharedState } = useStore();
-
-  console.log("Welcome Home Nigga: ",sharedState)
-  
+ 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };

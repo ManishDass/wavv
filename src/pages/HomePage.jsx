@@ -14,6 +14,7 @@ import Play from '../assets/images/Play.svg?react';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import { duration } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import TopNavigation from '../components/TopNavigation';
 
 import Discover from '../components/Discover';
 import Liked from './Liked';
@@ -28,24 +29,12 @@ const HomePage = () => {
   const [selected, setSelected] = useState('home');
   const [selectedSubCategory, setSelectedSubCategory] = useState('new');
 
-
   const [selectedTab, setSelectedTab] = useState('home');
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
 
-
-  // useEffect(() => {
-  //   // Example usage of handlePreSelectedCategory
-  //   handlePreSelectedCategory('home'); // Call handlePreSelectedCategory with a category
-  // }, [handlePreSelectedCategory]);
-
-  // const handleSearchIconClick = () => {
-  //   // Redirect to Home with Preselected value
-  //   console.log("CLicked on Searcg")
-  //   handlePreSelectedCategory('discover')
-  // };
 
   const handleClick = (icon) => {
     setSelected(icon);
@@ -153,25 +142,15 @@ const HomePage = () => {
   ]
 
   const handleTestClick = () => {
-    console.log("no")
     setSharedState();
   };
 
   return (
     <div className=' bg-[#1B1A1A] overflow-hidden font-santoshi-regular'>
 
-      {/* Top Navigation Bar */}
-      <div className='flex justify-between items-center mt-6 px-6'>
-        <Search onClick={handleTestClick} />
-        <img src={Logo} className='bg-cover bg-no-repeat h-7 -ml-5' alt='logo' />
-        <div className='flex flex-col gap-[2px]'>
-          <div className='rounded-full bg-white h-1 w-1'></div>
-          <div className='rounded-full bg-white h-1 w-1'></div>
-          <div className='rounded-full bg-white h-1 w-1'></div>
-        </div>
-      </div>
-
-
+      {/* Top Navigation */}
+      <TopNavigation options={{left: 'search', center: 'logo', handler: setSharedState}}/>
+  
       {/* Top New Allbum */}
       <div className='flex h-24 items-center justify-center mt-5'>
         <div className='flex bg-[#62CD5D] h-[105%] w-[85%] rounded-[22px] text-white justify-evenly items-center'>

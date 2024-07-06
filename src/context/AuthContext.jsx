@@ -26,12 +26,11 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const saveUserDataToFirestore = async (user) => {
-    const config = genConfig('manish') 
+    const config = genConfig(user.email) 
     const userProfile = {
       uid: user.uid,
       name: user.displayName || user.email.split('@')[0],
       email: user.email,
-      
       photoURL: user.photoURL || config,
       playlists: [],
       likedSongs: []

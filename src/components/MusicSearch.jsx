@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useStore from '../stores/useStore'
 import BackIcon from '../assets/images/Back.svg?react';
 import Search from '../assets/images/Search.svg?react';
+import TopNavigation from './TopNavigation';
 
 const LAST_FM_API_KEY = import.meta.env.VITE_FIREBASE_LAST_FM_API_KEY;
 const YOUTUBE_API_KEY = import.meta.env.VITE_FIREBASE_YOUTUBE_API_KEY;
@@ -94,22 +95,11 @@ const MusicSearch = () => {
   };
 
   return (
-    <div className='bg-[#1C1B1B] h-screen font-santoshi-regular text-white'>
+    <div className='bg-[#1C1B1B] h-screen font-santoshi-regular'>
 
 
       {/* Top Navigation Bar */}
-      <div className='flex justify-between items-center mt-5 mt-6 px-6'>
-        <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => navigate(-1)}>
-          <BackIcon />
-        </div>
-        <h1 className='font-sans text-md  -ml-5'>Search</h1>
-        <div className='flex flex-col gap-[2px]'>
-          <div className='rounded-full bg-white h-1 w-1'></div>
-          <div className='rounded-full bg-white h-1 w-1'></div>
-          <div className='rounded-full bg-white h-1 w-1'></div>
-        </div>
-      </div>
-
+      <TopNavigation options={{left: 'back', center: 'logo'}}/>
 
       <div className="relative flex justify-center items-center pt-8">
         <Search className="absolute left-14 top-[3.9rem] transform -translate-y-1/2 text-gray-400" />

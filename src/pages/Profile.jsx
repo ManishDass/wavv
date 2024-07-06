@@ -5,6 +5,7 @@ import UnionShape from '../assets/images/Union4.svg?react';
 import useStore from '../stores/useStore';
 import Avatar, { genConfig } from 'react-nice-avatar';
 import Play from '../assets/images/Play.svg?react';
+import TopNavigation from '../components/TopNavigation';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
@@ -13,7 +14,7 @@ const Profile = () => {
   useEffect(() => {
     const tempUserProfile = JSON.parse(localStorage.getItem('userProfile'));
     setUserProfile(tempUserProfile);
-    console.log("Test: ", tempUserProfile?.photoURL); // Optional chaining to avoid errors
+    // console.log("Test: ", tempUserProfile?.photoURL); // Optional chaining to avoid errors
     // Removed the console log for userProfile.config here as it's not yet updated
   }, []);
 
@@ -61,23 +62,15 @@ const Profile = () => {
 
 
       {/* User Profile Section and  Top Navigation Bar*/}
-      <div className='flex w-screen flex-col items-center justify-center font-sans bg-[#2B2B2B] rounded-b-[40px] relative'>
-        <UnionShape className='absolute -left-1 -top-2'/>
-        <div className='flex justify-between items-center mt-2 px-6 pt-4 w-screen'>
-          <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => navigate(-1)}>
-            <BackIcon />
-          </div>
-          <h1 className='font-sans text-md -ml-6'>Profile</h1>
-          <div className='flex flex-col gap-[2px]'>
-            <div className='rounded-full bg-white h-1 w-1'></div>
-            <div className='rounded-full bg-white h-1 w-1'></div>
-            <div className='rounded-full bg-white h-1 w-1'></div>
-          </div>
-        </div>
+      <div className='flex w-screen flex-col  justify-center font-sans bg-[#2B2B2B] rounded-b-[40px] relative'>
+        <UnionShape className='absolute -left-1 -top-2' />
+        <TopNavigation options={{ left: 'back', center: 'Profile' }} />
 
-        <Avatar style={{ width: '4.5rem', height: '4.5rem' }} {...userProfile?.photoURL} className='mt-2 mb-3' />
-        <p className='font-santoshi-light text-[0.7rem] mb-1' >{userProfile.email}</p>
-        <p className='mb-4'>{userProfile.name}</p>
+        <div className='flex flex-col w-screen items-center justify-around pb-5 text-center'>
+          <Avatar style={{ width: '4.5rem', height: '4.5rem' }} {...userProfile?.photoURL} className='mt-4 mb-3' />
+          <p className='font-santoshi-light text-[0.7rem] mb-1' >{userProfile.email}</p>
+          <p>{userProfile.name}</p>
+        </div>
         <div className='flex w-screen items-center justify-around pb-5 px-8 text-center'>
           <div>
             <p>778</p>
@@ -98,7 +91,7 @@ const Profile = () => {
           {playlist.map((obj, index) => (
             <div key={index} className='flex justify-around items-center pb-5'>
               <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C]'>
-                <Play/>
+                <Play />
               </div>
               <div className='flex flex-col gap-1 -ml-11  basis-[20%]'>
                 <h3 className='text-sm font-santoshi-bold'>{obj.songName}</h3>
