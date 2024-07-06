@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackIcon from '../assets/images/Back.svg?react';
+import UnionShape from '../assets/images/Union4.svg?react';
 import useStore from '../stores/useStore';
 import Avatar, { genConfig } from 'react-nice-avatar';
+import Play from '../assets/images/Play.svg?react';
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const { videoid, userDetails, metadata, darkMode, setVideoid, setUserDetails, setMetadata, toggleDarkMode } = useStore();
-  const [config, setConfig] = useState({});
+  const [userProfile, setUserProfile] = useState({});
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
-    const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-    setUserDetails(userProfile);
-    console.log(userProfile);
-
-    if (userProfile && userProfile.photoURL) {
-      setConfig(genConfig(userProfile.photoURL)); // Ensure photoURL contains the correct avatar options
-    } else {
-      // Fallback to a default configuration if photoURL is not present
-      setConfig(genConfig());
-    }
-    console.log(userProfile.photoURL);
+    const tempUserProfile = JSON.parse(localStorage.getItem('userProfile'));
+    setUserProfile(tempUserProfile);
+    console.log("Test: ", tempUserProfile?.photoURL); // Optional chaining to avoid errors
+    // Removed the console log for userProfile.config here as it's not yet updated
   }, []);
+
 
   let playlist = [
     {
@@ -66,7 +61,8 @@ const Profile = () => {
 
 
       {/* User Profile Section and  Top Navigation Bar*/}
-      <div className='flex w-screen flex-col items-center justify-center font-sans bg-[#2B2B2B] rounded-b-[40px]'>
+      <div className='flex w-screen flex-col items-center justify-center font-sans bg-[#2B2B2B] rounded-b-[40px] relative'>
+        <UnionShape className='absolute -left-1 -top-2'/>
         <div className='flex justify-between items-center mt-2 px-6 pt-4 w-screen'>
           <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => navigate(-1)}>
             <BackIcon />
@@ -79,34 +75,30 @@ const Profile = () => {
           </div>
         </div>
 
-        <Avatar style={{ width: '4.5rem', height: '4.5rem' }} {...config} className='mt-2 mb-3' />
-        <p className='text-santoshi-light text-[0.6rem]' >manishdas@gmail.com</p>
-        <p className='mb-4'>Manish Das</p>
-        <div className='flex w-screen items-center justify-around pb-4 px-8 text-center'>
+        <Avatar style={{ width: '4.5rem', height: '4.5rem' }} {...userProfile?.photoURL} className='mt-2 mb-3' />
+        <p className='font-santoshi-light text-[0.7rem] mb-1' >{userProfile.email}</p>
+        <p className='mb-4'>{userProfile.name}</p>
+        <div className='flex w-screen items-center justify-around pb-5 px-8 text-center'>
           <div>
             <p>778</p>
-            <p className='text-santoshi-light text-[0.6rem]'>Followers</p>
+            <p className='font-santoshi-light text-[0.7rem]'>Followers</p>
           </div>
           <div>
             <p>243</p>
-            <p className='text-santoshi-light text-[0.6rem]'>Following</p>
+            <p className='font-santoshi-light text-[0.7rem]'>Following</p>
           </div>
         </div>
       </div>
 
       <div className='flex flex-col font-sans text-xs mt-5 w-screen'>
-        <h2>PUBLIC PLAYLISTS</h2>
+        <h2 className='ml-8 mt-1 mb-4'>PUBLIC PLAYLISTS</h2>
         {/* Playlist */}
 
         <div className='text-white flex flex-col h-[38%] text-sm font-sans justify-between text-wrap overflow-hidden'>
-          <div className='flex flex-row justify-between items-center mt-8 mb-8 px-8'>
-            <h1 className='text-[1.2rem]'>Playlist</h1>
-            <p className='font-santoshi-light text-xs'>See More</p>
-          </div>
           {playlist.map((obj, index) => (
             <div key={index} className='flex justify-around items-center pb-5'>
               <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C]'>
-
+                <Play/>
               </div>
               <div className='flex flex-col gap-1 -ml-11  basis-[20%]'>
                 <h3 className='text-sm font-santoshi-bold'>{obj.songName}</h3>
@@ -115,7 +107,7 @@ const Profile = () => {
               </div>
               <p className='text-sm font-santoshi-light   basis-[10%]'>{obj.duration}</p>
               <div>
-                <div className='flex flex-col gap-[2px]'>
+                <div className='flex gap-[2px] mr-1'>
                   <div className='rounded-full bg-white h-1 w-1'></div>
                   <div className='rounded-full bg-white h-1 w-1'></div>
                   <div className='rounded-full bg-white h-1 w-1'></div>
