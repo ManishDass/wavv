@@ -9,6 +9,7 @@ import Apple from '../assets/images/Apple.svg?react';
 import Line1 from '../assets/images/Line1.svg?react';
 import Line2 from '../assets/images/Line2.svg?react';
 import useStore from '../stores/useStore'; // Ensure the path is correct
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

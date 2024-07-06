@@ -161,9 +161,9 @@ const HomePage = () => {
     <div className=' bg-[#1B1A1A] overflow-hidden font-santoshi-regular'>
 
       {/* Top Navigation Bar */}
-      <div className='flex justify-between items-center mt-5 px-10'>
+      <div className='flex justify-between items-center mt-6 px-6'>
         <Search onClick={handleTestClick} />
-        <img src={Logo} className='bg-cover bg-no-repeat h-7' alt='logo' />
+        <img src={Logo} className='bg-cover bg-no-repeat h-7 -ml-5' alt='logo' />
         <div className='flex flex-col gap-[2px]'>
           <div className='rounded-full bg-white h-1 w-1'></div>
           <div className='rounded-full bg-white h-1 w-1'></div>

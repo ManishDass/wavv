@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../stores/useStore'
-import Logo from '../assets/LogoWithText.svg';
 import BackIcon from '../assets/images/Back.svg?react';
 import Search from '../assets/images/Search.svg?react';
 
@@ -99,11 +98,11 @@ const MusicSearch = () => {
 
 
       {/* Top Navigation Bar */}
-      <div className='flex justify-between items-center mt-5 px-10 pt-4'>
+      <div className='flex justify-between items-center mt-5 mt-6 px-6'>
         <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => navigate(-1)}>
           <BackIcon />
         </div>
-        <h1 className='font-sans text-md'>Search</h1>
+        <h1 className='font-sans text-md  -ml-5'>Search</h1>
         <div className='flex flex-col gap-[2px]'>
           <div className='rounded-full bg-white h-1 w-1'></div>
           <div className='rounded-full bg-white h-1 w-1'></div>
@@ -138,10 +137,9 @@ const MusicSearch = () => {
       </div>
 
 
-
       {/* Old working codes */}
       <div className='flex flex-grow justify-center items-center w-screen px-9 pt-8'>
-      
+
         {lastFmLoading && <p>Loading...</p>}
         {lastFmError && <p>Last.fm Error: {lastFmError.message}</p>}
         <ul>
@@ -157,12 +155,6 @@ const MusicSearch = () => {
           ))}
         </ul>
       </div>
-
-
-
-
-
-
     </div>
 
   );

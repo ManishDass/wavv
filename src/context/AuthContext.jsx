@@ -3,10 +3,15 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
+import useStore from '../stores/useStore'; // Ensure the path is correct
+import Avatar, { genConfig } from 'react-nice-avatar'
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
+  const { videoid, userDetails, metadata, setVideoid, setUserDetails, setMetadata, toggleDarkMode } = useStore();
+
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     const storedLoggedInStatus = localStorage.getItem('isLoggedIn');
@@ -21,11 +26,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const saveUserDataToFirestore = async (user) => {
+    const config = genConfig('manish') 
     const userProfile = {
       uid: user.uid,
       name: user.displayName || user.email.split('@')[0],
       email: user.email,
-      photoURL: user.photoURL || '',
+      
+      photoURL: user.photoURL || config,
       playlists: [],
       likedSongs: []
     };
