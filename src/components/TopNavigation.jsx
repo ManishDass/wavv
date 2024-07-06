@@ -17,16 +17,16 @@ const TopNavigation = ({ options }) => {
 
     const { logout } = useAuth();
 
-    const darkMode = useStore(state => state.darkMode);
+    // const darkMode = useStore(state => state.darkMode);
 
-    useEffect(() => {
-        const root = document.documentElement;
-        if (darkMode) {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
-    }, [darkMode]);
+    // useEffect(() => {
+    //     const root = document.documentElement;
+    //     if (darkMode) {
+    //         root.classList.add('dark');
+    //     } else {
+    //         root.classList.remove('dark');
+    //     }
+    // }, [darkMode]);
 
     {/* <div className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50 text-white font-santoshi-regular">
                     <div className="bg-[#343434] rounded-lg p-4 w-screen h-[50%] mx-8">

@@ -8,7 +8,7 @@ import Google from '../assets/images/Google.svg?react';
 import Apple from '../assets/images/Apple.svg?react';
 import Line1 from '../assets/images/Line1.svg?react';
 import Line2 from '../assets/images/Line2.svg?react';
-import useStore from '../stores/useStore'; // Ensure the path is correct
+import useDarkMode from '../hooks/useDarkMode';
 
 import {
   createUserWithEmailAndPassword,
@@ -19,21 +19,13 @@ import {
 } from 'firebase/auth';
 
 const AuthPage = ({ loginMode }) => {
+  useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [isSignUp, setIsSignUp] = useState(loginMode === 'signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   let navigate = useNavigate();
 
-  const darkMode = useStore(state => state.darkMode);
-  useEffect(() => {
-    const root = document.documentElement;
-    if (darkMode) {
-      root.classList.add('bg-nigga');
-    } else {
-      root.classList.remove('bg-nigga');
-    }
-  }, [darkMode]);
 
   const toggleSignUp = () => setIsSignUp(!isSignUp);
 

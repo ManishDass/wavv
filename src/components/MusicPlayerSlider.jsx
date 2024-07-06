@@ -4,7 +4,8 @@ import { Spinner } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import useStore from '../stores/useStore';
 import coverImage from '../assets/coverArt.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingSpinner from './LoadingSpinner';
+import useDarkMode from '../hooks/useDarkMode'
 
 const fetchAudioUrl = async (videoId) => {
   try {
@@ -18,6 +19,7 @@ const fetchAudioUrl = async (videoId) => {
 };
 
 const MusicPlayerSlider = () => {
+  useDarkMode(); //add or remove dark mode according to device-color-scheme
   const { videoid, metadata } = useStore();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -97,7 +99,7 @@ const MusicPlayerSlider = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  if (isLoading) return <Spinner size="xl" />;
+  if (isLoading) return <LoadingSpinner/>;
 
   if (isError) return <div>Error fetching audio</div>;
 
@@ -165,6 +167,10 @@ const MusicPlayerSlider = () => {
               </svg>
             )}
           </button>
+
+
+            
+
 
           {/* Reset Button */}
           <button className="bg-gray-800 p-2 rounded-full focus:outline-none" onClick={handleReset}>

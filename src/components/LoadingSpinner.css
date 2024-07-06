@@ -1,0 +1,72 @@
+/* LoadingSpinner.css */
+
+@keyframes square1 {
+    0% {left: calc(0 * 30px); top: calc(0 * 30px);}
+    8.333% {left: calc(0 * 30px); top: calc(1 * 30px);}
+    100% {left: calc(0 * 30px); top: calc(1 * 30px);}
+  }
+  
+  @keyframes square2 {
+    0% {left: calc(0 * 30px); top: calc(1 * 30px);}
+    8.333% {left: calc(0 * 30px); top: calc(2 * 30px);}
+    16.67% {left: calc(1 * 30px); top: calc(2 * 30px);}
+    25.00% {left: calc(1 * 30px); top: calc(1 * 30px);}
+    83.33% {left: calc(1 * 30px); top: calc(1 * 30px);}
+    91.67% {left: calc(1 * 30px); top: calc(0 * 30px);}
+    100% {left: calc(0 * 30px); top: calc(0 * 30px);}
+  }
+  
+  @keyframes square3 {
+    0%, 100% {left: calc(1 * 30px); top: calc(1 * 30px);}
+    16.67% {left: calc(1 * 30px); top: calc(1 * 30px);}
+    25.00% {left: calc(1 * 30px); top: calc(0 * 30px);}
+    33.33% {left: calc(2 * 30px); top: calc(0 * 30px);}
+    41.67% {left: calc(2 * 30px); top: calc(1 * 30px);}
+    66.67% {left: calc(2 * 30px); top: calc(1 * 30px);}
+    75.00% {left: calc(2 * 30px); top: calc(2 * 30px);}
+    83.33% {left: calc(1 * 30px); top: calc(2 * 30px);}
+    91.67% {left: calc(1 * 30px); top: calc(1 * 30px);}
+  }
+  
+  @keyframes square4 {
+    0% {left: calc(2 * 30px); top: calc(1 * 30px);}
+    33.33% {left: calc(2 * 30px); top: calc(1 * 30px);}
+    41.67% {left: calc(2 * 30px); top: calc(2 * 30px);}
+    50.00% {left: calc(3 * 30px); top: calc(2 * 30px);}
+    58.33% {left: calc(3 * 30px); top: calc(1 * 30px);}
+    100% {left: calc(3 * 30px); top: calc(1 * 30px);}
+  }
+  
+  @keyframes square5 {
+    0% {left: calc(3 * 30px); top: calc(1 * 30px);}
+    50.00% {left: calc(3 * 30px); top: calc(1 * 30px);}
+    58.33% {left: calc(3 * 30px); top: calc(0 * 30px);}
+    66.67% {left: calc(2 * 30px); top: calc(0 * 30px);}
+    75.00% {left: calc(2 * 30px); top: calc(1 * 30px);}
+    100% {left: calc(2 * 30px); top: calc(1 * 30px);}
+  }
+  
+  @keyframes squarefadein {
+    0% {transform: scale(0.75); opacity: 0;}
+    100% {transform: scale(1); opacity: 1;}
+  }
+  
+  #square1 {
+    animation: square1 2.4s 0.2s ease-in-out infinite, squarefadein 0.4s 0.1s ease-out both;
+  }
+  
+  #square2 {
+    animation: square2 2.4s 0.2s ease-in-out infinite, squarefadein 0.4s 0.1s ease-out both;
+  }
+  
+  #square3 {
+    animation: square3 2.4s 0.2s ease-in-out infinite, squarefadein 0.4s 0.2s ease-out both;
+  }
+  
+  #square4 {
+    animation: square4 2.4s 0.2s ease-in-out infinite, squarefadein 0.4s 0.3s ease-out both;
+  }
+  
+  #square5 {
+    animation: square5 2.4s 0.2s ease-in-out infinite, squarefadein 0.4s 0.4s ease-out both;
+  }

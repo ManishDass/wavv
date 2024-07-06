@@ -7,13 +7,12 @@ import ProfileIcon from '../assets/images/Profile.svg?react';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import HomePage from './HomePage';
 import MusicSearch from '../components/MusicSearch';
-import { useLocation, useParams } from 'react-router-dom';
-
-import Discover from '../components/Discover';
 import Liked from './Liked';
 import Profile from './Profile';
+import useDarkMode from '../hooks/useDarkMode';
 
 const Home = () => {
+  useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [selectedTab, setSelectedTab] = useState('home');
   const { sharedState, setSharedState } = useStore();
  
@@ -37,17 +36,6 @@ const Home = () => {
       setUserData(JSON.parse(storedUserProfileIcon));
     }
   }, []);
-
-  const darkMode = useStore(state => state.darkMode);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (darkMode) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   // if (!userData) {
   //   return <div>Loading...</div>;

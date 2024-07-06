@@ -6,7 +6,7 @@ import useStore from '../stores/useStore'
 import BackIcon from '../assets/images/Back.svg?react';
 import Search from '../assets/images/Search.svg?react';
 import TopNavigation from './TopNavigation';
-
+import useDarkMode from '../hooks/useDarkMode';
 const LAST_FM_API_KEY = import.meta.env.VITE_FIREBASE_LAST_FM_API_KEY;
 const YOUTUBE_API_KEY = import.meta.env.VITE_FIREBASE_YOUTUBE_API_KEY;
 
@@ -29,6 +29,7 @@ const useDebouncedEffect = (effect, delay, deps) => {
 };
 
 const MusicSearch = () => {
+  useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -128,7 +129,7 @@ const MusicSearch = () => {
 
 
       {/* Old working codes */}
-      <div className='flex flex-grow justify-center items-center w-screen px-9 pt-8'>
+      <div className='flex flex-grow justify-center items-center w-screen px-9 pt-8 text-white'>
 
         {lastFmLoading && <p>Loading...</p>}
         {lastFmError && <p>Last.fm Error: {lastFmError.message}</p>}

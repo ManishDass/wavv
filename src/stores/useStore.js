@@ -15,10 +15,10 @@ const useStore = create((set) => {
       }
     };
 
-    mediaQuery.addEventListener('change',handleChange);
+    mediaQuery.addEventListener('change', handleChange);
 
     return () => {
-      mediaQuery.removeEventListener('change',handleChange);
+      mediaQuery.removeEventListener('change', handleChange);
     };
   };
 

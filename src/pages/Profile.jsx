@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BackIcon from '../assets/images/Back.svg?react';
 import UnionShape from '../assets/images/Union4.svg?react';
-import useStore from '../stores/useStore';
 import Avatar, { genConfig } from 'react-nice-avatar';
 import Play from '../assets/images/Play.svg?react';
 import TopNavigation from '../components/TopNavigation';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
-  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const tempUserProfile = JSON.parse(localStorage.getItem('userProfile'));
     setUserProfile(tempUserProfile);
-    // console.log("Test: ", tempUserProfile?.photoURL); // Optional chaining to avoid errors
-    // Removed the console log for userProfile.config here as it's not yet updated
   }, []);
 
 
