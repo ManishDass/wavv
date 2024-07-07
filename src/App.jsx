@@ -62,7 +62,8 @@ const App = () => {
           <Route path="/search" element={<PrivateRoute><MusicSearch/></PrivateRoute>} />
           <Route path="/discover" element={<PrivateRoute><Discover/></PrivateRoute>} />
           <Route path="/homepage" element={<PrivateRoute><HomePage/></PrivateRoute>} />
-          <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} />
+          {/* <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} /> */}
+          <Route path="/player" element={<Home preSelectedTab={'music'}/>} />
           <Route path="/test" element={<Thumbnail/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>

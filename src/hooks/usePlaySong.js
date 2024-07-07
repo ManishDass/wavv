@@ -30,7 +30,7 @@ const usePlaySong = () => {
         setVideoid(firstVideoId);
         setMetadata({ songName: song.name, songArtist: song.artist });
         console.log("Move to player");
-        navigate('/player', { state: { videoId: firstVideoId } });
+        navigate('/player', { state: { videoId: firstVideoId } }); //This line
       } else {
         console.error('No YouTube video found for:', song.name, 'by', song.artist);
       }

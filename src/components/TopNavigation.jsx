@@ -17,33 +17,6 @@ const TopNavigation = ({ options }) => {
 
     const { logout } = useAuth();
 
-    // const darkMode = useStore(state => state.darkMode);
-
-    // useEffect(() => {
-    //     const root = document.documentElement;
-    //     if (darkMode) {
-    //         root.classList.add('dark');
-    //     } else {
-    //         root.classList.remove('dark');
-    //     }
-    // }, [darkMode]);
-
-    {/* <div className="fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50 text-white font-santoshi-regular">
-                    <div className="bg-[#343434] rounded-lg p-4 w-screen h-[50%] mx-8">
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-sans">Settings</h3>
-                            <button onClick={handleToggleModal} className="text-gray-600 hover:text-gray-800">
-                                ✖
-                            </button>
-                        </div>
-                        <ul>
-                            <li className="py-2 border-b border-gray-200 cursor-pointer">Edit Profile</li>
-                            <li className="py-2 border-b border-gray-200 cursor-pointer">Streaming Quality</li>
-                            <li className="py-2 border-b border-gray-200 cursor-pointer" onClick={logout}>Logout</li>
-                        </ul>
-                    </div>
-                </div> */}
-
     return (
         <div>
             <div className='flex justify-between items-center mt-5 mt-6 px-6 '>
@@ -57,7 +30,7 @@ const TopNavigation = ({ options }) => {
 
                 {options.center === 'logo' ?
                     (<img src={Logo} className='bg-cover bg-no-repeat h-7 -ml-5' alt='logo' />) : (
-                        <h1 className='font-sans text-md  -ml-5'>{options.center}</h1>
+                        <h1 className='font-sans text-md text-white -ml-5'>{options.center}</h1>
                     )}
 
                 <div className='relative flex flex-col gap-[2px]'>

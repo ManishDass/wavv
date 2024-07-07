@@ -9,12 +9,13 @@ import HomePage from './HomePage';
 import MusicSearch from '../components/MusicSearch';
 import Liked from './Liked';
 import Profile from './Profile';
+import MusicPlayerSlider from '../components/MusicPlayerSlider';
 import useDarkMode from '../hooks/useDarkMode';
 
-const Home = () => {
+const Home = ({preSelectedTab}) => {
   useDarkMode(); //add or remove dark mode according to device-color-scheme
-  const [selectedTab, setSelectedTab] = useState('home');
-  const { sharedState, setSharedState } = useStore();
+  const [selectedTab, setSelectedTab] = useState('');
+  const { sharedState, setUserData ,setSharedState } = useStore();
  
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
@@ -26,9 +27,9 @@ const Home = () => {
     setSelectedTab('discover');
   }, [sharedState]);
 
-  useEffect(() => {
-    setSelectedTab('home');
-  }, []);
+  useEffect(()=>{
+    setSelectedTab(preSelectedTab || 'home')
+  },[])
 
   useEffect(() => {
     const storedUserProfileIcon = localStorage.getItem('userProfileIcon');
@@ -49,6 +50,7 @@ const Home = () => {
       {selectedTab === 'discover' && <MusicSearch />}
       {selectedTab === 'liked' && <Liked />}
       {selectedTab === 'profile' && <Profile />}
+      {selectedTab === 'music' && <MusicPlayerSlider />}
 
 
       {/* Bottom Navigation */}
@@ -68,6 +70,10 @@ const Home = () => {
         <div className="flex flex-col items-center justify-center relative">
           <div className={`bg-[#62CD5D] ${selectedTab === 'profile' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
           <ProfileIcon onClick={() => handleTabClick('profile')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'profile' ? '#42C83C' : '#343434'} stroke={selectedTab === 'profile' ? '' : '#737373'} />
+        </div>
+        <div className="flex flex-col items-center justify-center relative">
+          <div className={`bg-[#62CD5D] ${selectedTab === 'music' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
+          <ProfileIcon onClick={() => handleTabClick('music')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'music' ? '#42C83C' : '#343434'} stroke={selectedTab === 'music' ? '' : '#737373'} />
         </div>
       </div>
     </div>
