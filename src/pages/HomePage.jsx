@@ -69,37 +69,37 @@ const HomePage = () => {
 
   let playlist = [
     {
-      songName: 'As It Was',
+      name: 'As It Was',
       artist: 'Harry Styles',
       duration: '5:33'
     },
     {
-      songName: 'God Did',
+      name: 'God Did',
       artist: 'Dj Khaled',
       duration: '3:43'
     },
     {
-      songName: 'One Call Away ',
+      name: 'One Call Away ',
       artist: 'Charlie Puth',
       duration: '3:14'
     },
     {
-      songName: 'SNAP',
+      name: 'SNAP',
       artist: 'Rosa Linn',
       duration: '2:59'
     },
     {
-      songName: 'People',
+      name: 'People',
       artist: 'Libianca',
       duration: '3:04'
     },
     {
-      songName: 'SNAP',
+      name: 'SNAP',
       artist: 'Rosa Linn',
       duration: '2:59'
     },
     {
-      songName: 'People',
+      name: 'People',
       artist: 'Libianca',
       duration: '3:04'
     },

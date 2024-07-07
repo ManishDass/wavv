@@ -4,9 +4,12 @@ import UnionShape from '../assets/images/Union4.svg?react';
 import Avatar, { genConfig } from 'react-nice-avatar';
 import Play from '../assets/images/Play.svg?react';
 import TopNavigation from '../components/TopNavigation';
+import Playlist from '../components/Playlist';
+import usePlaySong from '../hooks/usePlaySong'
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
+  const { playSong } = usePlaySong()
 
   useEffect(() => {
     const tempUserProfile = JSON.parse(localStorage.getItem('userProfile'));
@@ -16,37 +19,37 @@ const Profile = () => {
 
   let playlist = [
     {
-      songName: 'As It Was',
+      name: 'As It Was',
       artist: 'Harry Styles',
       duration: '5:33'
     },
     {
-      songName: 'God Did',
+      name: 'God Did',
       artist: 'Dj Khaled',
       duration: '3:43'
     },
     {
-      songName: 'One Call Away ',
+      name: 'One Call Away ',
       artist: 'Charlie Puth',
       duration: '3:14'
     },
     {
-      songName: 'SNAP',
+      name: 'SNAP',
       artist: 'Rosa Linn',
       duration: '2:59'
     },
     {
-      songName: 'People',
+      name: 'People',
       artist: 'Libianca',
       duration: '3:04'
     },
     {
-      songName: 'SNAP',
+      name: 'SNAP',
       artist: 'Rosa Linn',
       duration: '2:59'
     },
     {
-      songName: 'People',
+      name: 'People',
       artist: 'Libianca',
       duration: '3:04'
     },
@@ -80,31 +83,12 @@ const Profile = () => {
 
       <div className='flex flex-col font-sans text-xs mt-5 w-screen'>
         <h2 className='ml-8 mt-1 mb-4'>PUBLIC PLAYLISTS</h2>
-        {/* Playlist */}
 
-        <div className='text-white flex flex-col h-[38%] text-sm font-sans justify-between text-wrap overflow-hidden'>
-          {playlist.map((obj, index) => (
-            <div key={index} className='flex justify-around items-center pb-5'>
-              <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C]'>
-                <Play />
-              </div>
-              <div className='flex flex-col gap-1 -ml-11  basis-[20%]'>
-                <h3 className='text-sm font-santoshi-bold'>{obj.songName}</h3>
-                {/* {obj.songName.length > 9 ? obj.songName.slice(0,9) : obj.songName} */}
-                <p className='text-xs font-santoshi-light  '>{obj.artist}</p>
-              </div>
-              <p className='text-sm font-santoshi-light   basis-[10%]'>{obj.duration}</p>
-              <div>
-                <div className='flex gap-[2px] mr-1'>
-                  <div className='rounded-full bg-white h-1 w-1'></div>
-                  <div className='rounded-full bg-white h-1 w-1'></div>
-                  <div className='rounded-full bg-white h-1 w-1'></div>
-                </div>
-              </div>
-            </div>
-          ))
-          }
-        </div>
+
+        {/* Playlist */}
+        <Playlist items={playlist} playHandler={playSong}/>
+
+
       </div>
     </div>
   );
