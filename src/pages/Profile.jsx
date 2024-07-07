@@ -86,7 +86,7 @@ const Profile = () => {
 
 
         {/* Playlist */}
-        <Playlist items={playlist} playHandler={playSong}/>
+        <Playlist items={playlist}/>
 
 
       </div>

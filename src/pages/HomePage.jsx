@@ -183,7 +183,7 @@ const HomePage = () => {
       </div>
 
       {/* Playlist */}
-      <Playlist items={playlist} playHandler={playSong}/>
+      <Playlist items={playlist} />
       
     </div>
   );

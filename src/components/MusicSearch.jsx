@@ -125,7 +125,7 @@ const MusicSearch = () => {
 
 
       {/* Playlist */}
-      <Playlist items={results} playHandler={playSong}/>
+      <Playlist items={results} />
 
     </div>
   );
