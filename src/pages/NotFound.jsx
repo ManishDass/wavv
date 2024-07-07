@@ -6,7 +6,7 @@ const NotFound = ({ errorDetails }) => {
   const navigate = useNavigate()
 
   return (
-    <div className='flex flex-col h-screen items center justify-center'>
+    <div className='flex flex-col h-dvh items center justify-center'>
             {/* Top Navigation Bar */}
             <TopNavigation options={{ left: 'back', center: 'logo' }} />
 

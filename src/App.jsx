@@ -15,6 +15,7 @@ import MusicPlayerSlider from './components/MusicPlayerSlider';
 import Discover from './components/Discover';
 import { useAuth } from './context/AuthContext';
 import HomePage from './pages/HomePage';
+import Thumbnail from './components/Thumbnail';
 
 const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -62,7 +63,7 @@ const App = () => {
           <Route path="/discover" element={<PrivateRoute><Discover/></PrivateRoute>} />
           <Route path="/homepage" element={<PrivateRoute><HomePage/></PrivateRoute>} />
           <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} />
-          <Route path="/test" element={<MusicPlayerSlider/>} />
+          <Route path="/test" element={<Thumbnail/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

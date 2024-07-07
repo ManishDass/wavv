@@ -9,7 +9,7 @@
     color: #fff;
   }
   /* Other styles for your elements */
-h1 {
+.text-2xl {
     text-align: center;
     margin-top: 1%;
     margin-bottom: 25px;
@@ -17,17 +17,7 @@ h1 {
     font-weight: 400;
     text-transform: uppercase;
   }
-  p {
-    display: block;
-    margin: 25px auto;
-    max-width: 776px;
-    text-align: center;
-    color: #bcecf2;
-    font-family: "Open Sans", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-  }
+
   .bl_page404__wrapper {
     position: relative;
     width: 100%;

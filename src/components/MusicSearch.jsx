@@ -8,8 +8,13 @@ import Search from '../assets/images/Search.svg?react';
 import TopNavigation from './TopNavigation';
 import useDarkMode from '../hooks/useDarkMode';
 const LAST_FM_API_KEY = import.meta.env.VITE_FIREBASE_LAST_FM_API_KEY;
-const YOUTUBE_API_KEY = import.meta.env.VITE_FIREBASE_YOUTUBE_API_KEY;
+import usePlaySong from '../hooks/usePlaySong'
+import HeartIcon from '../assets/images/HeartIcon.svg?react';
+import Play from '../assets/images/Play.svg?react';
+import Playlist from './Playlist';
 
+
+// Fetching last fm music data
 const fetchLastFmMusicData = async ({ queryKey }) => {
   const [_, query] = queryKey;
   const response = await fetch(
@@ -18,7 +23,9 @@ const fetchLastFmMusicData = async ({ queryKey }) => {
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-  return response.json();
+  const responseBody = response.json()
+  console.log("LAST FM: ", responseBody)
+  return responseBody;
 };
 
 const useDebouncedEffect = (effect, delay, deps) => {
@@ -28,11 +35,30 @@ const useDebouncedEffect = (effect, delay, deps) => {
   }, [...(deps || []), delay]);
 };
 
+
+
 const MusicSearch = () => {
+  const { playSong } = usePlaySong()
   useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([{
+    name: 'Hey Mama',
+    artist: 'Manish Das'
+  },
+  {
+    name: 'Now It\'s Not The Same',
+    artist: 'Snow Strippers'
+  },
+  {
+    name: 'Hey Mama',
+    artist: 'Manish Das'
+  },
+  {
+    name: 'Hey Mama',
+    artist: 'Manish Das'
+  },
+  ]);
   const [currentSong, setCurrentSong] = useState(null);
   let navigate = useNavigate();
 
@@ -55,6 +81,7 @@ const MusicSearch = () => {
         threshold: 0.3,
       });
       const fuzzyResults = fuse.search(searchTerm);
+      console.log("Result: ", fuzzyResults)
       setResults(fuzzyResults.map(result => result.item));
     }
   }, [lastFmData, searchTerm]);
@@ -63,44 +90,13 @@ const MusicSearch = () => {
     setSearchTerm(e.target.value);
   };
 
-  const playSong = async (song) => {
-    setCurrentSong(song);
-
-    try {
-      const searchTerm = `${song.name} ${song.artist}`;
-      const youtubeResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchTerm)}&maxResults=1&type=video&key=${YOUTUBE_API_KEY}`
-      );
-
-      if (!youtubeResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const youtubeData = await youtubeResponse.json();
-      if (youtubeData.items.length > 0) {
-        const firstVideoId = youtubeData.items[0].id.videoId;
-        console.log('Playing YouTube song:', song.name, 'by', song.artist);
-        console.log("Video ID of Music Search: ", firstVideoId);
-
-        setVideoid(firstVideoId) //Zustand function
-
-        setMetadata({ songName: song.name, songArtist: song.artist });
-        console.log("Move to player")
-        navigate('/player', { state: { videoId: firstVideoId } });
-      } else {
-        console.error('No YouTube video found for:', song.name, 'by', song.artist);
-      }
-    } catch (error) {
-      console.error('Failed to fetch YouTube video:', error);
-    }
-  };
 
   return (
     <div className='bg-[#1C1B1B] h-screen font-santoshi-regular'>
 
 
       {/* Top Navigation Bar */}
-      <TopNavigation options={{left: 'back', center: 'logo'}}/>
+      <TopNavigation options={{ left: 'back', center: 'logo' }} />
 
       <div className="relative flex justify-center items-center pt-8">
         <Search className="absolute left-14 top-[3.9rem] transform -translate-y-1/2 text-gray-400" />
@@ -128,26 +124,10 @@ const MusicSearch = () => {
       </div>
 
 
-      {/* Old working codes */}
-      <div className='flex flex-grow justify-center items-center w-screen px-9 pt-8 text-white'>
+      {/* Playlist */}
+      <Playlist items={results} playHandler={playSong}/>
 
-        {lastFmLoading && <p>Loading...</p>}
-        {lastFmError && <p>Last.fm Error: {lastFmError.message}</p>}
-        <ul>
-          {results.slice(0, 5).map((result, index) => (
-            <li
-              key={index}
-              onClick={() => playSong(result)}
-              className="p-2 rounded hover:bg-gray-100 cursor-pointer transition-colors duration-300 text-sm"
-            >
-              <span className="font-semibold">{result.name}</span> by {result.artist}
-              <div className='bg-[#62CD5D] h-[2px] mt-4'></div>
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
-
   );
 };
 

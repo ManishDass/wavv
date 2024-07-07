@@ -36,7 +36,7 @@ const MusicPlayerSlider = () => {
     // console.log("Music ID from Music Player: ",videoid)
     // console.log("Meta MetaData from Music Player: ",metadata.songArtist," : ",metadata.songArtist)
     document.title = `${metadata.songName} - ${metadata.songArtist} | Wavv`;
-}, [metadata.songName, metadata.songArtist]);
+  }, [metadata.songName, metadata.songArtist]);
 
   useEffect(() => {
     const audio = document.getElementById('audio-element');
@@ -100,10 +100,9 @@ const MusicPlayerSlider = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  // if (isLoading) return <LoadingSpinner/>;
+  if (isLoading) return <LoadingSpinner />;
 
-  // if (isError) 
-    return <NotFound errorDetails={'Error Fetching Data'}/>;
+  if (isError) return <NotFound errorDetails={'Error Fetching Data'} />;
 
   return (
     <div className="bg-black text-white flex items-center justify-center min-h-screen">
@@ -171,7 +170,7 @@ const MusicPlayerSlider = () => {
           </button>
 
 
-            
+
 
 
           {/* Reset Button */}
