@@ -64,7 +64,7 @@ const ChooseColorModePage = () => {
                           active:bg-white/50 focus:bg-white/50'>
             <Moon />
           </div>
-          <p className='text-white text-xs'>Dark</p>
+          <p className={`text-white text-xs ${currentMode === 'dark' ? 'font-sans' : 'font-santoshi-regular'}`}>Dark</p>
           <div className={` bg-[#62CD5D] h-5 w-8 rounded-b-full absolute bottom-10 -z-10 ${currentMode === 'dark' ? '' : 'hidden'}`}></div>
         </div>
 
@@ -77,7 +77,7 @@ const ChooseColorModePage = () => {
                           active:bg-white/50 focus:bg-white/50' >
             <Sun />
           </div>
-          <p className='text-white text-xs'>Light</p>
+          <p className={`text-white text-xs ${currentMode === 'light' ? 'font-sans' : 'font-santoshi-regular'}`}>Light</p>
           <div className={`bg-[#62CD5D] h-5 w-8 rounded-b-full absolute bottom-10 -z-10 ${currentMode === 'light' ? '' : 'hidden'}`}></div>
         </div>
 
@@ -89,7 +89,7 @@ const ChooseColorModePage = () => {
                           active:bg-white/50 focus:bg-white/50'>
             <System />
           </div>
-          <p className='text-white text-xs'>Auto</p>
+          <p className={`text-white text-xs ${currentMode === 'auto' ? 'font-sans' : 'font-santoshi-regular'}`}>Auto</p>
           <div className={`bg-[#62CD5D] h-5 w-8 rounded-b-full absolute bottom-10 -z-10 ${currentMode === 'auto' ? '' : 'hidden'}`}></div>
         </div>
 

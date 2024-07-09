@@ -71,11 +71,11 @@ const Profile = () => {
         </div>
         <div className='flex w-screen items-center justify-around pb-5 px-8 text-center'>
           <div>
-            <p>778</p>
+            <p>{0}</p>
             <p className='font-santoshi-light text-[0.7rem]'>Followers</p>
           </div>
           <div>
-            <p>243</p>
+            <p>{0}</p>
             <p className='font-santoshi-light text-[0.7rem]'>Following</p>
           </div>
         </div>

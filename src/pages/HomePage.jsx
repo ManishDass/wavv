@@ -166,12 +166,12 @@ const HomePage = () => {
             className="flex flex-nowrap ml-3"
           >
             {media.map((obj, index) => (
-              <div className="inline-block px-3 relative" key={index}>
-                <div className="w-[8rem] h-40 max-w-xs overflow-hidden rounded-[25px] shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out mb-3 -mr-3">
+              <div className="inline-block px-3 relative cursor-pointer" key={index} onClick={()=>playSong({ name: obj.songName, artist: obj.Artist })}>
+                <div className="w-[7.5rem] h-40 max-w-xs overflow-hidden rounded-[25px] shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out mb-3 -mr-3">
                   <img src={obj.AllbumCover} className='w-full h-full object-cover' alt={`${obj.songName} album cover`} />
                 </div>
                 <div className=' rounded-full h-7 w-7 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] absolute bottom-10 right-1'>
-                  <Play className='h-[12px]' />
+                  <Play className='h-[12px]'/>
                 </div>
                 <h1 className='font-santoshi-regular ml-2'>{obj.songName}</h1>
                 <p className='font-santoshi-light text-xs ml-2'>{obj.Artist}</p>

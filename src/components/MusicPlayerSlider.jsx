@@ -114,20 +114,20 @@ const MusicPlayerSlider = () => {
   if (isError) return <NotFound errorDetails={'Error Fetching Data'} />;
 
   return (
-    <div className='h-dvh flex flex-col'>
+    <div className=''>
       <TopNavigation options={{ left: 'back', center: 'Now Playing' }} />
 
       <div className=''>
         <audio id="audio-element" src={audioUrl} onTimeUpdate={handleTimeUpdate} />
 
 
-        <div className="rounded-xl p-4 flex flex-col justify-around h-[110%] mt-2">
+        <div className="rounded-xl p-4 flex flex-col justify-around mt-2 flex-1">
 
           <div className="relative">
             <img
               src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`}
               alt="album-cover"
-              className="rounded-[25px] w-screen w-[100vw] h-[100vw] object-cover"
+              className="rounded-[25px] w-screen w-[100vw] h-[100vw] object-cover flex-1"
             />
           </div>
           <div className="mt-4 text-center flex justify-between items-center px-1">
@@ -197,9 +197,9 @@ const MusicPlayerSlider = () => {
 
 
 
+        {/* Mini Player */}
 
-
-        {/* <div className='fixed bottom-[4rem] h-16'>
+        <div className='fixed bottom-[4rem]'>
           <div
             className="relative w-full h-16 bg-cover bg-center"
             style={{ backgroundImage: `url(https://img.youtube.com/vi/${videoid}/sddefault.jpg)` }}
@@ -224,7 +224,7 @@ const MusicPlayerSlider = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
 
 
