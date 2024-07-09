@@ -3,9 +3,9 @@ import TopNavigation from '../components/TopNavigation';
 
 const Liked = () => {
   return (
-    <div className='bg-[#1C1B1B] h-screen font-santoshi-regular text-white'>
+    <div className='bg-[#1C1B1B] h-dvh font-santoshi-regular text-white'>
       <TopNavigation options={{ left: 'back', center: 'Liked Songs' }} />
-      <h1 className='text-white text-2xl text-center flex justify-center items-center h-dvh -mt-16'>Liked Section Coming Soon</h1>
+      <h1 className=' px-2 text-white text-xl text-center flex justify-center items-center -mt-20 h-[100dvh]'>Liked Section Coming Soon</h1>
     </div>
   )
 }

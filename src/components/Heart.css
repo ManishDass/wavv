@@ -1,0 +1,40 @@
+#heart-container {
+    position: relative;
+    margin-top: -10px;
+  }
+  
+  #twitter-heart {
+    position: absolute;
+    background: url("../assets/images/web_heart_animation.png") no-repeat;
+    background-position: 0px;
+    height: 100px;
+    width: 100px;
+    top: -40px;
+    left: -65px;
+    pointer-events: none;
+    zoom: 0.6;
+
+  }
+  
+  #toggle {
+    opacity: 0;
+    transform: scale(3);
+    position: absolute;
+  }
+  
+  #toggle:checked + #twitter-heart {
+    -webkit-animation: heart-animate 0.8s steps(28) forwards;
+            animation: heart-animate 0.8s steps(28) forwards;
+  }
+  
+  @-webkit-keyframes heart-animate {
+    100% {
+      background-position: -2800px;
+    }
+  }
+  
+  @keyframes heart-animate {
+    100% {
+      background-position: -2800px;
+    }
+  }

@@ -63,7 +63,8 @@ const App = () => {
           <Route path="/discover" element={<PrivateRoute><Discover/></PrivateRoute>} />
           <Route path="/homepage" element={<PrivateRoute><HomePage/></PrivateRoute>} />
           {/* <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} /> */}
-          <Route path="/player" element={<Home preSelectedTab={'music'}/>} />
+          {/* <Route path="/player" element={<Home preSelectedTab={'music'}/>} /> */}
+          <Route path="/player" element={<MusicPlayerSlider />} />
           <Route path="/test" element={<Thumbnail/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -73,3 +74,4 @@ const App = () => {
 };
 
 export default App;
+

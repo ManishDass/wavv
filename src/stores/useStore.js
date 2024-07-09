@@ -1,10 +1,27 @@
 import { create } from 'zustand';
 
+// Utility function to parse JSON safely
+const parseJSON = (str, fallback) => {
+  try {
+    return JSON.parse(str);
+  } catch (e) {
+    return fallback;
+  }
+};
+
+
+
 const useStore = create((set) => {
   // Initial dark mode based on localStorage.theme or prefers-color-scheme
   const initialDarkMode =
     localStorage.theme === 'dark' ||
     (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  // Load initial videoid from localStorage
+  const initialVideoid = localStorage.getItem('videoid') || '';
+
+    // Load initial videoid from localStorage
+    const initialMetaData = parseJSON(localStorage.getItem('metadata') || {});
 
   // Subscribe to system color scheme changes
   const subscribeToColorSchemeChanges = () => {
@@ -27,15 +44,22 @@ const useStore = create((set) => {
 
   return {
     sharedState: false,
-    videoid: '',
+    videoid: initialVideoid,
     userDetails: {},
-    metadata: {},
+    metadata: initialMetaData,
     darkMode: initialDarkMode,
 
     setSharedState: () => set((state) => ({ sharedState: !state.sharedState })),
-    setVideoid: (videoid) => set({ videoid }),
+    setVideoid: (videoid) => {
+      localStorage.setItem('videoid', videoid);
+      set({ videoid });
+    },
     setUserDetails: (userDetails) => set({ userDetails }),
-    setMetadata: (metadata) => set({ metadata }),
+
+    setMetadata: (metadata) => {
+      localStorage.setItem('metadata', JSON.stringify(metadata));
+      set({ metadata });
+    },
 
     toggleDarkMode: () => {
       const newMode = localStorage.theme === 'dark' ? 'light' : 'dark';

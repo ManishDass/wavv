@@ -135,7 +135,7 @@ const HomePage = () => {
 
 
       {/* Category */}
-      <div className='flex text-white justify-between items-center mt-8 px-8 no-wrap'>
+      <div className='flex text-white justify-between items-center mt-8  px-8 md:px-28 no-wrap'>
         <div className='flex items-center flex-col justify-center cursor-pointer'>
           <h1 onClick={() => handleSubCategoryClick('new')} >New</h1>
           <div className={`bg-[#62CD5D] h-[3px] w-7 rounded-b-xl ${selectedSubCategory === 'new' ? '' : 'hidden'}`}></div>
@@ -158,12 +158,12 @@ const HomePage = () => {
       </div>
 
       {/* Category with Scroll */}
-      <div className="flex flex-col m-auto p-auto text-white text-sm mt-5">
+      <div className="flex flex-col m-auto p-auto text-white text-sm mt-5 w-[90%] md:w-[87%]">
         <div
           className="flex overflow-x-scroll pb-1 hide-scroll-bar"
         >
           <div
-            className="flex flex-nowrap ml-3"
+            className="flex flex-nowrap "
           >
             {media.map((obj, index) => (
               <div className="inline-block px-3 relative cursor-pointer" key={index} onClick={()=>playSong({ name: obj.songName, artist: obj.Artist })}>

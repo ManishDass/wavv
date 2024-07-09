@@ -23,7 +23,8 @@ const TopNavigation = ({ options }) => {
                 {options.left === 'search' ? (
                     <Search onClick={options.handler}/>
                 ) : options.left === 'back' ? (
-                    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => navigate(-1)}>
+                    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => options.backHandler ? options.backHandler() : navigate(-1)}
+          >
                         <BackIcon />
                     </div>
                 ) : null}
@@ -59,10 +60,6 @@ const TopNavigation = ({ options }) => {
                         <li className='flex justify-between bg-[#2B2B2B] p-3 w-screen px-5'>
                             <p  className='font-santoshi-regular'>Save Data</p>
                             <ToggleSwitch toggleHandler={() => console.log("Hey Man")} />
-                        </li>
-                        <li className='flex justify-between -mt-3 bg-[#2B2B2B] p-3 w-screen px-5'>
-                            <p className='font-santoshi-regular'>Version</p>
-                            <p className='font-santoshi-light font-xs'>0.1.0 Alpha</p>
                         </li>
                         <li className='text-[#62CD5D] px-5'>About</li>
                         <li className='flex justify-between -mt-3 bg-[#2B2B2B] p-3 w-screen px-5'>

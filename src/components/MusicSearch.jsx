@@ -92,7 +92,7 @@ const MusicSearch = () => {
 
 
   return (
-    <div className='bg-[#1C1B1B] h-screen font-santoshi-regular'>
+    <div className='bg-[#1C1B1B] h-dvh font-santoshi-regular'>
 
 
       {/* Top Navigation Bar */}
