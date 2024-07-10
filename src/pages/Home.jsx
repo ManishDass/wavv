@@ -23,7 +23,6 @@ const Home = ({preSelectedTab}) => {
 
   // Update selectedTab when preSelected changes
   useEffect(() => {
-    console.log('%cHello, %cWorld!', 'color: red; font-weight: bold;', 'color: green; font-style: italic;');
     setSelectedTab('discover');
   }, [sharedState]);
 
@@ -38,9 +37,6 @@ const Home = ({preSelectedTab}) => {
     }
   }, []);
 
-  // if (!userData) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div className=' bg-[#1B1A1A] font-santoshi-regular flex flex-col'>

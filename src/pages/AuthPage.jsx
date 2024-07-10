@@ -46,41 +46,6 @@ const AuthPage = ({ loginMode }) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User signed in successfully!");
         login(userCredential.user);
-
-
-
-
-
-
-        // Usethis to fetch likedSongData
-
-        // // Fetch additional data from Firestore
-        const userRef = doc(firestore, 'users', userCredential.user.uid);
-        const userSnap = await getDoc(userRef);
-
-        if (userSnap.exists()) {
-          const userData = userSnap.data();
-          console.log('User data from Firestorexx:', userData);
-          // Now userData contains playlists and likedSongs
-          // You can set state or handle this data as needed
-        } else {
-          console.log('No such document!');
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         navigate('/home');
       }
     } catch (error) {

@@ -20,7 +20,7 @@ const ChooseColorModePage = () => {
 
   const handleModeChange = (mode) => {
     setCurrentMode(mode)
-    console.log("Color Change Button Called", mode);
+    // console.log("Color Change Button Called", mode);
     setModeSelected(true);
     setWarning(false);
     if (mode === 'light') {

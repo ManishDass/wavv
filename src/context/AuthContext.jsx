@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       await setDoc(userRef, userProfile, { merge: true });
-      console.log("User profile saved successfully");
+      // console.log("User profile saved successfully");
       setLikedSongs(userProfile.likedSongs);
       localStorage.setItem('userProfile', JSON.stringify(userProfile));
     } catch (error) {
@@ -70,28 +70,10 @@ export const AuthProvider = ({ children }) => {
 
 
 
-
-
-
-
-
-
-    // try {
-    //   await setDoc(doc(db, 'users', user.uid), newUserProfile, { merge: true });
-    //   console.log("User profile saved successfully");
-    //   localStorage.setItem('userProfile', JSON.stringify(newUserProfile));
-    // } catch (error) {
-    //   console.error("Error saving user profile: ", error);
-    // }
-
-
-
-
-
   };
 
   const login = (user) => {
-    console.log("Inside User: ", user)
+    // console.log("Inside User: ", user)
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true');
     saveUserDataToFirestore(user);
@@ -101,7 +83,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userProfile');
-    navigate('/');
+    navigate('/login');
   };
 
 
@@ -119,7 +101,7 @@ export const AuthProvider = ({ children }) => {
       // console.log(`User ${fieldName} updated successfully`);
       const userProfile = JSON.parse(localStorage.getItem('userProfile')); //Fetching previous Data
       userProfile.likedSongs = data
-      console.log("Fire store updated value: ", userProfile)
+      // console.log("Fire store updated value: ", userProfile)
       localStorage.setItem('userProfile', JSON.stringify(userProfile));
     } catch (error) {
       console.error("Error saving user profile: ", error);
@@ -138,12 +120,12 @@ export const AuthProvider = ({ children }) => {
     console.log("Checkbox Statusx: ", isChecked)
 
     const userProfile = JSON.parse(localStorage.getItem('userProfile'))
-    console.log("Test User ID: ", userProfile.uid)
+    // console.log("Test User ID: ", userProfile.uid)
 
     if (previousLikedSongs.some(song => song.title === metadata.title && song.artist === metadata.artist) === false && isChecked) {
       previousLikedSongs.push(metadata)
       localStorage.setItem('likedSongs', JSON.stringify(previousLikedSongs))
-      console.log(previousLikedSongs)
+      // console.log(previousLikedSongs)
       saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); //Save this into firestore
       setLikedSongs(previousLikedSongs)
 
@@ -151,7 +133,29 @@ export const AuthProvider = ({ children }) => {
     else if (!isChecked) {
       console.log("Unchecked")
       const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title && song.artist !== metadata.artist)
-      console.log("Updated: ", updatedLikedSongs)
+      // console.log("Updated: ", updatedLikedSongs)
+      localStorage.setItem('likedSongs', JSON.stringify(updatedLikedSongs))
+      saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); //Save this into firestore
+      setLikedSongs(updatedLikedSongs)
+    }
+  }
+
+
+  const playlistSongHandler = (metadata, isChecked) => {
+    const previousLikedSongs = JSON.parse(localStorage.getItem('likedSongs')) || []
+    console.log("Checkbox Statusx: ", isChecked)
+
+    const userProfile = JSON.parse(localStorage.getItem('userProfile'))
+    if (previousLikedSongs.some(song => song.title === metadata.title && song.artist === metadata.artist) === false && isChecked) {
+      previousLikedSongs.push(metadata)
+      localStorage.setItem('likedSongs', JSON.stringify(previousLikedSongs))
+      saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); //Save this into firestore
+      setLikedSongs(previousLikedSongs)
+
+    }
+    else if (!isChecked) {
+      console.log("Unchecked")
+      const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title && song.artist !== metadata.artist)
       localStorage.setItem('likedSongs', JSON.stringify(updatedLikedSongs))
       saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); //Save this into firestore
       setLikedSongs(updatedLikedSongs)
@@ -160,7 +164,7 @@ export const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, likedSongHandler, likedSongs, setLikedSongs }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, likedSongHandler, likedSongs, setLikedSongs, playlistSongHandler }}>
       {children}
     </AuthContext.Provider>
   );

@@ -4,7 +4,7 @@ import usePlaySong from '../hooks/usePlaySong';
 import './Heart.css';
 import { useAuth } from '../context/AuthContext';
 
-const Playlist = ({ items }) => {
+const Playlist = ({ items, heading, topbar }) => {
   const { playSong } = usePlaySong();
   const { likedSongHandler } = useAuth();
   const [checkedStates, setCheckedStates] = useState(new Array(items.length).fill(false));
@@ -24,8 +24,8 @@ const Playlist = ({ items }) => {
 
   return (
     <div className='text-white flex flex-col text-sm font-sans justify-between text-wrap overflow-hidden mb-16'>
-      <div className='flex flex-row justify-between items-center mt-8 mb-8 px-8 md:px-28'>
-        <h1 className='text-[1.2rem]'>Playlist</h1>
+      <div className={`flex flex-row justify-between items-center mt-8 mb-8 px-8 md:px-28 ${topbar === 'hidden' ? 'hidden' : ''}`} >
+        <h1 className='text-[1.2rem]'>{heading || 'Playlist'}</h1>
         <p className='font-santoshi-light text-xs'>See More</p>
       </div>
       {items.slice(0, 10).map((obj, index) => (
