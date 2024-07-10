@@ -20,10 +20,12 @@ import PreviousIcon2 from '../assets/images/previous2.svg?react'
 import NextIcon2 from '../assets/images/next2.svg?react'
 import ShuffleIcon2 from '../assets/images/shuffle2.svg?react'
 import BackIcon from '../assets/images/Back.svg?react';
+import { useAuth } from '../context/AuthContext';
 
 const fetchAudioUrl = async (videoId) => {
   try {
     const response = await axios.get(`https://wavv-server.vercel.app/youtube/${videoId}`, { responseType: 'blob' });
+    // const response = await axios.get(`http://localhost:4000/youtube/${videoId}`, { responseType: 'blob' });
     const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
     return URL.createObjectURL(audioBlob);
   } catch (error) {
@@ -42,6 +44,14 @@ const MusicPlayerSlider = () => {
   const [liked, setLiked] = useState(false)
   const [isSeeking, setIsSeeking] = useState(false); // Add isSeeking state
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+    // console.log("Checkbox Status: ",event.target.checked)
+  };
+
+  const { likedSongHandler } = useAuth()
 
   const likeHandler = () => {
     setLiked((prev) => !prev)
@@ -49,7 +59,7 @@ const MusicPlayerSlider = () => {
   }
 
   const handleToggleModal = () => {
-    console.log("Working Modal Handler")
+    console.log("Working Modal Handler!")
     setIsModalOpen(!isModalOpen);
   };
 
@@ -84,6 +94,11 @@ const MusicPlayerSlider = () => {
     document.title = `${metadata.songName} - ${metadata.songArtist} | Wavv`;
   }, [metadata.songName, metadata.songArtist]); // Depend on metadata changes
 
+  const handleLikeSong = (songDetails) => {
+    const metadata = songDetails;
+    console.log(metadata)
+    likedSongHandler(metadata, !isChecked);
+  };
 
   useEffect(() => {
     // Set up event listeners and any other initialization
@@ -232,9 +247,9 @@ const MusicPlayerSlider = () => {
               <p className="text-white text-lg text-[1.1rem] font-satoshi font-light">{metadata.songArtist}</p>
             </div>
 
-            <div id="heart-container" className='mr-[0.4rem]'>
-              <input type="checkbox" id="toggle" />
-              <div id="twitter-heart" className=''></div>
+            <div id="heart-container" className='mr-[0.4rem]' onClick={()=>handleLikeSong({title: metadata.songName, artist: metadata.songArtist})}>
+              <input type="checkbox" id="toggle" checked={isChecked} onChange={handleCheckboxChange}/>
+              <div id="twitter-heart" ></div>
             </div>
 
           </div>
@@ -287,7 +302,7 @@ const MusicPlayerSlider = () => {
 
           <div className='flex items-center justify-center mt-10'>
             <div className='flex justify-around items-center w-[80%]'>
-              <RepeatIcon2 />
+              <RepeatIcon2/>
               <PreviousIcon2 />
               <button className="bg-green-500 p-3 rounded-full focus:outline-none" onClick={handlePlayPause}>
                 {isPlaying ? (
@@ -337,7 +352,7 @@ const MusicPlayerSlider = () => {
               <div className="marquee-container overflow-hidden flex flex-col">
                 <p className="marquee-text">
                   <span className="inline-block">{metadata.songName}</span>
-                  <span className="inline-block pl-2">•</span>
+                  <span className="inline-block pl-2"> • </span>
                   <span className="inline-block pl-2">{metadata.songArtist}</span>
                 </p>
               </div>
@@ -345,7 +360,7 @@ const MusicPlayerSlider = () => {
               <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] '>
                 <HeartIcon className="h-6 w-6 cursor-pointer" fill={'#42C83C'} stroke={'#737373'} />
               </div>
-              <button className="bg-green-500 p-2 rounded-full focus:outline-none" onClick={handlePlayPause}>
+              <button className="bg-green-500 p-2 mr-4 rounded-full focus:outline-none" onClick={handlePlayPause}>
                 {isPlaying ? (
                   <PauseIcon />
                 ) : (

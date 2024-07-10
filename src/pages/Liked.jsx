@@ -1,11 +1,13 @@
-import React from 'react'
 import TopNavigation from '../components/TopNavigation';
+import Playlist from '../components/Playlist';
+import { useAuth } from '../context/AuthContext';
 
 const Liked = () => {
+  const { likedSongs } = useAuth();
   return (
     <div className='bg-[#1C1B1B] h-dvh font-santoshi-regular text-white'>
       <TopNavigation options={{ left: 'back', center: 'Liked Songs' }} />
-      <h1 className=' px-2 text-white text-xl text-center flex justify-center items-center -mt-20 h-[100dvh]'>Liked Section Coming Soon</h1>
+      <Playlist items={likedSongs} />
     </div>
   )
 }

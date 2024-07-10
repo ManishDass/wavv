@@ -28,5 +28,5 @@ const db = getFirestore(app);
 // Enable Firebase authentication logging
 auth.settings.appVerificationDisabledForTesting = false;
 
-export { auth,db };
+export { auth,db, app };
 

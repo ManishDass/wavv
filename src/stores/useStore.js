@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-// Utility function to parse JSON safely
 const parseJSON = (str, fallback) => {
   try {
     return JSON.parse(str);
@@ -9,21 +8,15 @@ const parseJSON = (str, fallback) => {
   }
 };
 
-
-
 const useStore = create((set) => {
-  // Initial dark mode based on localStorage.theme or prefers-color-scheme
   const initialDarkMode =
     localStorage.theme === 'dark' ||
     (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  // Load initial videoid from localStorage
   const initialVideoid = localStorage.getItem('videoid') || '';
+  const initialMetaData = parseJSON(localStorage.getItem('metadata') || {});
+  const initialPlaybackTime = parseFloat(localStorage.getItem('playbackTime')) || 0;
 
-    // Load initial videoid from localStorage
-    const initialMetaData = parseJSON(localStorage.getItem('metadata') || {});
-
-  // Subscribe to system color scheme changes
   const subscribeToColorSchemeChanges = () => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e) => {
@@ -39,7 +32,25 @@ const useStore = create((set) => {
     };
   };
 
-  // Subscribe to color scheme changes when the store is created
+  // Load initial audio settings from localStorage or defaults
+  const initialAudioState = {
+    isPlaying: false,
+    currentTime: initialPlaybackTime,
+    duration: 0,
+    audioUrl: '',
+  };
+
+  const audioElement = document.createElement('audio');
+
+  audioElement.addEventListener('timeupdate', () => {
+    set({ currentTime: audioElement.currentTime });
+    localStorage.setItem('playbackTime', audioElement.currentTime.toString());
+  });
+
+  audioElement.addEventListener('ended', () => {
+    set({ isPlaying: false });
+  });
+
   subscribeToColorSchemeChanges();
 
   return {
@@ -48,6 +59,34 @@ const useStore = create((set) => {
     userDetails: {},
     metadata: initialMetaData,
     darkMode: initialDarkMode,
+    audio: {
+      ...initialAudioState,
+      play: (url) => {
+        audioElement.src = url;
+        audioElement.play();
+        set({ audioUrl: url, isPlaying: true });
+      },
+      pause: () => {
+        audioElement.pause();
+        set({ isPlaying: false });
+      },
+      setCurrentTime: (time) => {
+        audioElement.currentTime = time;
+        set({ currentTime: time });
+      },
+      setDuration: (duration) => {
+        set({ duration });
+      },
+      togglePlayPause: () => {
+        if (audioElement.paused) {
+          audioElement.play();
+          set({ isPlaying: true });
+        } else {
+          audioElement.pause();
+          set({ isPlaying: false });
+        }
+      },
+    },
 
     setSharedState: () => set((state) => ({ sharedState: !state.sharedState })),
     setVideoid: (videoid) => {
@@ -61,12 +100,6 @@ const useStore = create((set) => {
       set({ metadata });
     },
 
-    toggleDarkMode: () => {
-      const newMode = localStorage.theme === 'dark' ? 'light' : 'dark';
-      localStorage.theme = newMode;
-      set({ darkMode: newMode === 'dark' });
-    },
-
     setDarkMode: () => {
       const newMode = localStorage.theme === 'dark' ? 'dark' : 'light';
       localStorage.theme = newMode;
@@ -77,9 +110,6 @@ const useStore = create((set) => {
       localStorage.removeItem('theme');
       set({ darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches });
     },
-
-    // Expose subscribeToColorSchemeChanges for manual subscription if needed
-    subscribeToColorSchemeChanges,
   };
 });
 

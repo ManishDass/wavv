@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { auth } from '../firebaseConfig';
+import { auth, app } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import BackIcon from '../assets/images/Back.svg?react';
@@ -9,6 +9,8 @@ import Apple from '../assets/images/Apple.svg?react';
 import Line1 from '../assets/images/Line1.svg?react';
 import Line2 from '../assets/images/Line2.svg?react';
 import useDarkMode from '../hooks/useDarkMode';
+import { collection, query, where, getDoc, doc, getFirestore } from "firebase/firestore";
+ 
 
 import {
   createUserWithEmailAndPassword,
@@ -25,6 +27,7 @@ const AuthPage = ({ loginMode }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   let navigate = useNavigate();
+  const firestore = getFirestore(app);
 
 
   const toggleSignUp = () => setIsSignUp(!isSignUp);
@@ -43,6 +46,41 @@ const AuthPage = ({ loginMode }) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User signed in successfully!");
         login(userCredential.user);
+
+
+
+
+
+
+        // Usethis to fetch likedSongData
+
+        // // Fetch additional data from Firestore
+        const userRef = doc(firestore, 'users', userCredential.user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          console.log('User data from Firestorexx:', userData);
+          // Now userData contains playlists and likedSongs
+          // You can set state or handle this data as needed
+        } else {
+          console.log('No such document!');
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         navigate('/home');
       }
     } catch (error) {
