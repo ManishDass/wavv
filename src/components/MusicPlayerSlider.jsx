@@ -41,7 +41,6 @@ const MusicPlayerSlider = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [liked, setLiked] = useState(false)
   const [isSeeking, setIsSeeking] = useState(false); // Add isSeeking state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -53,16 +52,10 @@ const MusicPlayerSlider = () => {
 
   const { likedSongHandler } = useAuth()
 
-  const likeHandler = () => {
-    setLiked((prev) => !prev)
-    console.log("Hello")
-  }
-
   const handleToggleModal = () => {
     console.log("Working Modal Handler!")
     setIsModalOpen(!isModalOpen);
   };
-
 
   const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid), {
     retry: 2,
@@ -254,16 +247,6 @@ const MusicPlayerSlider = () => {
 
           </div>
           <div className="mt-4">
-            {/* <div
-              className="w-full bg-gray-300 h-2 rounded-lg cursor-pointer mb-2"
-              onClick={handleSeek}
-            >
-              <div
-                className="h-2 bg-green-500 rounded-lg"
-                style={{ width: `${(currentTime / duration) * 100}%` }}
-              />
-            </div> */}
-
 
             {/* Seekbar */}
 
@@ -281,14 +264,7 @@ const MusicPlayerSlider = () => {
                 onTouchMove={handleTouchMove}
                 onChange={() => { }} // Prevent default behavior of onChange for input[type=range]
               />
-              {/* <div className="flex w-full justify-between">
-                <span className="amplitude-current-time text-xs font-sans tracking-wide font-medium text-sky-500 dark:text-sky-300">{metadata.songName}</span>
-                <span className="amplitude-duration-time text-xs font-sans tracking-wide font-medium text-gray-500">{metadata.songArtist}</span>
-              </div> */}
             </div>
-
-
-
 
 
 

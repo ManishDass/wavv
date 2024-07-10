@@ -112,41 +112,15 @@ export const AuthProvider = ({ children }) => {
 
   //Save any Specific Data to FireStore
   const saveSpecificToFirestore = async (passedUserProfile, fieldName, data) => {
-
-    // const userProfile = {
-    //   uid: user.uid,
-    //   name: user.displayName || user.email.split('@')[0],
-    //   email: user.email,
-    //   photoURL: user.photoURL || config,
-    //   playlists: [],
-    //   likedSongs: []
-    // };
-
     try {
-      // Construct the object with the dynamic field name
-      const updateData = { [fieldName]: data };
-      console.log("updateData: ", updateData)
-
       await updateDoc(doc(db, 'users', passedUserProfile.uid), {
-        // updateData
         [fieldName]: data
       });
-      console.log(`User ${fieldName} updated successfully`);
-
+      // console.log(`User ${fieldName} updated successfully`);
       const userProfile = JSON.parse(localStorage.getItem('userProfile')); //Fetching previous Data
-
-
       userProfile.likedSongs = data
-
-
-      // userProfile = userProfile.likedSongs[...userProfile.likedSongs, ]
       console.log("Fire store updated value: ", userProfile)
-
       localStorage.setItem('userProfile', JSON.stringify(userProfile));
-
-
-
-
     } catch (error) {
       console.error("Error saving user profile: ", error);
     }
@@ -170,8 +144,8 @@ export const AuthProvider = ({ children }) => {
       previousLikedSongs.push(metadata)
       localStorage.setItem('likedSongs', JSON.stringify(previousLikedSongs))
       console.log(previousLikedSongs)
-
       saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); //Save this into firestore
+      setLikedSongs(previousLikedSongs)
 
     }
     else if (!isChecked) {
@@ -179,13 +153,14 @@ export const AuthProvider = ({ children }) => {
       const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title && song.artist !== metadata.artist)
       console.log("Updated: ", updatedLikedSongs)
       localStorage.setItem('likedSongs', JSON.stringify(updatedLikedSongs))
+      saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); //Save this into firestore
+      setLikedSongs(updatedLikedSongs)
     }
   }
 
 
-
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, likedSongHandler, likedSongs }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, likedSongHandler, likedSongs, setLikedSongs }}>
       {children}
     </AuthContext.Provider>
   );
