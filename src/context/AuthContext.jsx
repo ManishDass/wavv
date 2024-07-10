@@ -10,7 +10,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-  const { videoid, userDetails, metadata, setVideoid, setUserDetails, setMetadata, toggleDarkMode } = useStore();
+  // const { videoid, userDetails, metadata, setVideoid, setUserDetails, setMetadata, toggleDarkMode } = useStore();
 
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -39,10 +39,7 @@ export const AuthProvider = ({ children }) => {
     };
 
 
-
-
     try {
-
       const userRef = doc(db, 'users', user.uid);
       const userDoc = await getDoc(userRef);
 
@@ -66,11 +63,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Error saving user profile: ", error);
     }
-
-
-
-
   };
+
 
   const login = (user) => {
     // console.log("Inside User: ", user)
@@ -87,9 +81,24 @@ export const AuthProvider = ({ children }) => {
   };
 
 
+  const fetchDataFromStore = async () => {
+    const tempUserProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
 
+    try {
+      // Reference to the user document in Firestore
+      const userRef = doc(db, 'users', tempUserProfile.uid);
+      const userDoc = await getDoc(userRef);
 
-
+      if (userDoc.exists()) {
+        console.log(userDoc.data());
+        return userDoc.data();
+      } else {
+        return {};
+      }
+    } catch (error) {
+      console.error("Error fetching user profile: ", error);
+    }
+  }
 
 
   //Save any Specific Data to FireStore
@@ -109,62 +118,53 @@ export const AuthProvider = ({ children }) => {
   }
 
 
+  const likedSongHandler = async (metadata, isChecked) => {
+    // Get the user profile from local storage
+    const tempUserProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
 
+    // Initialize previousLikedSongs
+    let previousLikedSongs = [];
 
+    try {
+      // Reference to the user document in Firestore
+      const userRef = doc(db, 'users', tempUserProfile.uid);
+      const userDoc = await getDoc(userRef);
 
-
-
-
-  const likedSongHandler = (metadata, isChecked) => {
-    const previousLikedSongs = JSON.parse(localStorage.getItem('likedSongs')) || []
-    console.log("Checkbox Statusx: ", isChecked)
-
-    const userProfile = JSON.parse(localStorage.getItem('userProfile'))
-    // console.log("Test User ID: ", userProfile.uid)
-
-    if (previousLikedSongs.some(song => song.title === metadata.title && song.artist === metadata.artist) === false && isChecked) {
-      previousLikedSongs.push(metadata)
-      localStorage.setItem('likedSongs', JSON.stringify(previousLikedSongs))
-      // console.log(previousLikedSongs)
-      saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); //Save this into firestore
-      setLikedSongs(previousLikedSongs)
-
+      if (userDoc.exists()) {
+        // If the document exists, get the likedSongs from Firestore
+        previousLikedSongs = userDoc.data().likedSongs || [];
+      } else {
+        // If the document does not exist, get the likedSongs from local storage
+        previousLikedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
+      }
+    } catch (error) {
+      console.error("Error fetching user profile: ", error);
+      // Fallback to local storage if there's an error
+      previousLikedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
     }
+
+    // Log the checkbox status
+    console.log("Checkbox Status: ", isChecked);
+
+    const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
+
+    // If the song is not already liked and isChecked is true, add it to likedSongs
+    if (isChecked && !previousLikedSongs.some(song => song.title === metadata.title && song.artist === metadata.artist)) {
+      previousLikedSongs.push(metadata);
+      saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); // Save to Firestore
+      setLikedSongs(previousLikedSongs);
+    }
+    // If isChecked is false, remove the song from likedSongs
     else if (!isChecked) {
-      console.log("Unchecked")
-      const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title && song.artist !== metadata.artist)
-      // console.log("Updated: ", updatedLikedSongs)
-      localStorage.setItem('likedSongs', JSON.stringify(updatedLikedSongs))
-      saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); //Save this into firestore
-      setLikedSongs(updatedLikedSongs)
+      const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title || song.artist !== metadata.artist);
+      saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); // Save to Firestore
+      setLikedSongs(updatedLikedSongs);
     }
-  }
-
-
-  const playlistSongHandler = (metadata, isChecked) => {
-    const previousLikedSongs = JSON.parse(localStorage.getItem('likedSongs')) || []
-    console.log("Checkbox Statusx: ", isChecked)
-
-    const userProfile = JSON.parse(localStorage.getItem('userProfile'))
-    if (previousLikedSongs.some(song => song.title === metadata.title && song.artist === metadata.artist) === false && isChecked) {
-      previousLikedSongs.push(metadata)
-      localStorage.setItem('likedSongs', JSON.stringify(previousLikedSongs))
-      saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); //Save this into firestore
-      setLikedSongs(previousLikedSongs)
-
-    }
-    else if (!isChecked) {
-      console.log("Unchecked")
-      const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title && song.artist !== metadata.artist)
-      localStorage.setItem('likedSongs', JSON.stringify(updatedLikedSongs))
-      saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); //Save this into firestore
-      setLikedSongs(updatedLikedSongs)
-    }
-  }
+  };
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, likedSongHandler, likedSongs, setLikedSongs, playlistSongHandler }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, likedSongHandler, likedSongs, setLikedSongs, saveSpecificToFirestore, fetchDataFromStore }}>
       {children}
     </AuthContext.Provider>
   );

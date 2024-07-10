@@ -36,27 +36,38 @@ const useDebouncedEffect = (effect, delay, deps) => {
 };
 
 
-
 const MusicSearch = () => {
   const { playSong } = usePlaySong()
   useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [results, setResults] = useState([{
-    name: 'Hey Mama',
-    artist: 'Manish Das'
+    name: 'As It Was',
+    artist: 'Harry Styles',
   },
   {
-    name: 'Now It\'s Not The Same',
-    artist: 'Snow Strippers'
+    name: 'Kinni Kinni',
+    artist: 'Diljit Dosanjh',
   },
   {
-    name: 'Hey Mama',
-    artist: 'Manish Das'
+    name: 'One Call Away ',
+    artist: 'Charlie Puth',
   },
   {
-    name: 'Hey Mama',
-    artist: 'Manish Das'
+    name: 'I Feel It Coming',
+    artist: 'Weekend',
+  },
+  {
+    name: 'People',
+    artist: 'Libianca',
+  },
+  {
+    name: 'Reality',
+    artist: 'Lost Frequencies',
+  },
+  {
+    name: 'Capsize',
+    artist: 'FRENSHIP',
   },
   ]);
   const [currentSong, setCurrentSong] = useState(null);

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import AuthPage from './pages/AuthPage';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider,useAuth } from './context/AuthContext';
 import MusicSearch from './components/MusicSearch';
 import MusicPlayer from './components/MusicPlayer';
 import LoadingScreen from './components/LoadingScreen';
@@ -13,9 +13,8 @@ import ChooseColorModePage from './pages/ChooseColorModePage';
 import RegisterOrSignInPage from './pages/RegisterOrSignInPage';
 import MusicPlayerSlider from './components/MusicPlayerSlider';
 import Discover from './components/Discover';
-import { useAuth } from './context/AuthContext';
 import HomePage from './pages/HomePage';
-import Thumbnail from './components/Thumbnail';
+import Test from './components/Test';
 
 const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -27,6 +26,7 @@ const App = () => {
   const [videoId, setVideoId] = useState('');
   const [musicMetaData, setMusicMetaData] = useState({});
   const [preSelected, setPreSelected] = useState('home');
+  const isLoggedIn = localStorage.getItem('isLoggedIn')
 
   const handleVideoIdChange = (newVideoId) => {
     setVideoId(newVideoId);
@@ -52,7 +52,8 @@ const App = () => {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/get-started" />} />
+          {/* Redirect '/' to '/home' if user is logged in */}
+          <Route path="/" element={isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/get-started" />} />
           <Route path="/get-started" element={<GetStartedPage />} />
           <Route path="/choose-color-mode" element={<ChooseColorModePage />} />
           <Route path="/register-or-sign-in" element={<RegisterOrSignInPage />} />
@@ -65,7 +66,7 @@ const App = () => {
           {/* <Route path="/player" element={<PrivateRoute><MusicPlayerSlider/></PrivateRoute>} /> */}
           {/* <Route path="/player" element={<Home preSelectedTab={'music'}/>} /> */}
           <Route path="/player" element={<MusicPlayerSlider />} />
-          <Route path="/test" element={<Thumbnail/>} />
+          <Route path="/test" element={<Test/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

@@ -71,43 +71,56 @@ const HomePage = () => {
     {
       name: 'As It Was',
       artist: 'Harry Styles',
-      duration: '5:33'
     },
     {
-      name: 'God Did',
-      artist: 'Dj Khaled',
-      duration: '3:43'
+      name: 'Kinni Kinni',
+      artist: 'Diljit Dosanjh',
     },
     {
       name: 'One Call Away ',
       artist: 'Charlie Puth',
-      duration: '3:14'
     },
     {
-      name: 'SNAP',
-      artist: 'Rosa Linn',
-      duration: '2:59'
-    },
-    {
-      name: 'People',
-      artist: 'Libianca',
-      duration: '3:04'
-    },
-    {
-      name: 'SNAP',
-      artist: 'Rosa Linn',
-      duration: '2:59'
+      name: 'I Feel It Coming',
+      artist: 'Weekend',
     },
     {
       name: 'People',
       artist: 'Libianca',
-      duration: '3:04'
+    },
+    {
+      name: 'Reality',
+      artist: 'Lost Frequencies',
+    },
+    {
+      name: 'Capsize',
+      artist: 'FRENSHIP',
+    },
+    {
+      name: 'ily',
+      artist: 'Surf Mesa',
+    },
+    {
+      name: 'My Stupid Heart',
+      artist: 'Walk off the Earth',
+    },
+    {
+      name: 'Baby One More Time',
+      artist: 'Britney Spears',
+    },
+    {
+      name: 'All of Me',
+      artist: 'John Legend',
+    },
+    {
+      name: 'Counting Stars',
+      artist: 'OneRepublic',
+    },
+    {
+      name: 'unholy',
+      artist: '90degress',
     },
   ]
-
-  const handleTestClick = () => {
-    setSharedState();
-  };
 
   return (
     <div className=' bg-[#1B1A1A] overflow-hidden font-santoshi-regular'>
