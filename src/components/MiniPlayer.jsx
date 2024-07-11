@@ -37,7 +37,7 @@ const MiniPlayer = ({ musicPlayerSliderHandler }) => {
         >
           <div className="backdrop-blur-xl bg-white/30 h-full flex justify-between items-center w-screen rounded-t-lg">
 
-            <img className='bg-cover w-[3.3rem] h-[3.3rem] ml-[1rem]' src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt={metadata.songName} />
+            <img className='bg-cover w-[3rem] h-[3rem] ml-[1.3rem] rounded-full' src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt={metadata.songName} />
 
             <div className="marquee-container overflow-hidden flex flex-col">
               <p className="marquee-text">
