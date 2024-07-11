@@ -45,13 +45,8 @@ const Home = ({ preSelectedTab, musicID }) => {
 
   return (
     <div className=' bg-[#1B1A1A] font-santoshi-regular flex flex-col'>
-
-      <MiniPlayer/>
-
-      <button className='flex bg-red-500 justify-center items-center rounded-lg text-white h-12' onClick={musicPlayerSliderHandler}>Show/Hide Music</button>
+      <MiniPlayer musicPlayerSliderHandler={musicPlayerSliderHandler}/>
       <MusicPlayerSlider visibilityState={showMusicSlider} musicPlayerSliderHandler={musicPlayerSliderHandler} />
-
-
 
       {/* Render different components based on the selected tab */}
       {selectedTab === 'home' && <HomePage />}
