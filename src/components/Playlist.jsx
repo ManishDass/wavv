@@ -3,6 +3,7 @@ import Play from '../assets/images/Play.svg?react';
 import usePlaySong from '../hooks/usePlaySong';
 import './Heart.css';
 import { useAuth } from '../context/AuthContext';
+import useStore from '../stores/useStore';
 
 const Playlist = ({ items, heading, topbar }) => {
   const { playSong } = usePlaySong();

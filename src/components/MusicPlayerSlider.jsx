@@ -61,6 +61,7 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
   const { data: fetchedAudioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid), {
     retry: 2,
     refetchOnWindowFocus: false,
+    enabled: !!videoid,
   });
 
   useEffect(() => {
@@ -76,6 +77,19 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
       handleAudioLoaded(fetchedAudioUrl);
     }
   }, [fetchedAudioUrl, isLoading, isError, setAudioUrl]);
+
+  //Useeffect so that i can play/pause audio from other component using isPlaying State
+  useEffect(() => {
+    console.log("is Playing STate chnaged and rerendered")
+    const audio = audioRef.current;
+    if (audio) {
+      if (isPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  }, [isPlaying]); 
 
   const handleAudioLoaded = (url) => {
     const audio = audioRef.current;
@@ -146,7 +160,7 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
         <LoadingSpinner />
       ) : isError ? (
         <NotFound errorDetails={'Error Fetching Data'} musicPlayerSliderHandler={musicPlayerSliderHandler} />
-      ) : (
+      ) :  !metadata ? ( <NotFound errorDetails={'Empty'} musicPlayerSliderHandler={musicPlayerSliderHandler} />  ) : (
         <div className='flex flex-col justify-between h-full'>
           <TopNavigation options={{ left: 'back', center: 'Now Playing', backHandler: musicPlayerSliderHandler }} />
 
