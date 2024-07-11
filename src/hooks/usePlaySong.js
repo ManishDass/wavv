@@ -4,7 +4,7 @@ import useStore from '../stores/useStore';
 
 const usePlaySong = () => {
   const YOUTUBE_API_KEY = import.meta.env.VITE_FIREBASE_YOUTUBE_API_KEY;
-  const { setVideoid, setMetadata } = useStore();
+  const { setVideoid, setMetadata, setIsPlaying } = useStore();
   const [currentSong, setCurrentSong] = useState(null);
   const navigate = useNavigate();
 
@@ -30,8 +30,8 @@ const usePlaySong = () => {
         setVideoid(firstVideoId);
         setMetadata({ songName: song.name, songArtist: song.artist });
         console.log("Move to player");
+        // setIsPlaying(true); 
         // navigate('/player'); //This line
-        // navigate('/home'); //This line
       } else {
         console.error('No YouTube video found for:', song.name, 'by', song.artist);
       }

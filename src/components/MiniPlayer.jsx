@@ -1,8 +1,32 @@
-import React from 'react'
+import useStore from '../stores/useStore';
+import HeartIcon from '../assets/images/HeartIcon.svg?react';
+import useDarkMode from '../hooks/useDarkMode';
+import PlayIcon from '../assets/images/Play.svg?react';
+import PauseIcon from '../assets/images/Pause.svg?react';
 
 const MiniPlayer = () => {
+  useDarkMode();
+  const {
+    videoid,
+    metadata,
+    audioUrl,
+    isPlaying,
+    currentTime,
+    duration,
+    setAudioUrl,
+    setIsPlaying,
+    setCurrentTime,
+    setDuration,
+  } = useStore();
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+    
+  };
+
   return (
-      <div className='fixed bottom-[4rem]'>
+      <div className='fixed bottom-[4rem] z-50'>
+      { metadata && (
           <div
             className="relative w-full h-16 bg-cover bg-center"
             style={{ backgroundImage: `url(https://img.youtube.com/vi/${videoid}/sddefault.jpg)` }}
@@ -22,11 +46,12 @@ const MiniPlayer = () => {
               <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] '>
                 <HeartIcon className="h-6 w-6 cursor-pointer" fill={'#42C83C'} stroke={'#737373'} />
               </div>
-              <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] mr-4'>
-                <Play className='cursor-pointer' />
+              <div className=' rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] mr-4 cursor-pointer'>
+                {isPlaying ? (<PauseIcon onClick={handlePlayPause} />) : (<PlayIcon onClick={handlePlayPause} />)}
               </div>
             </div>
           </div>
+        )}
         </div> 
   )
 }

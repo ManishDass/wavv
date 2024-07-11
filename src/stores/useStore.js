@@ -16,7 +16,7 @@ const useStore = create((set) => {
 
   const initialVideoid = localStorage.getItem('videoid') || '';
   const initialMetaData = parseJSON(localStorage.getItem('metadata') || {});
-
+  // const initialLikedSongs = parseJSON(localStorage.getItem('userDetails') || {});
   const subscribeToColorSchemeChanges = () => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e) => {
@@ -38,6 +38,7 @@ const useStore = create((set) => {
     sharedState: false,
     videoid: initialVideoid,
     userDetails: {},
+    likedSongs: {},
     metadata: initialMetaData,
     darkMode: initialDarkMode,
     audioUrl: localStorage.getItem('audioUrl') || '',

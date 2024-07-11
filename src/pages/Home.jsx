@@ -11,6 +11,7 @@ import Liked from './Liked';
 import Profile from './Profile';
 import MusicPlayerSlider from '../components/MusicPlayerSlider';
 import useDarkMode from '../hooks/useDarkMode';
+import MiniPlayer from '../components/MiniPlayer'
 
 const Home = ({ preSelectedTab, musicID }) => {
   useDarkMode(); //add or remove dark mode according to device-color-scheme
@@ -18,14 +19,8 @@ const Home = ({ preSelectedTab, musicID }) => {
   const { sharedState, setUserData, setSharedState } = useStore();
   const [showMusicSlider, setShowMusicPlayerSlider] = useState(true)
 
-  useEffect(()=>{
-    console.log("showMusicSlider: ",showMusicSlider)
-  })
-
   const musicPlayerSliderHandler = () => {
     setShowMusicPlayerSlider(prevValue => !prevValue)
-    console.log("Music SliderStatus: ", showMusicSlider)
-    // if(showMusicSlider)
   }
 
   const handleTabClick = (tab) => {
@@ -51,10 +46,10 @@ const Home = ({ preSelectedTab, musicID }) => {
   return (
     <div className=' bg-[#1B1A1A] font-santoshi-regular flex flex-col'>
 
-
+      <MiniPlayer/>
 
       <button className='flex bg-red-500 justify-center items-center rounded-lg text-white h-12' onClick={musicPlayerSliderHandler}>Show/Hide Music</button>
-      <MusicPlayerSlider visibilityState={showMusicSlider} musicPlayerSliderHandler={musicPlayerSliderHandler}/>
+      <MusicPlayerSlider visibilityState={showMusicSlider} musicPlayerSliderHandler={musicPlayerSliderHandler} />
 
 
 
