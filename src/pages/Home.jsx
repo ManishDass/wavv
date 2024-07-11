@@ -12,11 +12,22 @@ import Profile from './Profile';
 import MusicPlayerSlider from '../components/MusicPlayerSlider';
 import useDarkMode from '../hooks/useDarkMode';
 
-const Home = ({preSelectedTab}) => {
+const Home = ({ preSelectedTab, musicID }) => {
   useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [selectedTab, setSelectedTab] = useState('');
-  const { sharedState, setUserData ,setSharedState } = useStore();
- 
+  const { sharedState, setUserData, setSharedState } = useStore();
+  const [showMusicSlider, setShowMusicPlayerSlider] = useState(true)
+
+  useEffect(()=>{
+    console.log("showMusicSlider: ",showMusicSlider)
+  })
+
+  const musicPlayerSliderHandler = () => {
+    setShowMusicPlayerSlider(prevValue => !prevValue)
+    console.log("Music SliderStatus: ", showMusicSlider)
+    // if(showMusicSlider)
+  }
+
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
@@ -26,9 +37,9 @@ const Home = ({preSelectedTab}) => {
     setSelectedTab('discover');
   }, [sharedState]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setSelectedTab(preSelectedTab || 'home')
-  },[])
+  }, [])
 
   useEffect(() => {
     const storedUserProfileIcon = localStorage.getItem('userProfileIcon');
@@ -37,9 +48,15 @@ const Home = ({preSelectedTab}) => {
     }
   }, []);
 
-
   return (
     <div className=' bg-[#1B1A1A] font-santoshi-regular flex flex-col'>
+
+
+
+      <button className='flex bg-red-500 justify-center items-center rounded-lg text-white h-12' onClick={musicPlayerSliderHandler}>Show/Hide Music</button>
+      <MusicPlayerSlider visibilityState={showMusicSlider} musicPlayerSliderHandler={musicPlayerSliderHandler}/>
+
+
 
       {/* Render different components based on the selected tab */}
       {selectedTab === 'home' && <HomePage />}
@@ -47,7 +64,6 @@ const Home = ({preSelectedTab}) => {
       {selectedTab === 'liked' && <Liked />}
       {selectedTab === 'profile' && <Profile />}
       {/* {selectedTab === 'music' && <MusicPlayerSlider />} */}
-
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#343434] py-5 flex justify-around items-center">
@@ -67,13 +83,7 @@ const Home = ({preSelectedTab}) => {
           <div className={`bg-[#62CD5D] ${selectedTab === 'profile' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
           <ProfileIcon onClick={() => handleTabClick('profile')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'profile' ? '#42C83C' : '#343434'} stroke={selectedTab === 'profile' ? '' : '#737373'} />
         </div>
-        {/* <div className="flex flex-col items-center justify-center relative">
-          <div className={`bg-[#62CD5D] ${selectedTab === 'music' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
-          <ProfileIcon onClick={() => handleTabClick('music')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'music' ? '#42C83C' : '#343434'} stroke={selectedTab === 'music' ? '' : '#737373'} />
-        </div> */}
       </div>
-
-      
     </div>
   );
 };

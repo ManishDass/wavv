@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import useStore from '../stores/useStore';
@@ -16,16 +16,30 @@ import NextIcon2 from '../assets/images/next2.svg?react';
 import ShuffleIcon2 from '../assets/images/shuffle2.svg?react';
 import { useAuth } from '../context/AuthContext';
 
-const MusicPlayerSlider = () => {
-  useDarkMode(); // add or remove dark mode according to device-color-scheme
-  const { videoid, metadata } = useStore();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
+  useDarkMode();
+  const {
+    videoid,
+    metadata,
+    audioUrl,
+    isPlaying,
+    currentTime,
+    duration,
+    setAudioUrl,
+    setIsPlaying,
+    setCurrentTime,
+    setDuration,
+  } = useStore();
+
+  const audioRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const { likedSongHandler } = useAuth();
+
+  const handleToggleModal = () => {
+    setIsModalOpen(prev => !prev)
+  }
 
   // Function responsible for fetching the audio from backend
   const fetchAudioUrl = async (videoId) => {
@@ -33,11 +47,8 @@ const MusicPlayerSlider = () => {
       const response = await axios.get(`https://wavv-server.vercel.app/youtube/${videoId}`, {
         responseType: 'blob',
       });
-      // const response = await axios.get(`http://localhost:4000/youtube/${videoId}`, { responseType: 'blob' }); // If Above one fails
       const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
       const audioUrl = URL.createObjectURL(audioBlob);
-      // Store audio URL in localStorage
-      localStorage.setItem('audioUrl', audioUrl);
       return audioUrl;
     } catch (error) {
       console.error('Error fetching audio:', error);
@@ -46,66 +57,50 @@ const MusicPlayerSlider = () => {
   };
 
   // Fetching data using react query
-  const { data: audioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid), {
+  const { data: fetchedAudioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid), {
     retry: 2,
     refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
-    // Check localStorage for audioUrl on component mount
     const storedAudioUrl = localStorage.getItem('audioUrl');
     if (storedAudioUrl) {
-      // If audioUrl is already stored, use it directly
-      // This avoids unnecessary refetching
-      console.log('Using cached audio URL from localStorage');
-      // Ensure component state reflects the loaded audio URL
       handleAudioLoaded(storedAudioUrl);
     }
   }, []);
 
   useEffect(() => {
-    // Update localStorage whenever audioUrl changes
-    if (audioUrl && !isLoading && !isError) {
-      localStorage.setItem('audioUrl', audioUrl);
-      // Handle audio loading and updating current time and duration
-      handleAudioLoaded(audioUrl);
+    if (fetchedAudioUrl && !isLoading && !isError) {
+      setAudioUrl(fetchedAudioUrl);
+      handleAudioLoaded(fetchedAudioUrl);
     }
-  }, [audioUrl, isLoading, isError]);
+  }, [fetchedAudioUrl, isLoading, isError, setAudioUrl]);
 
   const handleAudioLoaded = (url) => {
-    const audio = document.getElementById('audio-element');
-    document.title = `${metadata.songName} - ${metadata.songArtist} | Wavv`;
-
-    const handleTimeUpdate = () => {
-      setCurrentTime(audio.currentTime);
-      setDuration(audio.duration);
-    };
-
+    const audio = audioRef.current;
     if (audio) {
       audio.src = url;
       audio.addEventListener('timeupdate', handleTimeUpdate);
-
-      return () => {
-        audio.removeEventListener('timeupdate', handleTimeUpdate);
-      };
+      audio.addEventListener('loadedmetadata', handleMetadataLoaded);
     }
   };
 
-  const handleLikeSong = (songDetails) => {
-    const metadata = songDetails;
-    likedSongHandler(metadata, !isChecked);
+  const handleMetadataLoaded = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      setDuration(audio.duration);
+    }
   };
 
-  const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
-
-  const handleToggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const handleTimeUpdate = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      setCurrentTime(audio.currentTime);
+    }
   };
 
   const handlePlayPause = () => {
-    const audio = document.getElementById('audio-element');
+    const audio = audioRef.current;
     if (isPlaying) {
       audio.pause();
     } else {
@@ -114,46 +109,8 @@ const MusicPlayerSlider = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleTimeUpdate = () => {
-    const audio = document.getElementById('audio-element');
-    setCurrentTime(audio.currentTime);
-    setDuration(audio.duration); // Ensure this line is updating duration
-  };
-
-  const handleMouseDown = () => {
-    setIsSeeking(true);
-  };
-
-  const handleMouseUp = (e) => {
-    if (isSeeking) {
-      setIsSeeking(false);
-      handleSeek(e);
-    }
-  };
-
-  const handleTouchStart = () => {
-    const audio = document.getElementById('audio-element');
-    audio.pause();
-    setIsSeeking(true);
-  };
-
-  const handleTouchEnd = (e) => {
-    const audio = document.getElementById('audio-element');
-    audio.play();
-    if (isSeeking) {
-      setIsSeeking(false);
-      handleSeek(e);
-    }
-  };
-
-  const handleTouchMove = (e) => {
-    if (isSeeking) {
-      handleSeek(e);
-    }
-  };
-
   const handleSeek = (e) => {
-    const audio = document.getElementById('audio-element');
+    const audio = audioRef.current;
     let offsetX;
     let clientWidth;
 
@@ -169,7 +126,6 @@ const MusicPlayerSlider = () => {
 
     if (duration > 0) {
       const seekTime = (offsetX / clientWidth) * duration;
-
       if (!isNaN(seekTime) && isFinite(seekTime)) {
         audio.currentTime = seekTime;
         setCurrentTime(seekTime);
@@ -183,94 +139,89 @@ const MusicPlayerSlider = () => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  if (isLoading) return <LoadingSpinner />;
-
-  if (isError) return <NotFound errorDetails={'Error Fetching Data'} />;
-
   return (
-    <div className='h-dvh bg-[#1f2128] overflow-hidden'>
+    <div className={`fixed h-dvh w-screen bg-[#1f2128] overflow-hidden z-50 ${visibilityState ? 'hidden' : ''}`}>
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : isError ? (
+        <NotFound errorDetails={'Error Fetching Data'} />
+      ) : (
+        <div className='flex flex-col justify-between h-full'>
+          <TopNavigation options={{ left: 'back', center: 'Now Playing', backHandler: musicPlayerSliderHandler }} />
 
-      <div className='flex flex-col justify-between h-dvh'>
-        <TopNavigation options={{ left: 'back', center: 'Now Playing' }} />
+          <div className="p-4 flex flex-col -mt-5 h-[80%]">
+            {audioUrl && <audio id="audio-element" ref={audioRef} src={audioUrl} onTimeUpdate={handleTimeUpdate} />}
+            <div className="cover-wrapper mt-2">
+              <img className="cover-shadow" src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt="Album Cover Shadow" />
+              <img className="cover-img" src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt="Album Cover" />
+            </div>
 
-        <div className="p-4 flex flex-col -mt-5 h-[80%]">
-          {audioUrl && <audio id="audio-element" src={audioUrl} onTimeUpdate={handleTimeUpdate} />}
-          <div className="cover-wrapper mt-2">
-            <img className="cover-shadow" src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} />
-            <img className="cover-img" src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} />
+            <div className="mt-4 text-center flex justify-between items-center px-3">
+              <div className='text-left'>
+                <h2 className="text-lg font-satoshi font-semibold text-white">{metadata.songName}</h2>
+                <p className="text-white text-lg text-[1.1rem] font-satoshi font-light">{metadata.songArtist}</p>
+              </div>
+
+              <div id="heart-container" className='mr-[0.4rem]' onClick={() => likedSongHandler(metadata, !isChecked)}>
+                <input type="checkbox" id="toggle" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
+                <div id="twitter-heart"></div>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              {/* Seekbar */}
+              <div className="w-full flex flex-col px-3 z-50 mt-5">
+                <input
+                  type="range"
+                  className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
+                  id="song-percentage-played"
+                  step="0.1"
+                  min="0"
+                  max={duration || ''}
+                  value={isSeeking ? currentTime : currentTime}
+                  onMouseDown={() => setIsSeeking(true)}
+                  onMouseUp={handleSeek}
+                  onTouchStart={() => setIsSeeking(true)}
+                  onTouchEnd={handleSeek}
+                  onChange={() => { }} // Prevent default behavior of onChange for input[type=range]
+                />
+              </div>
+
+              <div className="flex justify-between text-gray-400 text-xs font-satoshi font-bold -mt-1 px-4">
+                <span>{formatTime(currentTime)}</span>
+                <span>{formatTime(duration)}</span>
+              </div>
+            </div>
+
+            <div className='flex items-center justify-center mt-10'>
+              <div className='flex justify-around items-center w-[80%]'>
+                <RepeatIcon2 />
+                <PreviousIcon2 />
+                <button className="bg-green-500 p-3 rounded-full focus:outline-none" onClick={handlePlayPause}>
+                  {isPlaying ? (
+                    <PauseIcon />
+                  ) : (
+                    <PlayIcon />
+                  )}
+                </button>
+                <NextIcon2 />
+                <ShuffleIcon2 />
+              </div>
+            </div>
+
           </div>
 
-
-          <div className="mt-4 text-center flex justify-between items-center px-3">
-            <div className='text-left'>
-              <h2 className="text-lg font-satoshi font-semibold text-white">{metadata.songName}</h2>
-              <p className="text-white text-lg text-[1.1rem] font-satoshi font-light">{metadata.songArtist}</p>
-            </div>
-
-            <div id="heart-container" className='mr-[0.4rem]' onClick={() => handleLikeSong({ title: metadata.songName, artist: metadata.songArtist })}>
-              <input type="checkbox" id="toggle" checked={isChecked} onChange={handleCheckboxChange} />
-              <div id="twitter-heart" ></div>
-            </div>
-
-          </div>
-          <div className="mt-4">
-
-            {/* Seekbar */}
-            <div className="w-full flex flex-col px-3 z-50 mt-5">
-              <input type="range" className="w-full h-1 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm dark:bg-gray-700"
-                id="song-percentage-played"
-                step="0.1"
-                min="0"
-                max={duration || ''}
-                value={isSeeking ? currentTime : currentTime}
-                onMouseDown={handleMouseDown}
-                onMouseUp={handleMouseUp}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-                onTouchMove={handleTouchMove}
-                onChange={() => { }} // Prevent default behavior of onChange for input[type=range]
-              />
-            </div>
-
-
-            <div className="flex justify-between text-gray-400 text-xs font-satoshi font-bold -mt-1 px-4">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
-          </div>
-
-
-          <div className='flex items-center justify-center mt-10'>
-            <div className='flex justify-around items-center w-[80%]'>
-              <RepeatIcon2 />
-              <PreviousIcon2 />
-              <button className="bg-green-500 p-3 rounded-full focus:outline-none" onClick={handlePlayPause}>
-                {isPlaying ? (
-                  <PauseIcon />
-                ) : (
-                  <PlayIcon />
-                )}
-              </button>
-              <NextIcon2 />
-              <ShuffleIcon2 />
-            </div>
+          <div className='flex text-white text-xs flex-col justify-center items-center font-satoshi font-bold h-[10%]'>
+            <UpArrow className='mb-2' onClick={() => setIsModalOpen(!isModalOpen)} />
+            <p onClick={() => setIsModalOpen(!isModalOpen)}>Lyrics</p>
           </div>
 
         </div>
+      )}
 
 
-        <div className='flex text-white text-xs flex-col justify-center items-center font-satoshi font-bold h-[10%]'>
-          <UpArrow className='mb-2' onClick={handleToggleModal} />
-          <p onClick={handleToggleModal}>Lyrics</p>
-        </div>
-
-      </div>
-
-
-
-      {/* Lyrics Page Modal */}
       {isModalOpen && (
-        <div className='fixed h-screen w-screen bg-[#1B1A1A] z-50 top-0'>
+        <div className='fixed h-dvh w-screen bg-[#1B1A1A] z-50 top-0'>
           <TopNavigation options={{ left: 'back', center: metadata.songName, backHandler: handleToggleModal }} />
           <div className='flex text-white font-sans text-2xl h-dvh w-screen justify-center items-center -mt-20'>
             <h1>Coming Soon</h1>
@@ -306,8 +257,11 @@ const MusicPlayerSlider = () => {
             </div>
           </div>
         </div>
+
       )}
+
     </div>
+
   );
 };
 

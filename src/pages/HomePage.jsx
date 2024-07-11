@@ -9,6 +9,7 @@ import TopNavigation from '../components/TopNavigation';
 import useDarkMode from '../hooks/useDarkMode';
 import Playlist from '../components/Playlist';
 import usePlaySong from '../hooks/usePlaySong'
+import MusicPlayerSlider from '../components/MusicPlayerSlider'
 
 const HomePage = () => {
   const { playSong } = usePlaySong()
@@ -124,7 +125,6 @@ const HomePage = () => {
 
   return (
     <div className=' bg-[#1B1A1A] overflow-hidden font-santoshi-regular'>
-
       {/* Top Navigation */}
       <TopNavigation options={{left: 'search', center: 'logo', handler: setSharedState}}/>
   
@@ -197,7 +197,6 @@ const HomePage = () => {
 
       {/* Playlist */}
       <Playlist items={playlist} />
-      
     </div>
   );
 };

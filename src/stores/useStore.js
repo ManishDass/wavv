@@ -1,3 +1,4 @@
+// src/store/useStore.js
 import { create } from 'zustand';
 
 const parseJSON = (str, fallback) => {
@@ -15,7 +16,6 @@ const useStore = create((set) => {
 
   const initialVideoid = localStorage.getItem('videoid') || '';
   const initialMetaData = parseJSON(localStorage.getItem('metadata') || {});
-  const initialPlaybackTime = parseFloat(localStorage.getItem('playbackTime')) || 0;
 
   const subscribeToColorSchemeChanges = () => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -32,25 +32,6 @@ const useStore = create((set) => {
     };
   };
 
-  // Load initial audio settings from localStorage or defaults
-  const initialAudioState = {
-    isPlaying: false,
-    currentTime: initialPlaybackTime,
-    duration: 0,
-    audioUrl: '',
-  };
-
-  const audioElement = document.createElement('audio');
-
-  audioElement.addEventListener('timeupdate', () => {
-    set({ currentTime: audioElement.currentTime });
-    localStorage.setItem('playbackTime', audioElement.currentTime.toString());
-  });
-
-  audioElement.addEventListener('ended', () => {
-    set({ isPlaying: false });
-  });
-
   subscribeToColorSchemeChanges();
 
   return {
@@ -59,34 +40,11 @@ const useStore = create((set) => {
     userDetails: {},
     metadata: initialMetaData,
     darkMode: initialDarkMode,
-    audio: {
-      ...initialAudioState,
-      play: (url) => {
-        audioElement.src = url;
-        audioElement.play();
-        set({ audioUrl: url, isPlaying: true });
-      },
-      pause: () => {
-        audioElement.pause();
-        set({ isPlaying: false });
-      },
-      setCurrentTime: (time) => {
-        audioElement.currentTime = time;
-        set({ currentTime: time });
-      },
-      setDuration: (duration) => {
-        set({ duration });
-      },
-      togglePlayPause: () => {
-        if (audioElement.paused) {
-          audioElement.play();
-          set({ isPlaying: true });
-        } else {
-          audioElement.pause();
-          set({ isPlaying: false });
-        }
-      },
-    },
+    audioUrl: localStorage.getItem('audioUrl') || '',
+    isPlaying: false,
+    currentTime: 0,
+    duration: 0,
+    showMusicPlayerSlider: false,
 
     setSharedState: () => set((state) => ({ sharedState: !state.sharedState })),
     setVideoid: (videoid) => {
@@ -110,6 +68,15 @@ const useStore = create((set) => {
       localStorage.removeItem('theme');
       set({ darkMode: window.matchMedia('(prefers-color-scheme: dark)').matches });
     },
+
+    setAudioUrl: (audioUrl) => {
+      localStorage.setItem('audioUrl', audioUrl);
+      set({ audioUrl });
+    },
+    setIsPlaying: (isPlaying) => set({ isPlaying }),
+    setCurrentTime: (currentTime) => set({ currentTime }),
+    setDuration: (duration) => set({ duration }),
+    setShowMusicPlayerSlider: (show) => set({ showMusicPlayerSlider: show }),
   };
 });
 
