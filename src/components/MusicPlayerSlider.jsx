@@ -57,6 +57,7 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
   };
 
   // Fetching data using react query
+
   const { data: fetchedAudioUrl, isLoading, isError } = useQuery(['audioUrl', videoid], () => fetchAudioUrl(videoid), {
     retry: 2,
     refetchOnWindowFocus: false,
@@ -144,7 +145,7 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
       {isLoading ? (
         <LoadingSpinner />
       ) : isError ? (
-        <NotFound errorDetails={'Error Fetching Data'} />
+        <NotFound errorDetails={'Error Fetching Data'} musicPlayerSliderHandler={musicPlayerSliderHandler} />
       ) : (
         <div className='flex flex-col justify-between h-full'>
           <TopNavigation options={{ left: 'back', center: 'Now Playing', backHandler: musicPlayerSliderHandler }} />

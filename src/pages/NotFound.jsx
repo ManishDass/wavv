@@ -2,13 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import './NotFound.css'; // Import the custom CSS for keyframes
 import TopNavigation from '../components/TopNavigation';
 
-const NotFound = ({ errorDetails }) => {
+const NotFound = ({ errorDetails, musicPlayerSliderHandler }) => {
   const navigate = useNavigate()
 
   return (
     <div className='flex flex-col h-dvh items center justify-center'>
             {/* Top Navigation Bar */}
-            <TopNavigation options={{ left: 'back', center: 'logo' }} />
+            <TopNavigation options={{ left: 'back', center: 'logo', backHandler: musicPlayerSliderHandler }} />
 
       <main className="bl_page404 flex flex-col h-screen items center justify-center">
 
