@@ -18,7 +18,10 @@ export const AuthProvider = ({ children }) => {
     return storedLoggedInStatus === 'true';
   });
 
-  const [likedSongs, setLikedSongs] = useState([])
+  const [likedSongs, setLikedSongs] = useState(()=>{
+    let tempData = JSON.parse(localStorage.getItem('userProfile')) || [];
+    return tempData.likedSongs
+})
 
   useEffect(() => {
     const storedLoggedInStatus = localStorage.getItem('isLoggedIn');

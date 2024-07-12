@@ -6,9 +6,6 @@ import { useEffect } from 'react';
 const Liked = () => {
   
   const { likedSongs } = useAuth();
-  useEffect(()=>{
-    console.log("X Liked Test: ",likedSongs)
-  },[])
 
   return (
     <div className='bg-[#1C1B1B] h-dvh font-santoshi-regular text-white'>
