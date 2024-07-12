@@ -36,7 +36,7 @@ const useDebouncedEffect = (effect, delay, deps) => {
 };
 
 
-const MusicSearch = () => {
+const MusicSearch = ({showMusicSlider}) => {
   const { playSong } = usePlaySong()
   useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [searchTerm, setSearchTerm] = useState('');
@@ -107,7 +107,7 @@ const MusicSearch = () => {
 
 
       {/* Top Navigation Bar */}
-      <TopNavigation options={{ left: 'back', center: 'logo' }} />
+      <TopNavigation options={{ left: 'back', center: 'logo', onBack: 'home' }} />
 
       <div className="relative flex justify-center items-center pt-8">
         <Search className="absolute left-14 top-[3.9rem] transform -translate-y-1/2 text-gray-400" />
@@ -136,7 +136,7 @@ const MusicSearch = () => {
 
 
       {/* Playlist */}
-      <Playlist items={results} />
+      <Playlist items={results} mb={7.5}/>
 
     </div>
   );

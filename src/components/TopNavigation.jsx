@@ -9,6 +9,7 @@ import ToggleSwitch from './ToggleSwitch';
 
 const TopNavigation = ({ options }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { setSelectedTab } = useStore()
     const navigate = useNavigate()
 
     const handleToggleModal = () => {
@@ -21,13 +22,12 @@ const TopNavigation = ({ options }) => {
         <div>
             <div className='flex justify-between items-center mt-5 mt-6 px-6 '>
                 {options.left === 'search' ? (
-                    <Search onClick={options.handler}/>
+                    <Search onClick={()=>setSelectedTab('search')}/>
                 ) : options.left === 'back' ? (
-                    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => options.backHandler ? options.backHandler() : navigate(-1)}
-          >
+                    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => options.onBack ? setSelectedTab(options.onBack) : options.backHandler() }>
                         <BackIcon />
                     </div>
-                ) : null}
+                ) : ( null )}
 
                 {options.center === 'logo' ?
                     (<img src={Logo} className='bg-cover bg-no-repeat h-7 -ml-5' alt='logo' />) : (

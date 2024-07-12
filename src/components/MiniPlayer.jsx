@@ -19,6 +19,7 @@ const MiniPlayer = ({ musicPlayerSliderHandler }) => {
     setIsPlaying,
     setCurrentTime,
     setDuration,
+    toggleShowMusicPlayerSlider,
   } = useStore();
 
   const handlePlayPause = () => {
@@ -29,7 +30,7 @@ const MiniPlayer = ({ musicPlayerSliderHandler }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <div className='fixed bottom-[4rem] z-50' onClick={musicPlayerSliderHandler}>
+    <div className='fixed bottom-[4rem] z-50' onClick={toggleShowMusicPlayerSlider}>
       {metadata && (
         <div
           className="relative w-full h-16 bg-cover bg-center"

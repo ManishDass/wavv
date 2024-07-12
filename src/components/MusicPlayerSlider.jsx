@@ -15,8 +15,9 @@ import PreviousIcon2 from '../assets/images/previous2.svg?react';
 import NextIcon2 from '../assets/images/next2.svg?react';
 import ShuffleIcon2 from '../assets/images/shuffle2.svg?react';
 import { useAuth } from '../context/AuthContext';
+import { isUndefined } from 'swr/_internal';
 
-const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
+const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
   useDarkMode();
   const {
     videoid,
@@ -29,6 +30,8 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
     setIsPlaying,
     setCurrentTime,
     setDuration,
+    showMusicPlayerSlider,
+    toggleShowMusicPlayerSlider,
   } = useStore();
 
   const audioRef = useRef(null);
@@ -36,6 +39,7 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const { likedSongHandler } = useAuth();
+  const [isAudioRepeat, setIsAudioRepeat] = useState(false)
 
   const handleToggleModal = () => {
     setIsModalOpen(prev => !prev)
@@ -89,7 +93,7 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
         audio.pause();
       }
     }
-  }, [isPlaying]); 
+  }, [isPlaying]);
 
   const handleAudioLoaded = (url) => {
     const audio = audioRef.current;
@@ -154,18 +158,33 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  // Restart audio when it ends
+  const handleAudioEnded = () => {
+    // Set a brief timeout to prevent immediate replay (if desired)
+    if (isAudioRepeat) {
+      console.log("Audio Repeat is on: ",isAudioRepeat)
+      setTimeout(() => {
+        audioRef.current.play();
+      }, 1000); // Adjust delay as needed
+    }
+  };
+
+  const handleAudioRepeat = () => {
+    setIsAudioRepeat(prev => !prev)
+  }
+
   return (
-    <div className={`fixed h-dvh w-screen bg-[#1f2128] overflow-hidden z-50 ${visibilityState ? 'hidden' : ''}`}>
+    <div className={`fixed h-dvh w-screen bg-[#1f2128] overflow-hidden z-50 ${showMusicPlayerSlider ? 'hidden' : ''}`}>
       {isLoading ? (
         <LoadingSpinner />
       ) : isError ? (
         <NotFound errorDetails={'Error Fetching Data'} musicPlayerSliderHandler={musicPlayerSliderHandler} />
-      ) :  !metadata ? ( <NotFound errorDetails={'Empty'} musicPlayerSliderHandler={musicPlayerSliderHandler} />  ) : (
+      ) : !metadata ? (<NotFound errorDetails={'Empty'} musicPlayerSliderHandler={musicPlayerSliderHandler} />) : (
         <div className='flex flex-col justify-between h-full'>
-          <TopNavigation options={{ left: 'back', center: 'Now Playing', backHandler: musicPlayerSliderHandler }} />
+          <TopNavigation options={{ left: 'back', center: 'Now Playing', backHandler: toggleShowMusicPlayerSlider }} />
 
           <div className="p-4 flex flex-col -mt-5 h-[80%]">
-            {audioUrl && <audio id="audio-element" ref={audioRef} src={audioUrl} onTimeUpdate={handleTimeUpdate} />}
+            {audioUrl && <audio id="audio-element" ref={audioRef} src={audioUrl} onTimeUpdate={handleTimeUpdate} onEnded={handleAudioEnded} />}
             <div className="cover-wrapper mt-2">
               <img className="cover-shadow" src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt="Album Cover Shadow" />
               <img className="cover-img" src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt="Album Cover" />
@@ -210,7 +229,17 @@ const MusicPlayerSlider = ({ visibilityState, musicPlayerSliderHandler }) => {
 
             <div className='flex items-center justify-center mt-10'>
               <div className='flex justify-around items-center w-[80%]'>
-                <RepeatIcon2 />
+
+
+                <div className='relative flex flex-col' onClick={handleAudioRepeat}>
+                  <RepeatIcon2 fill={`${isAudioRepeat ? '#62CD5D' : 'white'}`} />
+                  <span className={`absolute flex h-[2px] w-[2px] top-6 left-[0.7rem] ${isAudioRepeat ? '' : 'hidden'}`}>
+                    <span className="animate-ping absolute inline-flex h-[2px] w-[2px] rounded-full bg-[#62CD5D] opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-[2px] w-[2px] bg-[#62CD5D]"></span>
+                  </span>
+                </div>
+
+
                 <PreviousIcon2 />
                 <button className="bg-green-500 p-3 rounded-full focus:outline-none" onClick={handlePlayPause}>
                   {isPlaying ? (

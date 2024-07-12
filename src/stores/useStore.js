@@ -45,7 +45,9 @@ const useStore = create((set) => {
     isPlaying: false,
     currentTime: 0,
     duration: 0,
-    showMusicPlayerSlider: false,
+    showMusicPlayerSlider: true,
+    selectedTab: 'home',
+
 
     setSharedState: () => set((state) => ({ sharedState: !state.sharedState })),
     setVideoid: (videoid) => {
@@ -77,7 +79,19 @@ const useStore = create((set) => {
     setIsPlaying: (isPlaying) => set({ isPlaying }),
     setCurrentTime: (currentTime) => set({ currentTime }),
     setDuration: (duration) => set({ duration }),
-    setShowMusicPlayerSlider: (show) => set({ showMusicPlayerSlider: show }),
+
+    // Toggle function to switch between true and false
+    toggleShowMusicPlayerSlider: () => {
+      console.log("Get Called");
+      set((state) => ({ showMusicPlayerSlider: !state.showMusicPlayerSlider }));
+    },
+
+    // Toggle function to switch between true and false
+    setSelectedTab: (passedSelectedTab) => {
+      set(() => ({ selectedTab: passedSelectedTab }));
+    },
+
+
   };
 });
 

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import UnionShape from '../assets/images/Union4.svg?react';
 import Avatar, { genConfig } from 'react-nice-avatar';
 import Play from '../assets/images/Play.svg?react';
 import TopNavigation from '../components/TopNavigation';
 import Playlist from '../components/Playlist';
 import usePlaySong from '../hooks/usePlaySong'
+import useStore from '../stores/useStore'; // Adjust the path accordingly
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
   const { playSong } = usePlaySong()
+  const { sharedState, setSharedState, setSelectedTab } = useStore();
 
   useEffect(() => {
     const tempUserProfile = JSON.parse(localStorage.getItem('userProfile'));
@@ -50,39 +51,24 @@ const Profile = () => {
 
   return (
     <div className='bg-[#1C1B1B] h-screen font-santoshi-regular text-white'>
-
-
-      {/* User Profile Section and  Top Navigation Bar*/}
-      <div className='flex w-screen flex-col  justify-center font-sans bg-[#2B2B2B] rounded-b-[40px] relative'>
-        <UnionShape className='absolute -left-1 -top-2' />
-        <TopNavigation options={{ left: 'back', center: 'Profile' }} />
-
-        <div className='flex flex-col w-screen items-center justify-around pb-5 text-center'>
-          <Avatar style={{ width: '4.5rem', height: '4.5rem' }} {...userProfile?.photoURL} className='mt-4 mb-3' />
-          <p className='font-santoshi-light text-[0.7rem] mb-1' >{userProfile.email}</p>
-          <p>{userProfile.name}</p>
-        </div>
-        <div className='flex w-screen items-center justify-around pb-5 px-8 text-center'>
-          <div>
-            <p>{0}</p>
-            <p className='font-santoshi-light text-[0.7rem]'>Followers</p>
+      {userProfile && (
+        <>
+          {/* User Profile Section and  Top Navigation Bar*/}
+          <div className='flex w-screen flex-col  justify-center font-sans bg-[#2B2B2B] rounded-b-[40px] relative'>
+            <UnionShape className='absolute -left-1 -top-2' />
+            <TopNavigation options={{ left: 'back', center: 'Profile', onBack: 'home' }} />
+            <div className='flex flex-col w-screen items-center justify-around pb-8 text-center'>
+              <Avatar style={{ width: '4.5rem', height: '4.5rem' }} {...userProfile?.photoURL} className='mt-4 mb-3' />
+              <p className='font-santoshi-light text-[0.7rem] mb-1' >{userProfile.email}</p>
+              <p>{userProfile.name}</p>
+            </div>
           </div>
-          <div>
-            <p>{0}</p>
-            <p className='font-santoshi-light text-[0.7rem]'>Following</p>
+          <div className='flex flex-col font-sans text-xs w-screen'>
+            {/* Playlist */}
+            <Playlist items={playlist} mb={7.5} />
           </div>
-        </div>
-      </div>
-
-      <div className='flex flex-col font-sans text-xs mt-5 w-screen'>
-        <h2 className='ml-8 mt-1 mb-4'>PUBLIC PLAYLISTS</h2>
-
-
-        {/* Playlist */}
-        <Playlist items={playlist}/>
-
-
-      </div>
+        </>
+      )}
     </div>
   );
 };

@@ -250,3 +250,7 @@ select:-webkit-autofill:focus {
     max-width: 100%;
   }
 }
+
+.none {
+  display: none;
+}

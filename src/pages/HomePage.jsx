@@ -1,23 +1,18 @@
 
 import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import NewAllbumCover from '../assets/images/billieCover.png'
-import HeartIcon from '../assets/images/HeartIcon.svg?react';
 import Play from '../assets/images/Play.svg?react';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import TopNavigation from '../components/TopNavigation';
 import useDarkMode from '../hooks/useDarkMode';
 import Playlist from '../components/Playlist';
 import usePlaySong from '../hooks/usePlaySong'
-import MusicPlayerSlider from '../components/MusicPlayerSlider'
 
 const HomePage = () => {
   const { playSong } = usePlaySong()
   useDarkMode(); //add or remove dark mode according to device-color-scheme
   const { sharedState, setSharedState } = useStore();
-  const { logout } = useAuth();
   const [userData, setUserData] = useState(null);
-  const [selected, setSelected] = useState('home');
   const [selectedSubCategory, setSelectedSubCategory] = useState('new');
 
   const handleSubCategoryClick = (icon) => {
@@ -196,7 +191,7 @@ const HomePage = () => {
       </div>
 
       {/* Playlist */}
-      <Playlist items={playlist} />
+      <Playlist items={playlist} mb={7.5}/>
     </div>
   );
 };

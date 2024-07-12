@@ -9,7 +9,7 @@ const Liked = () => {
 
   return (
     <div className='bg-[#1C1B1B] h-dvh font-santoshi-regular text-white'>
-      <TopNavigation options={{ left: 'back', center: 'Liked Songs' }}/>
+      <TopNavigation options={{ left: 'back', center: 'Liked Songs', onBack: 'home' }}/>
       <div className='mt-10'></div>
       <Playlist items={likedSongs} heading='Liked Songs' topbar='hidden' />
     </div>

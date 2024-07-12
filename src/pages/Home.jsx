@@ -15,26 +15,23 @@ import MiniPlayer from '../components/MiniPlayer'
 
 const Home = ({ preSelectedTab, musicID }) => {
   useDarkMode(); //add or remove dark mode according to device-color-scheme
-  const [selectedTab, setSelectedTab] = useState('');
-  const { sharedState, setUserData, setSharedState } = useStore();
-  const [showMusicSlider, setShowMusicPlayerSlider] = useState(true)
-
-  const musicPlayerSliderHandler = () => {
-    setShowMusicPlayerSlider(prevValue => !prevValue)
-  }
+  // const [selectedTab, setSelectedTab] = useState('');
+  const { sharedState, setUserData, selectedTab, setSelectedTab } = useStore();
+  // const [showMusicPlayerSlider, setShowMusicPlayerSlider] = useState(true)
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
 
   // Update selectedTab when preSelected changes
-  useEffect(() => {
-    setSelectedTab('discover');
-  }, [sharedState]);
+  // useEffect(() => {
+  //   // setSelectedTab('discover');
+  //   console.log("Hello")
+  // }, [selectedTab, setSelectedTab]);
 
-  useEffect(() => {
-    setSelectedTab(preSelectedTab || 'home')
-  }, [])
+  // useEffect(() => {
+  //   setSelectedTab(preSelectedTab || 'home')
+  // }, [])
 
   useEffect(() => {
     const storedUserProfileIcon = localStorage.getItem('userProfileIcon');
@@ -45,12 +42,12 @@ const Home = ({ preSelectedTab, musicID }) => {
 
   return (
     <div className=' bg-[#1B1A1A] font-santoshi-regular flex flex-col'>
-      <MiniPlayer musicPlayerSliderHandler={musicPlayerSliderHandler}/>
-      <MusicPlayerSlider visibilityState={showMusicSlider} musicPlayerSliderHandler={musicPlayerSliderHandler} />
+      <MiniPlayer/>
+      <MusicPlayerSlider/>
 
       {/* Render different components based on the selected tab */}
       {selectedTab === 'home' && <HomePage />}
-      {selectedTab === 'discover' && <MusicSearch />}
+      {selectedTab === 'search' && <MusicSearch />}
       {selectedTab === 'liked' && <Liked />}
       {selectedTab === 'profile' && <Profile />}
       {/* {selectedTab === 'music' && <MusicPlayerSlider />} */}
@@ -62,8 +59,8 @@ const Home = ({ preSelectedTab, musicID }) => {
           <HomeIcon onClick={() => handleTabClick('home')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'home' ? '#42C83C' : '#343434'} stroke={selectedTab === 'home' ? '' : '#737373'} />
         </div>
         <div className="flex flex-col items-center justify-center relative">
-          <div className={`bg-[#62CD5D] ${selectedTab === 'discover' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
-          <DiscoveryIcon onClick={() => handleTabClick('discover')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'discover' ? '#42C83C' : '#343434'} stroke={selectedTab === 'discover' ? '' : '#737373'} />
+          <div className={`bg-[#62CD5D] ${selectedTab === 'search' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
+          <DiscoveryIcon onClick={() => handleTabClick('search')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'search' ? '#42C83C' : '#343434'} stroke={selectedTab === 'search' ? '' : '#737373'} />
         </div>
         <div className="flex flex-col items-center justify-center relative">
           <div className={`bg-[#62CD5D] ${selectedTab === 'liked' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>

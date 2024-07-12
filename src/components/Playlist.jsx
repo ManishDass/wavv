@@ -5,10 +5,11 @@ import './Heart.css';
 import { useAuth } from '../context/AuthContext';
 import useStore from '../stores/useStore';
 
-const Playlist = ({ items, heading, topbar }) => {
+const Playlist = ({ items, heading, topbar, mb }) => {
   const { playSong } = usePlaySong();
   const { likedSongHandler } = useAuth();
   const [checkedStates, setCheckedStates] = useState(new Array(items.length).fill(false));
+  const { showMusicPlayerSlider, metadata } = useStore()
 
   const handleCheckboxChange = (index) => {
     const updatedCheckedStates = checkedStates.map((item, idx) =>
@@ -24,7 +25,11 @@ const Playlist = ({ items, heading, topbar }) => {
   };
 
   return (
-    <div className='text-white flex flex-col text-sm font-sans justify-between text-wrap overflow-hidden mb-16'>
+<div
+  className="text-white flex flex-col text-sm font-sans justify-between text-wrap overflow-hidden"
+  // style={{ marginBottom: `${mb}rem` }}
+  style={{marginBottom:  metadata ? mb + 'rem' : '4.5rem'}} 
+  >
       <div className={`flex flex-row justify-between items-center mt-8 mb-8 px-8 md:px-28 ${topbar === 'hidden' ? 'hidden' : ''}`} >
         <h1 className='text-[1.2rem]'>{heading || 'Playlist'}</h1>
         <p className='font-santoshi-light text-xs'>See More</p>
