@@ -53,7 +53,7 @@ const Home = ({ preSelectedTab, musicID }) => {
       {/* {selectedTab === 'music' && <MusicPlayerSlider />} */}
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#343434] py-5 flex justify-around items-center">
+      <div className="fixed bottom-0 left-0 right-0 bg-[#0F0817]/90 py-5 flex justify-around items-center">
         <div className="flex flex-col items-center justify-center relative">
           <div className={`bg-[#62CD5D] ${selectedTab === 'home' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
           <HomeIcon onClick={() => handleTabClick('home')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'home' ? '#42C83C' : '#343434'} stroke={selectedTab === 'home' ? '' : '#737373'} />

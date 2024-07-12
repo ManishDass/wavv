@@ -33,12 +33,15 @@ const MiniPlayer = ({ musicPlayerSliderHandler }) => {
     <div className='fixed bottom-[4rem] z-50' onClick={toggleShowMusicPlayerSlider}>
       {metadata && (
         <div
-          className="relative w-full h-16 bg-cover bg-center"
-          style={{ backgroundImage: `url(https://img.youtube.com/vi/${videoid}/sddefault.jpg)` }}
-        >
-          <div className="backdrop-blur-xl bg-white/30 h-full flex justify-between items-center w-screen rounded-t-lg">
+          className="relative w-full h-16 bg-[#0F0817] rounded-[20px] text-white" >
+          <div className="backdrop-blur-xl bg-[#0F0817]/70 h-full flex justify-between items-center w-screen rounded-t-[20px]">
 
-            <img className='bg-cover w-[3rem] h-[3rem] ml-[1.3rem] rounded-full' src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt={metadata.songName} />
+            <div className='relative'>
+              {/* Below Div Cause too much performace Bottleneck */}
+              <span className="animate-ping absolute inline-flex h-[2.5rem] w-[2.5rem] top-[0.2rem] left-[1.5rem] rounded-full bg-[#62CD5D] opacity-75 z-10"></span>
+              <img className='bg-cover w-[2.8rem] h-[2.8rem] ml-[1.4rem] rounded-full border-[1px] border-white relative z-20' src={`https://img.youtube.com/vi/${videoid}/sddefault.jpg`} alt={metadata.songName} />
+            </div>
+
 
             <div className="marquee-container overflow-hidden flex flex-col">
               <p className="marquee-text">

@@ -7,6 +7,7 @@ import TopNavigation from '../components/TopNavigation';
 import useDarkMode from '../hooks/useDarkMode';
 import Playlist from '../components/Playlist';
 import usePlaySong from '../hooks/usePlaySong'
+import BgShape from '../assets/images/BgShape.svg?react';
 
 const HomePage = () => {
   const { playSong } = usePlaySong()
@@ -119,7 +120,8 @@ const HomePage = () => {
   ]
 
   return (
-    <div className=' bg-[#1B1A1A] overflow-hidden font-santoshi-regular'>
+    <div className='bg-[#0F0817] overflow-hidden font-santoshi-regular'>
+      <BgShape className='fixed w-screen -top-40'/>
       {/* Top Navigation */}
       <TopNavigation options={{left: 'search', center: 'logo', handler: setSharedState}}/>
   
@@ -191,7 +193,7 @@ const HomePage = () => {
       </div>
 
       {/* Playlist */}
-      <Playlist items={playlist} mb={7.5}/>
+      <Playlist heading={'Recommendation'} items={playlist} mb={7.5}/>
     </div>
   );
 };

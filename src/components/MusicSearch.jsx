@@ -41,35 +41,7 @@ const MusicSearch = ({showMusicSlider}) => {
   useDarkMode(); //add or remove dark mode according to device-color-scheme
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [results, setResults] = useState([{
-    name: 'As It Was',
-    artist: 'Harry Styles',
-  },
-  {
-    name: 'Kinni Kinni',
-    artist: 'Diljit Dosanjh',
-  },
-  {
-    name: 'One Call Away ',
-    artist: 'Charlie Puth',
-  },
-  {
-    name: 'I Feel It Coming',
-    artist: 'Weekend',
-  },
-  {
-    name: 'People',
-    artist: 'Libianca',
-  },
-  {
-    name: 'Reality',
-    artist: 'Lost Frequencies',
-  },
-  {
-    name: 'Capsize',
-    artist: 'FRENSHIP',
-  },
-  ]);
+  const [results, setResults] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
   let navigate = useNavigate();
 
@@ -103,14 +75,14 @@ const MusicSearch = ({showMusicSlider}) => {
 
 
   return (
-    <div className='bg-[#1C1B1B] h-dvh font-santoshi-regular'>
+    <div className='bg-[#0F0817]/90 h-dvh font-santoshi-regular'>
 
 
       {/* Top Navigation Bar */}
       <TopNavigation options={{ left: 'back', center: 'logo', onBack: 'home' }} />
 
       <div className="relative flex justify-center items-center pt-8">
-        <Search className="absolute left-14 top-[3.9rem] transform -translate-y-1/2 text-gray-400" />
+        <Search className="absolute left-14 top-[3.6rem] transform -translate-y-1/2 text-gray-400" />
         <input
           type="text"
           placeholder="Search Music & Podcasts"
@@ -122,7 +94,7 @@ const MusicSearch = ({showMusicSlider}) => {
       pl-14
       rounded-[30px]
       border border-gray-300 border-opacity-25
-      py-5
+      py-4
       bg-[#1B1A1A]
       font-santoshi-regular
       focus:outline-none
@@ -133,10 +105,7 @@ const MusicSearch = ({showMusicSlider}) => {
     "
         />
       </div>
-
-
-      {/* Playlist */}
-      <Playlist items={results} mb={7.5}/>
+<Playlist items={results} mb={7.5} heading={'Search Result'} />
 
     </div>
   );

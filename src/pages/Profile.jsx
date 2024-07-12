@@ -50,7 +50,7 @@ const Profile = () => {
   ]
 
   return (
-    <div className='bg-[#1C1B1B] h-screen font-santoshi-regular text-white'>
+    <div className='bg-[#0F0817]/90 h-screen font-santoshi-regular text-white'>
       {userProfile && (
         <>
           {/* User Profile Section and  Top Navigation Bar*/}

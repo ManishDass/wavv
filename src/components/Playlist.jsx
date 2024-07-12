@@ -5,7 +5,7 @@ import './Heart.css';
 import { useAuth } from '../context/AuthContext';
 import useStore from '../stores/useStore';
 
-const Playlist = ({ items, heading, topbar, mb }) => {
+const Playlist = ({ items = [], heading, topbar, mb }) => {
   const { playSong } = usePlaySong();
   const { likedSongHandler } = useAuth();
   const [checkedStates, setCheckedStates] = useState(new Array(items.length).fill(false));
@@ -49,7 +49,7 @@ const Playlist = ({ items, heading, topbar, mb }) => {
             <div id="twitter-heart"></div>
           </div>
         </div>
-      ))}
+      ))}   
     </div>
   );
 }

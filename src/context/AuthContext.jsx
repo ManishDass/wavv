@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       email: user.email,
       photoURL: user.photoURL || config,
       playlists: [],
-      likedSongs: []
+      likedSongs: [],
     };
 
 
