@@ -15,7 +15,6 @@ import PreviousIcon2 from '../assets/images/previous2.svg?react';
 import NextIcon2 from '../assets/images/next2.svg?react';
 import ShuffleIcon2 from '../assets/images/shuffle2.svg?react';
 import { useAuth } from '../context/AuthContext';
-import { isUndefined } from 'swr/_internal';
 
 const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
   useDarkMode();
@@ -33,6 +32,11 @@ const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
     showMusicPlayerSlider,
     toggleShowMusicPlayerSlider,
   } = useStore();
+
+  useEffect(()=>{
+    console.log("Video IDx: ",videoid)
+    setIsChecked(false)
+  },[videoid])
 
   const audioRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -196,7 +200,7 @@ const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
                 <p className="text-white text-lg text-[1.1rem] font-satoshi font-light">{metadata.songArtist}</p>
               </div>
 
-              <div id="heart-container" className='mr-[0.4rem]' onClick={() => likedSongHandler(metadata, !isChecked)}>
+              <div id="heart-container" className='mr-[0.4rem]' onClick={() => likedSongHandler(metadata, isChecked)}>
                 <input type="checkbox" id="toggle" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
                 <div id="twitter-heart"></div>
               </div>
