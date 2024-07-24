@@ -12,7 +12,7 @@ const usePlaySong = () => {
     setCurrentSong(song);
     
     try {
-      const searchTerm = `${song.name} ${song.artist}`;
+      const searchTerm = `${song.songName} ${song.songArtist}`;
       const youtubeResponse = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchTerm)}&maxResults=1&type=video&key=${YOUTUBE_API_KEY}`
       );
@@ -28,7 +28,7 @@ const usePlaySong = () => {
         console.log("Video ID of Music Search: ", firstVideoId);
 
         setVideoid(firstVideoId);
-        setMetadata({ songName: song.name, songArtist: song.artist });
+        setMetadata({ songName: song.songName, songArtist: song.songArtist });
 
         if(audioUrl) {
             console.log("Yes Cum")

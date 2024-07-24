@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }) => {
   }
 
 
-  const likedSongHandler = async (metadata, isChecked) => {
+  const likedSongHandler = async (metadata, isChecked, musicSliderPage) => {
     // Get the user profile from local storage
     const tempUserProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
 
@@ -151,15 +151,31 @@ export const AuthProvider = ({ children }) => {
 
     const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
 
+    if(musicSliderPage && isChecked) {
+      console.log("Music Slider and isCHECKED ")
+      previousLikedSongs.push(metadata);
+      saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); // Save to Firestore
+      setLikedSongs(previousLikedSongs);
+    }
+    if(musicSliderPage && !isChecked) {
+      console.log("Music Slider and isNOTCHECKED ")
+      console.log("Previous Liked Songs inside unCheked: ", previousLikedSongs)
+      console.log("Metadata inside notChecked: ", metadata)
+
+      const updatedLikedSongs = previousLikedSongs.filter(song => song.songTitle !== metadata.songTitle || song.songArtist !== metadata.songArtist);
+      console.log("Updated Liked Songs inside unCheked: ", updatedLikedSongs)
+      saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); // Save to Firestore
+      setLikedSongs(updatedLikedSongs);
+    }
     // If the song is not already liked and isChecked is true, add it to likedSongs
-    if (isChecked && !previousLikedSongs.some(song => song.title === metadata.title && song.artist === metadata.artist)) {
+    else if (isChecked && !previousLikedSongs.some(song => song.songTitle === metadata.songTitle && song.songArtist === metadata.songArtist)) {
       previousLikedSongs.push(metadata);
       saveSpecificToFirestore(userProfile, 'likedSongs', previousLikedSongs); // Save to Firestore
       setLikedSongs(previousLikedSongs);
     }
     // If isChecked is false, remove the song from likedSongs
     else if (!isChecked) {
-      const updatedLikedSongs = previousLikedSongs.filter(song => song.title !== metadata.title || song.artist !== metadata.artist);
+      const updatedLikedSongs = previousLikedSongs.filter(song => song.songTitle !== metadata.songTitle || song.songArtist !== metadata.songArtist);
       saveSpecificToFirestore(userProfile, 'likedSongs', updatedLikedSongs); // Save to Firestore
       setLikedSongs(updatedLikedSongs);
     }

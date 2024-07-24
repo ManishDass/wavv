@@ -33,10 +33,15 @@ const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
     toggleShowMusicPlayerSlider,
   } = useStore();
 
-  useEffect(()=>{
-    console.log("Video IDx: ",videoid)
+  // To Reset the like button onNewMusic
+  useEffect(() => {
+    console.log("Video IDx: ", videoid)
     setIsChecked(false)
-  },[videoid])
+  }, [videoid])
+
+  useEffect(() => {
+    console.log("IsCheckedx: ", isChecked)
+  }, [])
 
   const audioRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -166,7 +171,7 @@ const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
   const handleAudioEnded = () => {
     // Set a brief timeout to prevent immediate replay (if desired)
     if (isAudioRepeat) {
-      console.log("Audio Repeat is on: ",isAudioRepeat)
+      console.log("Audio Repeat is on: ", isAudioRepeat)
       setTimeout(() => {
         audioRef.current.play();
       }, 1000); // Adjust delay as needed
@@ -199,8 +204,7 @@ const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
                 <h2 className="text-lg font-satoshi font-semibold text-white">{metadata.songName}</h2>
                 <p className="text-white text-lg text-[1.1rem] font-satoshi font-light">{metadata.songArtist}</p>
               </div>
-
-              <div id="heart-container" className='mr-[0.4rem]' onClick={() => likedSongHandler(metadata, isChecked)}>
+              <div id="heart-container" className='mr-[0.4rem]' onClick={() => likedSongHandler(metadata, !isChecked, true)}>
                 <input type="checkbox" id="toggle" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
                 <div id="twitter-heart"></div>
               </div>

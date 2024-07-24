@@ -66,56 +66,56 @@ const HomePage = () => {
 
   let playlist = [
     {
-      name: 'As It Was',
-      artist: 'Harry Styles',
+      songName: 'As It Was',
+      songArtist: 'Harry Styles',
     },
     {
-      name: 'Kinni Kinni',
-      artist: 'Diljit Dosanjh',
+      songName: 'Kinni Kinni',
+      songArtist: 'Diljit Dosanjh',
     },
     {
-      name: 'One Call Away ',
-      artist: 'Charlie Puth',
+      songName: 'One Call Away ',
+      songArtist: 'Charlie Puth',
     },
     {
-      name: 'I Feel It Coming',
-      artist: 'Weekend',
+      songName: 'I Feel It Coming',
+      songArtist: 'Weekend',
     },
     {
-      name: 'People',
-      artist: 'Libianca',
+      songName: 'People',
+      songArtist: 'Libianca',
     },
     {
-      name: 'Reality',
-      artist: 'Lost Frequencies',
+      songName: 'Reality',
+      songArtist: 'Lost Frequencies',
     },
     {
-      name: 'Capsize',
-      artist: 'FRENSHIP',
+      songName: 'Capsize',
+      songArtist: 'FRENSHIP',
     },
     {
-      name: 'ily',
-      artist: 'Surf Mesa',
+      songName: 'ily',
+      songArtist: 'Surf Mesa',
     },
     {
-      name: 'My Stupid Heart',
-      artist: 'Walk off the Earth',
+      songName: 'My Stupid Heart',
+      songArtist: 'Walk off the Earth',
     },
     {
-      name: 'Baby One More Time',
-      artist: 'Britney Spears',
+      songName: 'Baby One More Time',
+      songArtist: 'Britney Spears',
     },
     {
-      name: 'All of Me',
-      artist: 'John Legend',
+      songName: 'All of Me',
+      songArtist: 'John Legend',
     },
     {
-      name: 'Counting Stars',
-      artist: 'OneRepublic',
+      songName: 'Counting Stars',
+      songArtist: 'OneRepublic',
     },
     {
-      name: 'unholy',
-      artist: '90degress',
+      songName: 'unholy',
+      songArtist: '90degress',
     },
   ]
 

@@ -21,32 +21,32 @@ const Profile = () => {
 
   let playlist = [
     {
-      name: 'As It Was',
-      artist: 'Harry Styles',
+      songName: 'As It Was',
+      songArtist: 'Harry Styles',
     },
     {
-      name: 'Kinni Kinni',
-      artist: 'Diljit Dosanjh',
+      songName: 'Kinni Kinni',
+      songArtist: 'Diljit Dosanjh',
     },
     {
-      name: 'One Call Away ',
-      artist: 'Charlie Puth',
+      songName: 'One Call Away ',
+      songArtist: 'Charlie Puth',
     },
     {
-      name: 'I Feel It Coming',
-      artist: 'Weekend',
+      songName: 'I Feel It Coming',
+      songArtist: 'Weekend',
     },
     {
-      name: 'People',
-      artist: 'Libianca',
+      songName: 'People',
+      songArtist: 'Libianca',
     },
     {
-      name: 'Reality',
-      artist: 'Lost Frequencies',
+      songName: 'Reality',
+      songArtist: 'Lost Frequencies',
     },
     {
-      name: 'Capsize',
-      artist: 'FRENSHIP',
+      songName: 'Capsize',
+      songArtist: 'FRENSHIP',
     },
   ]
 
