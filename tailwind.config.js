@@ -35,7 +35,12 @@ export default {
       colors: {
         nigga: "rgba(var(--nigga))",
         niggi: "rgba(var(--niggi))",
-      }
+      },
+      boxShadow: {
+        'custom-purple': '0 10px 15px -3px rgba(47, 25, 50, 0.5), 0 4px 6px -2px rgba(47, 25, 50, 0.5)',
+        'custom-blue': '0 10px 15px -3px rgba(15, 22, 38, 0.5), 0 4px 6px -2px rgba(15, 22, 38, 0.5)',
+        'custom-gray': '0 10px 15px -3px rgba(33, 33, 33, 0.5), 0 4px 6px -2px rgba(33, 33, 33, 0.5)',
+      },
     },
   },
   darkMode: 'class',  // Dark mode configuration class, selector, media

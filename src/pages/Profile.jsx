@@ -6,6 +6,7 @@ import TopNavigation from '../components/TopNavigation';
 import Playlist from '../components/Playlist';
 import usePlaySong from '../hooks/usePlaySong'
 import useStore from '../stores/useStore'; // Adjust the path accordingly
+import BgShape from '../assets/images/BgShape.svg?react';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
@@ -51,10 +52,11 @@ const Profile = () => {
 
   return (
     <div className='bg-[#0F0817]/90 h-screen font-santoshi-regular text-white'>
+    <BgShape className='fixed w-screen bottom-28'/>
       {userProfile && (
         <>
           {/* User Profile Section and  Top Navigation Bar*/}
-          <div className='flex w-screen flex-col  justify-center font-sans bg-[#2B2B2B] rounded-b-[40px] relative'>
+          <div className='flex w-screen flex-col  justify-center font-sans rounded-b-[40px] shadow-custom-purple relative'>
             <UnionShape className='absolute -left-1 -top-2' />
             <TopNavigation options={{ left: 'back', center: 'Profile', onBack: 'home' }} />
             <div className='flex flex-col w-screen items-center justify-around pb-8 text-center'>
