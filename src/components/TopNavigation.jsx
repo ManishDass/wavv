@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import useStore from '../stores/useStore'; // Adjust the path accordingly
 import { useNavigate } from 'react-router-dom';
 import ToggleSwitch from './ToggleSwitch';
+import BgShape from '../assets/images/BgShape.svg?react';
 
 const TopNavigation = ({ options }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,12 +23,12 @@ const TopNavigation = ({ options }) => {
         <div>
             <div className='flex justify-between items-center mt-5 mt-6 px-6 '>
                 {options.left === 'search' ? (
-                    <Search onClick={()=>setSelectedTab('search')}/>
+                    <Search onClick={() => setSelectedTab('search')} />
                 ) : options.left === 'back' ? (
-                    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => options.onBack ? setSelectedTab(options.onBack) : options.backHandler() }>
+                    <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={() => options.onBack ? setSelectedTab(options.onBack) : options.backHandler()}>
                         <BackIcon />
                     </div>
-                ) : ( null )}
+                ) : (null)}
 
                 {options.center === 'logo' ?
                     (<img src={Logo} className='bg-cover bg-no-repeat h-7 -ml-5' alt='logo' />) : (
@@ -44,7 +45,8 @@ const TopNavigation = ({ options }) => {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className='fixed h-screen w-screen bg-[#1B1A1A] z-50 top-0'>
+                <div className='fixed h-screen w-screen bg-[#0F0817] z-50 top-0'>
+                    <BgShape className='fixed w-screen bottom-10' />
                     <div className='flex justify-between items-center mt-[1.48rem] px-[1.21rem] '>
                         <div className='flex items-center justify-center bg-white bg-opacity-10 h-7 w-7 rounded-full back-button' onClick={handleToggleModal} >
                             <BackIcon />
@@ -56,18 +58,18 @@ const TopNavigation = ({ options }) => {
                         </div>
                     </div>
                     <ul className='text-white flex flex-col gap-4 font-sans text-sm mt-10'>
-                    <li className='text-[#62CD5D] -mb-2 px-5'>Content Preferences</li>
-                        <li className='flex justify-between bg-[#2B2B2B] p-3 w-screen px-5'>
-                            <p  className='font-santoshi-regular'>Save Data</p>
+                        <li className='text-[#62CD5D] -mb-2 px-6'>Content Preferences</li>
+                        <li className='flex justify-between p-3 w-screen px-6'>
+                            <p className='font-santoshi-regular'>Save Data</p>
                             <ToggleSwitch toggleHandler={() => console.log("Hey Man")} />
                         </li>
-                        <li className='text-[#62CD5D] px-5'>About</li>
-                        <li className='flex justify-between -mt-3 bg-[#2B2B2B] p-3 w-screen px-5'>
+                        <li className='text-[#62CD5D] px-6'>About</li>
+                        <li className='flex justify-between -mt-3 p-3 w-screen px-6'>
                             <p className='font-santoshi-regular'>Version</p>
                             <p className='font-santoshi-light font-xs'>0.1.0 Alpha</p>
                         </li>
-                        <li className='font-sans text-[#62CD5D] px-5'>Other</li>
-                        <p onClick={logout} className='font-santoshi-regular -mt-3 bg-[#2B2B2B] p-3 w-screen px-5 cursor-pointer'>Logout</p>
+                        <li className='font-sans text-[#62CD5D] px-6'>Other</li>
+                        <p onClick={logout} className='font-santoshi-regular -mt-3 p-3 w-screen px-6 cursor-pointer'>Logout</p>
                     </ul>
                 </div>
             )}

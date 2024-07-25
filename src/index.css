@@ -67,19 +67,28 @@ select:-webkit-autofill:focus {
 
 
 
-/* App.css */
+/* Custom CSS */
+.marquee-container {
+  position: relative;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(100%);
   }
-
   100% {
     transform: translateX(-100%);
   }
-}
-
-.marquee-text {
-  animation: marquee 7s linear infinite;
 }
 
 

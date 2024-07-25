@@ -23,9 +23,12 @@ const fetchLastFmMusicData = async ({ queryKey }) => {
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-  const responseBody = response.json()
-  console.log("LAST FM: ", responseBody)
-  return responseBody;
+  const responseBody = await response.json();
+  const transformedData = responseBody.results.trackmatches.track.map(track => ({
+    songName: track.name,
+    songArtist: track.artist,
+  }));
+  return transformedData;
 };
 
 const useDebouncedEffect = (effect, delay, deps) => {
@@ -35,10 +38,9 @@ const useDebouncedEffect = (effect, delay, deps) => {
   }, [...(deps || []), delay]);
 };
 
-
-const MusicSearch = ({showMusicSlider}) => {
-  const { playSong } = usePlaySong()
-  useDarkMode(); //add or remove dark mode according to device-color-scheme
+const MusicSearch = ({ showMusicSlider }) => {
+  const { playSong } = usePlaySong();
+  useDarkMode(); // add or remove dark mode according to device-color-scheme
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -58,14 +60,14 @@ const MusicSearch = ({showMusicSlider}) => {
   });
 
   useEffect(() => {
-    if (lastFmData && lastFmData.results && lastFmData.results.trackmatches && lastFmData.results.trackmatches.track) {
-      const fuse = new Fuse(lastFmData.results.trackmatches.track, {
-        keys: ['name', 'artist'],
+    if (lastFmData) {
+      const fuse = new Fuse(lastFmData, {
+        keys: ['songName', 'songArtist'],
         threshold: 0.3,
       });
       const fuzzyResults = fuse.search(searchTerm);
-      console.log("Result: ", fuzzyResults)
       setResults(fuzzyResults.map(result => result.item));
+      console.log("Result: ", results);
     }
   }, [lastFmData, searchTerm]);
 
@@ -105,7 +107,7 @@ const MusicSearch = ({showMusicSlider}) => {
     "
         />
       </div>
-<Playlist items={results} mb={7.5} heading={'Search Result'} />
+      <Playlist items={results} mb={7.5} heading={'Search Result'} />
 
     </div>
   );
