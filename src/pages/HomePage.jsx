@@ -63,7 +63,7 @@ const HomePage = () => {
       AllbumCover: '/images/allbum3.jpeg'
     },
     {
-      songName: 'Scorpion',
+      songName: 'Finesse',
       songArtist: 'Drake',
       AllbumCover: '/images/allbum2.jpeg'
     },
@@ -173,7 +173,7 @@ const HomePage = () => {
       </div>
 
       {/* Category with Scroll */}
-      <div className="flex flex-col m-auto p-auto text-white text-sm mt-5 w-[90%] md:w-[87%]">
+      <div className="flex flex-col m-auto p-auto text-white text-sm mt-5 w-[83%] md:w-[87%]">
         <div
           className="flex overflow-x-scroll pb-1 hide-scroll-bar"
         >
@@ -181,7 +181,7 @@ const HomePage = () => {
             className="flex flex-nowrap "
           >
             {media.map((obj, index) => (
-              <div className="inline-block px-3 relative cursor-pointer" key={index} onClick={() => playSong({ songName: obj.songName, songArtist: obj.songArtist })}>
+              <div className="inline-block pr-8 relative cursor-pointer" key={index} onClick={() => playSong({ songName: obj.songName, songArtist: obj.songArtist })}>
                 <div className="w-[7.5rem] h-40 max-w-xs overflow-hidden rounded-[25px] shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out mb-3 -mr-3">
                   <img src={obj.AllbumCover} className='w-full h-full object-cover' alt={`${obj.songName} album cover`} />
                 </div>

@@ -33,29 +33,43 @@ const Playlist = ({ items = [], heading, topbar, mb }) => {
       // style={{ marginBottom: `${mb}rem` }}
       style={{ marginBottom: metadata ? mb + 'rem' : '4.5rem' }}
     >
-      <div className={`flex flex-row justify-between items-center mt-8 mb-8 px-8 md:px-28 ${topbar === 'hidden' ? 'hidden' : ''}`} >
-        <h1 className='text-[1.2rem]'>{heading || 'Playlist'}</h1>
-        <p className='font-santoshi-light text-xs'>See More</p>
+
+      {/* Top Bar */}
+      <div className={`grid grid-cols-12 justify-between items-center mt-8 mb-8 px-8 md:px-28 ${topbar === 'hidden' ? 'hidden' : ''}`} >
+        <h1 className='text-[1.2rem] col-span-6'>{heading || 'Playlist'}</h1>
+        <p className='font-santoshi-light text-xs col-span-6 place-self-end'>See More</p>
       </div>
+
+
       {items.length === 0 ? (
         <p className='text-center text-gray-500 flex h-[50vh] justify-center items-center'>No items available</p>
       ) : (items.map((obj, index) => (
-        <div key={index} className='flex justify-around items-center pb-8 relative'>
-          <div className='rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C]'>
+        <div key={index} className='grid grid-cols-12 justify-around items-center pb-8 relative pl-8'>
+
+        
+          <div className='rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] col-span-3'>
             <Play onClick={() => playSong({ songName: obj.songName, songArtist: obj.songArtist })} className='cursor-pointer' />
           </div>
-          <div className='flex flex-col -ml-11 basis-[20%] justify-center'>
+
+
+          <div className='flex flex-col -ml-11 basis-[20%] justify-center col-span-7 pl-4'>
             <h3 className='text-sm font-santoshi-bold'>{obj.songName}</h3>
             <p className='text-[0.8rem] font-satoshi font-medium text-gray-500'>{obj.songArtist}</p>
           </div>
-          <p className='text-sm font-santoshi-light basis-[10%]'>{obj.duration || ''}</p>
-          <div id="heart-container" className='mr-[0.4rem]' onClick={() => handleLikeSong({ songName: obj.songName, songArtist: obj.songArtist }, index)}>
+
+
+
+          <div id="heart-container" className='col-span-1 place-self-center' onClick={() => handleLikeSong({ songName: obj.songName, songArtist: obj.songArtist }, index)}>
             <input type="checkbox" id="toggle" checked={checkedStates[index]} onChange={() => handleCheckboxChange(index)} />
             <div id="twitter-heart"></div>
           </div>
+
+
         </div>
       ))
       )}
+
+      
     </div>
   );
 }

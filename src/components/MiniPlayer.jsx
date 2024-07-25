@@ -27,9 +27,9 @@ const MiniPlayer = ({ musicPlayerSliderHandler }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
-    <div className='fixed bottom-[4rem] z-50 ' onClick={toggleShowMusicPlayerSlider}>
+    <div className='fixed bottom-[4rem] z-50' onClick={toggleShowMusicPlayerSlider}>
       {metadata && (
-        <div className="relative w-full h-16 bg-[#0F0817] rounded-[20px] text-white  shadow-custom-gray">
+        <div className="relative w-full h-16 bg-[#0F0817] rounded-[20px] text-white shadow-custom-gray">
 
           <div className="backdrop-blur-xl bg-[#0F0817]/70 h-full grid grid-cols-12 items-center w-screen rounded-t-[20px] ">
 
