@@ -37,7 +37,9 @@ const Playlist = ({ items = [], heading, topbar, mb }) => {
         <h1 className='text-[1.2rem]'>{heading || 'Playlist'}</h1>
         <p className='font-santoshi-light text-xs'>See More</p>
       </div>
-      {items.map((obj, index) => (
+      {items.length === 0 ? (
+        <p className='text-center text-gray-500 flex h-[50vh] justify-center items-center'>No items available</p>
+      ) : (items.map((obj, index) => (
         <div key={index} className='flex justify-around items-center pb-8 relative'>
           <div className='rounded-full h-10 w-10 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C]'>
             <Play onClick={() => playSong({ songName: obj.songName, songArtist: obj.songArtist })} className='cursor-pointer' />
@@ -52,7 +54,8 @@ const Playlist = ({ items = [], heading, topbar, mb }) => {
             <div id="twitter-heart"></div>
           </div>
         </div>
-      ))}
+      ))
+      )}
     </div>
   );
 }

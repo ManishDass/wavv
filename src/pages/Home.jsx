@@ -42,8 +42,8 @@ const Home = ({ preSelectedTab, musicID }) => {
 
   return (
     <div className=' bg-[#1B1A1A] font-santoshi-regular flex flex-col'>
-      <MiniPlayer/>
-      <MusicPlayerSlider/>
+      <MiniPlayer />
+      <MusicPlayerSlider />
 
       {/* Render different components based on the selected tab */}
       {selectedTab === 'home' && <HomePage />}
@@ -52,25 +52,52 @@ const Home = ({ preSelectedTab, musicID }) => {
       {selectedTab === 'profile' && <Profile />}
       {/* {selectedTab === 'music' && <MusicPlayerSlider />} */}
 
+
+
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#0F0817]/90 py-5 flex justify-around items-center">
-        <div className="flex flex-col items-center justify-center relative">
+
+
+
+
+        <div className="relative flex flex-col items-center justify-center group">
+          <div className="fixed bg-slate-800 rounded-full w-0 h-0 transition-all duration-200 group-active:w-24 group-active:h-14 z-10"></div>
           <div className={`bg-[#62CD5D] ${selectedTab === 'home' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
-          <HomeIcon onClick={() => handleTabClick('home')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'home' ? '#42C83C' : '#343434'} stroke={selectedTab === 'home' ? '' : '#737373'} />
+          <HomeIcon onClick={() => handleTabClick('home')} className="h-6 w-6 z-10 cursor-pointer z-20" fill={selectedTab === 'home' ? '#42C83C' : '#343434'} stroke={selectedTab === 'home' ? '' : '#737373'} />
         </div>
-        <div className="flex flex-col items-center justify-center relative">
+
+
+
+
+        <div className="relative flex flex-col items-center justify-center group">
+          <div className="fixed bg-slate-800 rounded-full w-0 h-0 transition-all duration-200 group-active:w-24 group-active:h-14 z-10"></div>
           <div className={`bg-[#62CD5D] ${selectedTab === 'search' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
-          <DiscoveryIcon onClick={() => handleTabClick('search')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'search' ? '#42C83C' : '#343434'} stroke={selectedTab === 'search' ? '' : '#737373'} />
+          <DiscoveryIcon onClick={() => handleTabClick('search')} className="h-6 w-6 cursor-pointer z-20" fill={selectedTab === 'search' ? '#42C83C' : '#343434'} stroke={selectedTab === 'search' ? '' : '#737373'} />
         </div>
-        <div className="flex flex-col items-center justify-center relative">
+
+
+
+
+        <div className="relative flex flex-col items-center justify-center group">
+          <div className="fixed bg-slate-800 rounded-full w-0 h-0 transition-all duration-200 group-active:w-24 group-active:h-14 z-10 z-10"></div>
           <div className={`bg-[#62CD5D] ${selectedTab === 'liked' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
-          <HeartIcon onClick={() => handleTabClick('liked')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'liked' ? '#42C83C' : '#343434'} stroke={selectedTab === 'liked' ? '' : '#737373'} />
+          <HeartIcon onClick={() => handleTabClick('liked')} className="h-6 w-6 cursor-pointer z-20" fill={selectedTab === 'liked' ? '#42C83C' : '#343434'} stroke={selectedTab === 'liked' ? '' : '#737373'} />
         </div>
-        <div className="flex flex-col items-center justify-center relative">
+
+
+
+
+        <div className="relative flex flex-col items-center justify-center group">
+          <div className="fixed bg-slate-800 rounded-full w-0 h-0 transition-all duration-200 group-active:w-24 group-active:h-14 z-10"></div>
           <div className={`bg-[#62CD5D] ${selectedTab === 'profile' ? '' : 'hidden'} h-[0.26rem] w-6 absolute bottom-[2.47rem] rounded-b-xl`}></div>
-          <ProfileIcon onClick={() => handleTabClick('profile')} className="h-6 w-6 cursor-pointer" fill={selectedTab === 'profile' ? '#42C83C' : '#343434'} stroke={selectedTab === 'profile' ? '' : '#737373'} />
+          <ProfileIcon onClick={() => handleTabClick('profile')} className="h-6 w-6 cursor-pointer z-20" fill={selectedTab === 'profile' ? '#42C83C' : '#343434'} stroke={selectedTab === 'profile' ? '' : '#737373'} />
         </div>
       </div>
+
+
+
+
+
     </div>
   );
 };
