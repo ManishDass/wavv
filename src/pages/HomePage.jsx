@@ -33,34 +33,39 @@ const HomePage = () => {
 
   let media = [
     {
+      songName: 'Start Over',
+      songArtist: 'Jessica Baio, Mykyl',
+      AllbumCover: '/images/allbum6.jpeg'
+    },
+    {
+      songName: 'Lush Life',
+      songArtist: 'Zara Larsson',
+      AllbumCover: '/images/allbum5.jpg'
+    },
+    {
+      songName: 'Heat Waves',
+      songArtist: 'Glass Animals',
+      AllbumCover: '/images/allbum7.jpeg'
+    },
+    {
       songName: 'Bad Guy',
-      Artist: 'Billie Eilish',
+      songArtist: 'Billie Eilish',
       AllbumCover: '/images/allbum1.jpeg'
     },
     {
-      songName: 'Scorpion',
-      Artist: 'Drake',
-      AllbumCover: '/images/allbum2.jpeg'
+      songName: 'Please Please',
+      songArtist: 'Sabrina Carpenter',
+      AllbumCover: '/images/allbum4.jpg'
     },
     {
       songName: 'Fall Sleep',
-      Artist: 'Billie Eilish',
+      songArtist: 'Billie Eilish',
       AllbumCover: '/images/allbum3.jpeg'
-    },
-    {
-      songName: 'Bad Guy',
-      Artist: 'Billie Eilish',
-      AllbumCover: '/images/allbum1.jpeg'
     },
     {
       songName: 'Scorpion',
-      Artist: 'Drake',
+      songArtist: 'Drake',
       AllbumCover: '/images/allbum2.jpeg'
-    },
-    {
-      songName: 'Fall Sleep',
-      Artist: 'Billie Eilish',
-      AllbumCover: '/images/allbum3.jpeg'
     },
   ]
 
@@ -121,10 +126,10 @@ const HomePage = () => {
 
   return (
     <div className='bg-[#0F0817] overflow-hidden font-santoshi-regular'>
-      <BgShape className='fixed w-screen -top-40'/>
+      <BgShape className='fixed w-screen -top-40' />
       {/* Top Navigation */}
-      <TopNavigation options={{left: 'search', center: 'logo', handler: setSharedState}}/>
-  
+      <TopNavigation options={{ left: 'search', center: 'logo', handler: setSharedState }} />
+
       {/* Top New Allbum */}
       <div className='flex h-24 items-center justify-center mt-5'>
         <div className='flex bg-[#62CD5D] h-[105%] w-[85%] rounded-[22px] text-white justify-evenly items-center'>
@@ -176,15 +181,15 @@ const HomePage = () => {
             className="flex flex-nowrap "
           >
             {media.map((obj, index) => (
-              <div className="inline-block px-3 relative cursor-pointer" key={index} onClick={()=>playSong({ name: obj.songName, artist: obj.Artist })}>
+              <div className="inline-block px-3 relative cursor-pointer" key={index} onClick={() => playSong({ songName: obj.songName, songArtist: obj.songArtist })}>
                 <div className="w-[7.5rem] h-40 max-w-xs overflow-hidden rounded-[25px] shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out mb-3 -mr-3">
                   <img src={obj.AllbumCover} className='w-full h-full object-cover' alt={`${obj.songName} album cover`} />
                 </div>
                 <div className=' rounded-full h-7 w-7 flex items-center justify-center backdrop-blur-md bg-[#2C2C2C] absolute bottom-10 right-1'>
-                  <Play className='h-[12px]'/>
+                  <Play className='h-[12px]' />
                 </div>
                 <h1 className='font-santoshi-regular ml-2'>{obj.songName}</h1>
-                <p className='font-santoshi-light text-xs ml-2'>{obj.Artist}</p>
+                <p className='font-santoshi-light text-xs ml-2'>{obj.songArtist}</p>
               </div>
             ))}
 
@@ -193,7 +198,7 @@ const HomePage = () => {
       </div>
 
       {/* Playlist */}
-      <Playlist heading={'Recommendation'} items={playlist} mb={7.5}/>
+      <Playlist heading={'Recommendation'} items={playlist} mb={7.5} />
     </div>
   );
 };

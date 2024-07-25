@@ -37,11 +37,8 @@ const MusicPlayerSlider = ({ musicPlayerSliderHandler }) => {
   useEffect(() => {
     console.log("Video IDx: ", videoid)
     setIsChecked(false)
+    // setCurrentTime(0)
   }, [videoid])
-
-  useEffect(() => {
-    console.log("IsCheckedx: ", isChecked)
-  }, [])
 
   const audioRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
