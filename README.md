@@ -62,7 +62,6 @@ Material UI & Accent Colors & Dynamic Colors (Android 12+) <br/>
 
 
 [<img src="https://github.com/ManishDass/wavv/raw/main/public/images/get-it-on-github.png" alt="Get it on Github" height="80">](https://github.com/ManishDass/Wavv/releases/latest)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on Fdroid" height="80">](https://f-droid.org/packages/com.ManishDass.Wavv.fdroid)
 
 ---
 
@@ -117,13 +116,9 @@ You can see frequently asked questions and their answers [here](https://github.c
 <details>
 <summary>Click to show dependencies</summary>
 
-- [audio_service](https://pub.dev/packages/audio_service): YTDL-Core.
-- [audio_session](https://pub.dev/packages/audio_session): A plugin for managing audio sessions in Flutter.
-- [cached_network_image](https://pub.dev/packages/cached_network_image): A Flutter library to load and cache network images.
-- [dynamic_color](https://pub.dev/packages/dynamic_color): A package for working with dynamic colors in Flutter.
-- [file_picker](https://pub.dev/packages/file_picker): A Flutter plugin for selecting files from the device.
-- [fluentui_system_icons](https://pub.dev/packages/fluentui_system_icons): A package that provides Fluent System Icons for Flutter.
-- [flutter](https://flutter.dev/): The Flutter SDK.
+- [axios](https://pub.dev/packages/audio_session): A library which made api handling easy.
+- [Tailwind-CSS](https://pub.dev/packages/cached_network_image): A UI Framework for faster layout.
+- [ION-ICONS](https://pub.dev/packages/dynamic_color): ICON Packs.
 
 </details>
 
