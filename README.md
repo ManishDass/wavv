@@ -6,7 +6,7 @@
 Unlock the full potential of music: Stream effortlessly with one app!
 
 [![Stars](https://img.shields.io/github/stars/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/stargazers)
-[![Forks](https://img.shields.io/github/forks/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/fork)
+[![Forks](https://img.shields.io/github/forks/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/network/members)
 [![GitHub release](https://img.shields.io/github/v/release/ManishDass/wavv?color=D3BEAB)](https://github.com/ManishDass/wavv/releases)
 [![License](https://img.shields.io/github/license/ManishDass/wavv?color=D3BEAB)](LICENSE)
 
