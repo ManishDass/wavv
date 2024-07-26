@@ -1,8 +1,80 @@
-# React + Vite
+# Wavv - Open Source Music Player
+**A pretty UI & UX Music Player**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+* Dark Theme Style with wallpaper as background
+* Single activity, all fragments architecture with fancy animation
+* Play the sample/preview of a song, audio visualizer progress bar
+* Play Controller is able to be opened everywhere
+* Large artist image loading, and can be used as background
+* View lyrics, view song details
+* Metadata editor
+* Learn your hobby, automatically create new playlist
+* etc
 
-Currently, two official plugins are available:
+### Installing
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```
+Comming soon
+```
+### APK
+Demo - https://wavv.vercel.app/home
+```
+```
+## Screenshots
+</br>
+<div align="center">
+   <table align="center" border="0" >
+  <tr>
+    <td>
+<img width="360"
+src=""/>
+       <td><img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewOne.png"/>
+    </td>
+     <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwo.png"/></td>
+  </table>
+  </div>
+</br>
+<div align="center">
+  <table align="center" border="0" >
+  <tr>
+    <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThree.png"/></td>
+     <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFour.png"/></td>
+     <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFive.png"/></td>
+  </tr>
+</table>
+  </div>
+</br>
+<div align="center">
+  <table align="center" border="0" >
+  <tr>
+    <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSix.png"/></td>
+    <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSeven.png"/></td>
+     <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEight.png"/></td>
+  </tr>
+</table>
+  </div>
+</br>
+
+## Authors
+
+* **Manish Das** - *Initial work* - [ManishDass](https://github.com/ManishDass)
+
+
+### License
+
+* This project is licensed under The GNU General Public License v3.0 - see the [LICENSE.md](/LICENSE) file for details
+
+### Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
