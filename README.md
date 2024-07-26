@@ -28,12 +28,12 @@ Demo - https://wavv.vercel.app/home
   <tr>
     <td>
 <img width="360"
-src=""/>
-       <td><img width="360"
 src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewOne.png"/>
+       <td><img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwo.png"/>
     </td>
      <td> <img width="360"
-src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwo.png"/></td>
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThree.png"/></td>
   </table>
   </div>
 </br>
@@ -41,11 +41,11 @@ src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwo.png"/>
   <table align="center" border="0" >
   <tr>
     <td> <img width="360"
-src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThree.png"/></td>
-     <td> <img width="360"
 src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFour.png"/></td>
      <td> <img width="360"
 src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFive.png"/></td>
+     <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSix.png"/></td>
   </tr>
 </table>
   </div>
@@ -54,11 +54,11 @@ src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFive.png"/
   <table align="center" border="0" >
   <tr>
     <td> <img width="360"
-src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSix.png"/></td>
-    <td> <img width="360"
 src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSeven.png"/></td>
-     <td> <img width="360"
+    <td> <img width="360"
 src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEight.png"/></td>
+     <td> <img width="360"
+src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewNine.png"/></td>
   </tr>
 </table>
   </div>
