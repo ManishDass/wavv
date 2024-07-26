@@ -5,10 +5,10 @@
 
 Unlock the full potential of music: Stream effortlessly with one app!
 
-[![Stars](https://img.shields.io/github/stars/ManishDass/Wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/Wavv/stargazers)
-[![Forks](https://img.shields.io/github/forks/ManishDass/Wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/Wavv/fork)
-[![GitHub release](https://img.shields.io/github/v/release/ManishDass/Wavv?color=D3BEAB)](https://github.com/ManishDass/Wavv/releases)
-[![License](https://img.shields.io/github/license/ManishDass/Wavv?color=D3BEAB)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/stargazers)
+[![Forks](https://img.shields.io/github/forks/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/fork)
+[![GitHub release](https://img.shields.io/github/v/release/ManishDass/wavv?color=D3BEAB)](https://github.com/ManishDass/wavv/releases)
+[![License](https://img.shields.io/github/license/ManishDass/wavv?color=D3BEAB)](LICENSE)
 
 
 ---
