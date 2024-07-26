@@ -264,3 +264,15 @@ select:-webkit-autofill:focus {
   display: none;
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 60s linear infinite;
+}
