@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/ManishDass/Wavv/raw/master/repository_files/Wavv-banner.png" width="100%">
+<img src="https://github.com/ManishDass/wavv/raw/main/public/images/Wavv-banner.png" width="100%">
 
 # Wavv
 
@@ -51,9 +51,6 @@ Material UI & Accent Colors & Dynamic Colors (Android 12+) <br/>
     <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEleven.png" alt="Screenshot 10"/></td>
     <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwelve.png" alt="Screenshot 11"/></td>
     <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThirteen.png" alt="Screenshot 12"/></td>
-  </tr>
-  <tr>
-    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThirteen.png" alt="Screenshot 13"/></td>
   </tr>
 </table>
 
