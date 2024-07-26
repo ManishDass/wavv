@@ -6,7 +6,7 @@
 Unlock the full potential of music: Stream effortlessly with one app!
 
 [![Stars](https://img.shields.io/github/stars/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/stargazers)
-[![Forks](https://img.shields.io/github/forks/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/network/members)
+[![Forks](https://img.shields.io/github/forks/ManishDass/wavv?style=flat-square&color=D3BEAB)](https://github.com/ManishDass/wavv/fork)
 [![GitHub release](https://img.shields.io/github/v/release/ManishDass/wavv?color=D3BEAB)](https://github.com/ManishDass/wavv/releases)
 [![License](https://img.shields.io/github/license/ManishDass/wavv?color=D3BEAB)](LICENSE)
 
@@ -16,18 +16,14 @@ Unlock the full potential of music: Stream effortlessly with one app!
 ## Features
 
 <center>
-
+Modern UI
+Multiple Login Options
+Email Verification
 Online Song Search With Suggestions <br/>
 Streaming Support <br/>
-Offline Listening Support <br/>
-Import & Export Your Data And Never Lose It <br/>
-Add Custom Playlists With Link <br/>
-Optimized Sound Experience <br/>
 Lyrics Support <br/>
 No Ads <br/>
 No Subscriptions <br/>
-Inbuilt Updater <br/>
-13 Supported Languages <br/>
 Material UI & Accent Colors & Dynamic Colors (Android 12+) <br/>
 
 </center>
@@ -37,8 +33,30 @@ Material UI & Accent Colors & Dynamic Colors (Android 12+) <br/>
 
 ## Screenshots
 
-| ![Screenshot 1](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewOne.png) | ![Screenshot 2](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwo.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThree.png) | ![Screenshot 4](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFour.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFive.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSix.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSeven.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEight.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewNine.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTen.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEleven.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwelve.png) | ![Screenshot 3](https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThirteen.png) |
-|----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+<table>
+  <tr>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewOne.png" alt="Screenshot 1"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwo.png" alt="Screenshot 2"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThree.png" alt="Screenshot 3"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFour.png" alt="Screenshot 4"/></td>
+  </tr>
+  <tr>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewFive.png" alt="Screenshot 5"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewSeven.png" alt="Screenshot 6"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEight.png" alt="Screenshot 7"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewNine.png" alt="Screenshot 8"/></td>
+  </tr>
+  <tr>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTen.png" alt="Screenshot 9"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewEleven.png" alt="Screenshot 10"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewTwelve.png" alt="Screenshot 11"/></td>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThirteen.png" alt="Screenshot 12"/></td>
+  </tr>
+  <tr>
+    <td><img width="180" src="https://github.com/ManishDass/wavv/raw/main/public/images/PreviewThirteen.png" alt="Screenshot 13"/></td>
+  </tr>
+</table>
+
 
 
 ---
@@ -55,7 +73,7 @@ Material UI & Accent Colors & Dynamic Colors (Android 12+) <br/>
 
 
 ```
-Copyright © 2024 Valeri Gokadze
+Copyright © 2024 Manish Das
 
 Wavv is a free software licensed under GPL v3.0
 It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
